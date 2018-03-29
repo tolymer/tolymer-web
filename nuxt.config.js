@@ -42,5 +42,11 @@ module.exports = {
     '~assets/css/lib.css',
     '~assets/css/app.css'
   ],
-  modules: ['@nuxtjs/axios']
+  modules: ['@nuxtjs/axios'],
+  plugins: [
+    {
+      src: '~/plugins/localStorage.js',
+      ssr: false
+    }
+  ]
 }
