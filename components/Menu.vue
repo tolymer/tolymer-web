@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li><router-link to="/">Sign up</router-link></li>
-    <li><router-link to="/login">Login</router-link></li>
+    <li><router-link to="/">Index</router-link></li>
+    <li><router-link to="/new">Sign up</router-link></li>
   </ul>
 </template>
