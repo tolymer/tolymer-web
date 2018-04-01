@@ -11,6 +11,18 @@ app.use(bodyParser.urlencoded({
   extended: false
 }))
 
+app.get('/users/:userId', async (req, res) => {
+  const { userId } = req.params
+
+  try {
+    const result = await axios.get(`${API_HOST}/users/${userId}`)
+
+    res.status(200).json(result.data)
+  } catch (e) {
+    res.status(404).json({})
+  }
+})
+
 app.post('/new', async (req, res) => {
   const { name, password } = req.body
 

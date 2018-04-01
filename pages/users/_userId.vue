@@ -8,28 +8,24 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import { mapState } from 'vuex'
   import Menu from '~/components/Menu'
 
   export default {
-    data () {
-      return {
-        id: '',
-        name: ''
-      }
+    components: {
+      Menu
     },
+    computed: mapState({
+      id: state => state.users.id,
+      name: state => state.users.name
+    }),
     async asyncData(context) {
       try {
-        const { name } = context.params
-        const { jwt } = context.store.state
+        const { userId } = context.params
 
-        const { data } = await axios.get(`http://localhost:3000/users/${name}`, {
-          headers: {
-            Authorization: `Bearer ${jwt}`
-          }
+        await context.store.dispatch('users/getUser', {
+          userId
         })
-
-        return data
       } catch (e) {
         context.error({
           message: 'Not found',

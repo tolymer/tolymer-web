@@ -13,7 +13,6 @@
       </label>
       <button type="submit" @click="onClick">Sign up</button>
     </form>
-    <router-link to="/users/1">/users/1</router-link>
   </section>
 </template>
 
