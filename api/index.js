@@ -23,6 +23,22 @@ app.get('/users/:userId', async (req, res) => {
   }
 })
 
+app.get('/current_user', async (req, res) => {
+  const { accessToken } = req.cookie
+
+  try {
+    const result = await axios.get(`${API_HOST}/current_user`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
+
+    res.status(200).json(result.data)
+  } catch (e) {
+    res.status(404).json({})
+  }
+})
+
 app.post('/new', async (req, res) => {
   const { name, password } = req.body
 
