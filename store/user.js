@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '~/plugins/axios'
 
 export const state = () => ({
   user: {
@@ -25,10 +25,7 @@ export const mutations = {
 export const actions = {
   async getUser({ commit }, { userId }) {
     try {
-      const url = process.server ?
-        `http://localhost:3000/users/${userId}`:
-        `/api/users/${userId}`
-      const { data } = await axios.get(url)
+      const { data } = await axios.get(`/users/${userId}`)
 
       commit('getUser', data)
     } catch (e) {
@@ -37,10 +34,7 @@ export const actions = {
   },
   async getCurrentUser({ commit }, { accessToken }) {
     try {
-      const url = process.server ?
-        'http://localhost:3000/current_user':
-        '/api/current_user'
-      const { data } = await axios.get(url, {
+      const { data } = await axios.get('/current_user', {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }

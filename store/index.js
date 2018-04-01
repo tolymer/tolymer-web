@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '~/plugins/axios'
 
 export const state = () => ({})
 
@@ -11,7 +11,7 @@ export const mutations = {
 export const actions = {
   async new({ commit }, { name, password }) {
     try {
-      await axios.post(`/api/new`, {
+      await axios.post('/users', {
         name,
         password
       })
@@ -23,7 +23,7 @@ export const actions = {
   },
   async login({ commit }, { name, password }) {
     try {
-      await axios.post(`/api/login`, {
+      await axios.post('/user_token', {
         auth: {
           name,
           password
