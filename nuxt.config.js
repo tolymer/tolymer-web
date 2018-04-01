@@ -46,6 +46,9 @@ module.exports = {
     '~assets/css/app.css'
   ],
   modules: ['@nuxtjs/axios'],
+  router: {
+    middleware: ['cookie']
+  },
   serverMiddleware: [
     { path: '/api', handler: '~/api/index.js' }
   ]

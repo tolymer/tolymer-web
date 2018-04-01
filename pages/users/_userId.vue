@@ -1,6 +1,7 @@
 <template>
   <section>
     <h1>User</h1>
+    <LoginInfo />
     <Menu />
     <p>id: {{ id }}</p>
     <p>name: {{ name }}</p>
@@ -8,28 +9,25 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import { mapState } from 'vuex'
+  import LoginInfo from '~/components/LoginInfo'
   import Menu from '~/components/Menu'
 
   export default {
-    data () {
-      return {
-        id: '',
-        name: ''
-      }
+    components: {
+      Menu
     },
+    computed: mapState({
+      id: state => state.user.user.id,
+      name: state => state.user.user.name
+    }),
     async asyncData(context) {
       try {
-        const { name } = context.params
-        const { jwt } = context.store.state
+        const { userId } = context.params
 
-        const { data } = await axios.get(`http://localhost:3000/users/${name}`, {
-          headers: {
-            Authorization: `Bearer ${jwt}`
-          }
+        await context.store.dispatch('user/getUser', {
+          userId
         })
-
-        return data
       } catch (e) {
         context.error({
           message: 'Not found',
