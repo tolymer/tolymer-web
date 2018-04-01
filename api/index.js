@@ -24,13 +24,11 @@ app.get('/users/:userId', async (req, res) => {
 })
 
 app.get('/current_user', async (req, res) => {
-  const { accessToken } = req.cookie
+  const { headers } = req
 
   try {
     const result = await axios.get(`${API_HOST}/current_user`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
+      headers
     })
 
     res.status(200).json(result.data)
@@ -68,8 +66,9 @@ app.post('/login', async (req, res) => {
     })
 
     res.cookie('accessToken', result.data.jwt, {
+      httpOnly: false,
       maxAge: 1000 * 60 * 60 * 24,
-      secure: true
+      secure: false // true
     })
     res.status(200)
   } catch (e) {

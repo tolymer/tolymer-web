@@ -1,6 +1,7 @@
 <template>
   <section>
     <h1>Index</h1>
+    <LoginInfo />
     <Menu />
     <form>
       <label>
@@ -18,10 +19,12 @@
 
 <script>
   import axios from 'axios'
+  import LoginInfo from '~/components/LoginInfo'
   import Menu from '~/components/Menu'
 
   export default {
     components: {
+      LoginInfo,
       Menu
     },
     data() {
@@ -29,6 +32,13 @@
         name: '',
         password: ''
       }
+    },
+    async asyncData(context) {
+      const { accessToken } = context.cookie
+
+      await context.store.dispatch('user/getCurrentUser', {
+        accessToken
+      })
     },
     methods: {
       async onClick(e) {

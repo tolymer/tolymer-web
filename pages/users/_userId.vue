@@ -1,6 +1,7 @@
 <template>
   <section>
     <h1>User</h1>
+    <LoginInfo />
     <Menu />
     <p>id: {{ id }}</p>
     <p>name: {{ name }}</p>
@@ -9,6 +10,7 @@
 
 <script>
   import { mapState } from 'vuex'
+  import LoginInfo from '~/components/LoginInfo'
   import Menu from '~/components/Menu'
 
   export default {
@@ -16,14 +18,14 @@
       Menu
     },
     computed: mapState({
-      id: state => state.users.id,
-      name: state => state.users.name
+      id: state => state.user.user.id,
+      name: state => state.user.user.name
     }),
     async asyncData(context) {
       try {
         const { userId } = context.params
 
-        await context.store.dispatch('users/getUser', {
+        await context.store.dispatch('user/getUser', {
           userId
         })
       } catch (e) {

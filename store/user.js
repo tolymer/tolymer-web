@@ -25,28 +25,28 @@ export const mutations = {
 export const actions = {
   async getUser({ commit }, { userId }) {
     try {
-      let result;
-      if (process.server) {
-        result = await axios.get(`http://localhost:3000/users/${userId}`)
-      } else {
-        result = await axios.get(`/api/users/${userId}`)
-      }
+      const url = process.server ?
+        `http://localhost:3000/users/${userId}`:
+        `/api/users/${userId}`
+      const { data } = await axios.get(url)
 
-      commit('getUser', result.data)
+      commit('getUser', data)
     } catch (e) {
       console.error(e)
     }
   },
-  async getCurrentUser({ commit }) {
+  async getCurrentUser({ commit }, { accessToken }) {
     try {
-      let result;
-      if (process.server) {
-        result = await axios.get(`http://localhost:3000/current_user`)
-      } else {
-        result = await axios.get(`/api/current_user`)
-      }
+      const url = process.server ?
+        'http://localhost:3000/current_user':
+        '/api/current_user'
+      const { data } = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
 
-      commit('getCurrentUser', result.data)
+      commit('getCurrentUser', data)
     } catch (e) {
       console.error(e)
     }
