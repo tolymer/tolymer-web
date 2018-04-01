@@ -4,7 +4,8 @@ export const state = () => ({})
 
 export const mutations = {
   new(state) {},
-  login(state) {}
+  login(state) {},
+  logout(state) {}
 }
 
 export const actions = {
@@ -30,6 +31,13 @@ export const actions = {
       })
 
       commit('login')
+    } catch (e) {
+      console.error(e)
+    }
+  },
+  async logout({ commit }) {
+    try {
+      commit('logout')
     } catch (e) {
       console.error(e)
     }
