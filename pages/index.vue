@@ -1,11 +1,17 @@
 <template>
   <section>
-    <h1>Sign up</h1>
+    <h1>Index</h1>
     <Menu />
     <form>
-      <input type="text" v-model="name">
-      <input type="password" v-model="password">
-      <button type="submit" @click="onClick">Sign up</button>
+      <label>
+        ID
+        <input type="text" v-model="name">
+      </label>
+      <label>
+        Password
+        <input type="password" v-model="password">
+      </label>
+      <button type="submit" @click="onClick">Login</button>
     </form>
   </section>
 </template>
@@ -28,16 +34,13 @@
       async onClick(e) {
         e.preventDefault()
 
-        try {
-          const { data } = await axios.post(`http://localhost:3000/users`, {
-            name: this.name,
-            password: this.password
-          })
+        await this.$store.dispatch('login', {
+          name: this.name,
+          password: this.password
+        })
 
-          console.info(data)
-        } catch (e) {
-          console.error(e)
-        }
+        this.name = ''
+        this.password = ''
       }
     }
   }

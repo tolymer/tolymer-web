@@ -1,26 +1,35 @@
 import axios from 'axios'
 
-export const state = () => ({
-  jwt: ''
-})
+export const state = () => ({})
 
 export const mutations = {
-  login(state, jwt) {
-    state.jwt = jwt
-  }
+  new(state) {},
+  login(state) {}
 }
 
 export const actions = {
-  async login({ commit, state }, { name, password }) {
+  async new({ commit }, { name, password }) {
     try {
-      const { data } = await axios.post(`http://localhost:3000/user_token`, {
+      await axios.post(`/api/new`, {
+        name,
+        password
+      })
+
+      commit('new')
+    } catch (e) {
+      console.error(e)
+    }
+  },
+  async login({ commit }, { name, password }) {
+    try {
+      await axios.post(`/api/login`, {
         auth: {
           name,
           password
         }
       })
 
-      commit('login', data.jwt)
+      commit('login')
     } catch (e) {
       console.error(e)
     }

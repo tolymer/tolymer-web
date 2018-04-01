@@ -36,17 +36,17 @@ module.exports = {
     },
     extractCSS: {
       allChunks: true
-    }
+    },
+    watch: [
+      '~/api/*.js'
+    ]
   },
   css: [
     '~assets/css/lib.css',
     '~assets/css/app.css'
   ],
   modules: ['@nuxtjs/axios'],
-  plugins: [
-    {
-      src: '~/plugins/localStorage.js',
-      ssr: false
-    }
+  serverMiddleware: [
+    { path: '/api', handler: '~/api/index.js' }
   ]
 }

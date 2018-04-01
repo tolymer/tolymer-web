@@ -18,10 +18,10 @@
         name: ''
       }
     },
-    async asyncData({ store, params, error }) {
+    async asyncData(context) {
       try {
-        const { name } = params
-        const { jwt } = store.state
+        const { name } = context.params
+        const { jwt } = context.store.state
 
         const { data } = await axios.get(`http://localhost:3000/users/${name}`, {
           headers: {
@@ -31,7 +31,7 @@
 
         return data
       } catch (e) {
-        error({
+        context.error({
           message: 'Not found',
           statusCode: 404
         })

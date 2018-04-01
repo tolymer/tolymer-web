@@ -1,11 +1,17 @@
 <template>
   <section>
-    <h1>Login</h1>
+    <h1>New</h1>
     <Menu />
     <form>
-      <input type="text" v-model="name">
-      <input type="password" v-model="password">
-      <button type="submit" @click="onClick">Login</button>
+      <label>
+        ID
+        <input type="text" v-model="name">
+      </label>
+      <label>
+        Password
+        <input type="password" v-model="password">
+      </label>
+      <button type="submit" @click="onClick">Sign up</button>
     </form>
     <router-link to="/users/1">/users/1</router-link>
   </section>
@@ -30,7 +36,7 @@
       async onClick(e) {
         e.preventDefault()
 
-        await this.$store.dispatch('login', {
+        await this.$store.dispatch('new', {
           name: this.name,
           password: this.password
         })
