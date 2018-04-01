@@ -41,11 +41,14 @@ module.exports = {
       '~/api/*.js'
     ]
   },
+  env: {
+    apiBaseUrl: process.env.API_BASE_URL || 'http://localhost:3000',
+    appBaseUrl: process.env.APP_BASE_URL || 'http://localhost:5000'
+  },
   css: [
     '~assets/css/lib.css',
     '~assets/css/app.css'
   ],
-  modules: ['@nuxtjs/axios'],
   router: {
     middleware: ['cookie']
   },

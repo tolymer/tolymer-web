@@ -2,8 +2,9 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const axios = require('axios')
+
 const app = express()
-const API_HOST = 'http://localhost:3000'
+const apiBaseUrl = 'http://localhost:3000'
 
 app.use(cookieParser())
 app.use(bodyParser.json())
@@ -15,7 +16,7 @@ app.get('/users/:userId', async (req, res) => {
   const { userId } = req.params
 
   try {
-    const result = await axios.get(`${API_HOST}/users/${userId}`)
+    const result = await axios.get(`${apiBaseUrl}/users/${userId}`)
 
     res.status(200).json(result.data)
   } catch (e) {
@@ -27,7 +28,7 @@ app.get('/current_user', async (req, res) => {
   const { headers } = req
 
   try {
-    const result = await axios.get(`${API_HOST}/current_user`, {
+    const result = await axios.get(`${apiBaseUrl}/current_user`, {
       headers
     })
 
@@ -37,11 +38,11 @@ app.get('/current_user', async (req, res) => {
   }
 })
 
-app.post('/new', async (req, res) => {
+app.post('/users', async (req, res) => {
   const { name, password } = req.body
 
   try {
-    const result = await axios.post(`${API_HOST}/users`, {
+    const result = await axios.post(`${apiBaseUrl}/users`, {
       name,
       password
     })
@@ -54,11 +55,11 @@ app.post('/new', async (req, res) => {
   res.json({})
 })
 
-app.post('/login', async (req, res) => {
+app.post('/user_token', async (req, res) => {
   const { name, password } = req.body.auth
 
   try {
-    const result = await axios.post(`${API_HOST}/user_token`, {
+    const result = await axios.post(`${apiBaseUrl}/user_token`, {
       auth: {
         name,
         password
