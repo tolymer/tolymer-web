@@ -53,6 +53,6 @@ module.exports = {
     middleware: ['cookie']
   },
   serverMiddleware: [
-    { path: '/api', handler: '~/api/index.js' }
+    { path: '/api', handler: '~/server/index.js' }
   ]
 }
