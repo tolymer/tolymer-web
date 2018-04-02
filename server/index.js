@@ -1,4 +1,4 @@
-const Server = require('./server')
+const Server = require('./Server')
 const server = new Server()
 
 module.exports = server.app
