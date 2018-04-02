@@ -5,20 +5,26 @@
     <form>
       <label>
         ID
-        <input type="text" v-model="name">
+        <input
+          v-model="name"
+          type="text">
       </label>
       <label>
         Password
-        <input type="password" v-model="password">
+        <input
+          v-model="password"
+          type="password">
       </label>
-      <button type="submit" @click="onClick">Sign up</button>
+      <button
+        type="submit"
+        @click="onClick">
+        Sign up
+      </button>
     </form>
   </section>
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
-  import axios from 'axios'
   import Menu from '~/components/Menu'
 
   export default {

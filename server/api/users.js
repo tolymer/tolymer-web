@@ -8,12 +8,12 @@ module.exports = {
       const { name, password } = req.body
 
       try {
-        const result = await axios.post(`${apiBaseUrl}/users`, {
+        const users = await axios.post(`${apiBaseUrl}/users`, {
           name,
           password
         })
 
-        res.status(201)
+        res.status(201).json(users.data)
       } catch (e) {
         res.status(404)
       }
@@ -27,9 +27,9 @@ module.exports = {
       const { userId } = req.params
 
       try {
-        const result = await axios.get(`${apiBaseUrl}/users/${userId}`)
+        const users = await axios.get(`${apiBaseUrl}/users/${userId}`)
 
-        res.status(200).json(result.data)
+        res.status(200).json(users.data)
       } catch (e) {
         res.status(404).json({})
       }

@@ -3,9 +3,9 @@ import axios from '~/plugins/axios'
 export const state = () => ({})
 
 export const mutations = {
-  new(state) {},
-  login(state) {},
-  logout(state) {}
+  new() {},
+  login() {},
+  logout() {}
 }
 
 export const actions = {
