@@ -3,24 +3,11 @@ import axios from '~/plugins/axios'
 export const state = () => ({})
 
 export const mutations = {
-  new() {},
   login() {},
   logout() {}
 }
 
 export const actions = {
-  async new({ commit }, { name, password }) {
-    try {
-      await axios.post('/users', {
-        name,
-        password
-      })
-
-      commit('new')
-    } catch (e) {
-      console.error(e)
-    }
-  },
   async login({ commit }, { name, password }) {
     try {
       await axios.post('/user_token', {

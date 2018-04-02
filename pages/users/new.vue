@@ -1,10 +1,10 @@
 <template>
   <section>
-    <h1>New</h1>
+    <h1>New User</h1>
     <Menu />
     <form>
       <label>
-        ID
+        Name
         <input
           v-model="name"
           type="text">
@@ -18,7 +18,7 @@
       <button
         type="submit"
         @click="onClick">
-        Sign up
+        Create user
       </button>
     </form>
   </section>
@@ -41,7 +41,7 @@
       async onClick(e) {
         e.preventDefault()
 
-        await this.$store.dispatch('new', {
+        await this.$store.dispatch('user/createUser', {
           name: this.name,
           password: this.password
         })
