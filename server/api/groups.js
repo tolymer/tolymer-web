@@ -9,14 +9,14 @@ module.exports = {
       const { headers } = req
 
       try {
-        const { data } = await axios.post(`${apiBaseUrl}/groups`, {
+        const group = await axios.post(`${apiBaseUrl}/groups`, {
           name,
           description
         }, {
           headers
         })
 
-        res.status(201).json(data)
+        res.status(201).json(group.data)
       } catch (e) {
         res.status(404).json({})
       }
@@ -29,11 +29,11 @@ module.exports = {
       const { headers } = req
 
       try {
-        const { data } = await axios.get(`${apiBaseUrl}/groups/${groupId}`, {
+        const group = await axios.get(`${apiBaseUrl}/groups/${groupId}`, {
           headers
         })
 
-        res.status(200).json(data)
+        res.status(200).json(group.data)
       } catch (e) {
         res.status(404).json({})
       }
@@ -47,14 +47,14 @@ module.exports = {
       const { headers } = req
 
       try {
-        const { data } = await axios.post(`${apiBaseUrl}/groups/${groupId}`, {
+        const group = await axios.post(`${apiBaseUrl}/groups/${groupId}`, {
           name,
           description
         }, {
           headers
         })
 
-        res.status(201).json(data)
+        res.status(201).json(group.data)
       } catch (e) {
         res.status(404).json({})
       }

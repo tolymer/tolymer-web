@@ -6,19 +6,24 @@
     <form>
       <label>
         ID
-        <input type="text" v-model="name">
+        <input
+          v-model="name"
+          type="text">
       </label>
       <label>
         Password
-        <input type="password" v-model="password">
+        <input
+          v-model="password"
+          type="password">
       </label>
-      <button type="submit" @click="onClick">Login</button>
+      <button
+        type="submit"
+        @click="onClick">Login</button>
     </form>
   </section>
 </template>
 
 <script>
-  import axios from 'axios'
   import LoginInfo from '~/components/LoginInfo'
   import Menu from '~/components/Menu'
 
@@ -36,7 +41,7 @@
     async asyncData(context) {
       const { accessToken } = context.cookie
 
-      await context.store.dispatch('user/getCurrentUser', {
+      await context.store.dispatch('me/getAll', {
         accessToken
       })
     },

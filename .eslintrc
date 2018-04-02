@@ -14,5 +14,8 @@
   ],
   "plugins": [
     "vue"
-  ]
+  ],
+  "rules": {
+    "no-console": "off"
+  }
 }

@@ -10,7 +10,6 @@
 
 <script>
   import { mapState } from 'vuex'
-  import LoginInfo from '~/components/LoginInfo'
   import Menu from '~/components/Menu'
 
   export default {

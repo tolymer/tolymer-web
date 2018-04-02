@@ -1,9 +1,13 @@
 const users = require('./users')
-const currentUser = require('./currentUser')
 const userToken = require('./userToken')
+const currentUser = require('./currentUser')
+const currentUserGroups = require('./currentUserGroups')
+const groups = require('./groups')
 
 module.exports = {
   users,
+  userToken,
   currentUser,
-  userToken
+  currentUserGroups,
+  groups
 }

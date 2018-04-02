@@ -8,14 +8,14 @@ module.exports = {
       const { name, password } = req.body.auth
 
       try {
-        const result = await axios.post(`${apiBaseUrl}/user_token`, {
+        const userToken = await axios.post(`${apiBaseUrl}/user_token`, {
           auth: {
             name,
             password
           }
         })
 
-        res.cookie('accessToken', result.data.jwt, {
+        res.cookie('accessToken', userToken.data.jwt, {
           httpOnly: false,
           maxAge: 1000 * 60 * 60 * 24,
           secure: false // true

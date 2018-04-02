@@ -12,11 +12,11 @@ module.exports = {
       const { headers } = req
 
       try {
-        const result = await axios.get(`${apiBaseUrl}/current_user`, {
+        const currentUser = await axios.get(`${apiBaseUrl}/current_user`, {
           headers
         })
 
-        res.status(200).json(result.data)
+        res.status(200).json(currentUser.data)
       } catch (e) {
         res.status(404).json({})
       }

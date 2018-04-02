@@ -12,11 +12,11 @@ module.exports = {
       const { headers } = req
 
       try {
-        const { data } = await axios.get(`${apiBaseUrl}/current_user/groups`, {
+        const currentUserGroups = await axios.get(`${apiBaseUrl}/current_user/groups`, {
           headers
         })
 
-        res.status(200).json(result.data)
+        res.status(200).json(currentUserGroups.data)
       } catch (e) {
         res.status(404).json({})
       }
