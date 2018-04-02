@@ -34,7 +34,7 @@ class Server {
     }
 
     if (crud.update) {
-      this.app.put(crud.update.path, crud.update.handler)
+      this.app.patch(crud.update.path, crud.update.handler)
     }
 
     if (crud.delete) {
