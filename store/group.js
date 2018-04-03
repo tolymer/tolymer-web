@@ -1,19 +1,21 @@
 import axios from '~/plugins/axios'
 
 export const state = () => ({
-  group: {
-    id: '',
-    name: '',
-    description: ''
-  }
+  id: '',
+  name: '',
+  description: '',
+  members: []
 })
 
 export const mutations = {
   createGroup() {},
   getGroup(state, payload) {
-    state.group.id = payload.id
-    state.group.name = payload.name
-    state.group.description = payload.description
+    state.id = payload.id
+    state.name = payload.name
+    state.description = payload.description
+  },
+  getGroupMembers(state, payload) {
+    state.members = payload
   }
 }
 
@@ -47,8 +49,10 @@ export const actions = {
       }
 
       const group = await axios.get(`/groups/${groupId}`, config)
+      const groupMembers = await axios.get(`/groups/${groupId}/members`, config)
 
       commit('getGroup', group.data)
+      commit('getGroupMembers', groupMembers.data)
     } catch (e) {
       console.error(e)
     }

@@ -3,9 +3,20 @@
     <h1>Group</h1>
     <LoginInfo />
     <Menu />
-    <p>id: {{ id }}</p>
-    <p>name: {{ name }}</p>
+    <h2>{{ name }}</h2>
     <p>description: {{ description }}</p>
+    <h2>Members</h2>
+    <ul>
+      <li
+        v-for="(member, index) in members"
+        :key="index">
+        <h3>
+          <router-link :to="userLink(member.id)">
+            {{ member.name }}
+          </router-link>
+        </h3>
+      </li>
+    </ul>
   </section>
 </template>
 
@@ -18,10 +29,16 @@
       Menu
     },
     computed: mapState({
-      id: state => state.group.group.id,
-      name: state => state.group.group.name,
-      description: state => state.group.group.description
+      id: state => state.group.id,
+      name: state => state.group.name,
+      description: state => state.group.description,
+      members: state => state.group.members
     }),
+    methods: {
+      userLink(id) {
+        return `/users/${id}`
+      }
+    },
     async asyncData(context) {
       try {
         const { accessToken } = context.cookie

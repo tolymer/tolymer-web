@@ -1,20 +1,18 @@
 import axios from '~/plugins/axios'
 
 export const state = () => ({
-  user: {
-    id: '',
-    name: ''
-  },
+  id: '',
+  name: '',
   groups: []
 })
 
 export const mutations = {
   getUser(state, payload) {
-    state.user.id = payload.id
-    state.user.name = payload.name
+    state.id = payload.id
+    state.name = payload.name
   },
   getGroups(state, payload) {
-    state.groups = payload.groups
+    state.groups = payload
   },
 }
 

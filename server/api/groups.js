@@ -61,7 +61,7 @@ module.exports = {
     }
   },
   delete: {
-    path: '/groups/*',
+    path: '/groups',
     handler: async (req, res) => res.status(403)
   }
 }

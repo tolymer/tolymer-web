@@ -1,11 +1,11 @@
 <template>
   <section>
     <h1>Index</h1>
-    <LoginInfo />
+    <Me />
     <Menu />
     <form>
       <label>
-        ID
+        Name
         <input
           v-model="name"
           type="text">
@@ -24,12 +24,12 @@
 </template>
 
 <script>
-  import LoginInfo from '~/components/LoginInfo'
+  import Me from '~/components/Me'
   import Menu from '~/components/Menu'
 
   export default {
     components: {
-      LoginInfo,
+      Me,
       Menu
     },
     data() {

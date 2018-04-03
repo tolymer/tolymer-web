@@ -17,8 +17,8 @@
       Menu
     },
     computed: mapState({
-      id: state => state.user.user.id,
-      name: state => state.user.user.name
+      id: state => state.user.id,
+      name: state => state.user.name
     }),
     async asyncData(context) {
       try {
