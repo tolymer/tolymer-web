@@ -1,7 +1,7 @@
 <template>
   <section>
     <h1>Event</h1>
-    <LoginInfo />
+    <Me />
     <Menu />
     <p>title: {{ title }}</p>
     <p>description: {{ description }}</p>
@@ -11,10 +11,12 @@
 
 <script>
   import { mapState } from 'vuex'
+  import Me from '~/components/Me'
   import Menu from '~/components/Menu'
 
   export default {
     components: {
+      Me,
       Menu
     },
     computed: mapState({
