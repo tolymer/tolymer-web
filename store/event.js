@@ -35,6 +35,25 @@ export const actions = {
       console.error(e)
     }
   },
+  async createGroupEvent({ commit }, { groupId, title, description, date, accessToken }) {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+
+      const event = await axios.post(`/groups/${groupId}/events`, {
+        title,
+        description,
+        date
+      }, config)
+
+      commit('createEvent', event.data)
+    } catch (e) {
+      console.error(e)
+    }
+  },
   async getEvent({ commit }, { eventId, accessToken }) {
     try {
       const config = {
