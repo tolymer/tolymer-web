@@ -37,8 +37,6 @@ export const actions = {
         description
       }, config)
 
-      await axios.post(`/groups/${group.data.id}/members`, {}, config)
-
       commit('createGroup', group.data)
     } catch (e) {
       console.error(e)
