@@ -1,19 +1,19 @@
 <template>
   <section>
-    <h1>New User</h1>
+    <h1>New Event</h1>
     <Menu />
-    <CreateUser />
+    <CreateEvent />
   </section>
 </template>
 
 <script>
   import Menu from '~/components/Menu'
-  import CreateUser from '~/components/CreateUser'
+  import CreateEvent from '~/components/CreateEvent'
 
   export default {
     components: {
       Menu,
-      CreateUser
+      CreateEvent
     }
   }
 </script>

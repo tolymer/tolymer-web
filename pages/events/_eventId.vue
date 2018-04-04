@@ -1,10 +1,11 @@
 <template>
   <section>
-    <h1>User</h1>
+    <h1>Event</h1>
     <Me />
     <Menu />
-    <p>id: {{ id }}</p>
-    <p>name: {{ name }}</p>
+    <p>title: {{ title }}</p>
+    <p>description: {{ description }}</p>
+    <p>date: {{ date }}</p>
   </section>
 </template>
 
@@ -19,15 +20,16 @@
       Menu
     },
     computed: mapState({
-      id: state => state.user.id,
-      name: state => state.user.name
+      title: state => state.event.title,
+      description: state => state.event.description,
+      date: state => state.event.date
     }),
     async asyncData(context) {
       try {
-        const { userId } = context.params
+        const { eventId } = context.params
 
-        await context.store.dispatch('user/getUser', {
-          userId
+        await context.store.dispatch('event/getEvent', {
+          eventId
         })
       } catch (e) {
         context.error({

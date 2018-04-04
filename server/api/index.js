@@ -4,6 +4,8 @@ const currentUser = require('./currentUser')
 const currentUserGroups = require('./currentUserGroups')
 const groups = require('./groups')
 const groupsMembers = require('./groupsMembers')
+const groupsEvents = require('./groupsEvents')
+const events = require('./events')
 
 module.exports = {
   users,
@@ -11,5 +13,7 @@ module.exports = {
   currentUser,
   currentUserGroups,
   groups,
-  groupsMembers
+  groupsMembers,
+  groupsEvents,
+  events
 }

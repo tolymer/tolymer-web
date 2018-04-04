@@ -2,57 +2,18 @@
   <section>
     <h1>New Group</h1>
     <Menu />
-    <form>
-      <label>
-        Name
-        <input
-          v-model="name"
-          type="text">
-      </label>
-      <label>
-        Description
-        <input
-          v-model="description"
-          type="description">
-      </label>
-      <button
-        type="submit"
-        @click="onClick">
-        Create group
-      </button>
-    </form>
+    <CreateGroup />
   </section>
 </template>
 
 <script>
-  import { parse } from 'cookie'
   import Menu from '~/components/Menu'
+  import CreateGroup from '~/components/CreateGroup'
 
   export default {
     components: {
-      Menu
-    },
-    data() {
-      return {
-        name: '',
-        description: ''
-      }
-    },
-    methods: {
-      async onClick(e) {
-        e.preventDefault()
-
-        const { accessToken } = parse(document.cookie)
-
-        await this.$store.dispatch('group/createGroup', {
-          name: this.name,
-          description: this.description,
-          accessToken
-        })
-
-        this.name = ''
-        this.description = ''
-      }
+      Menu,
+      CreateGroup
     }
   }
 </script>

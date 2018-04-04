@@ -4,7 +4,8 @@ export const state = () => ({
   id: '',
   name: '',
   description: '',
-  members: []
+  members: [],
+  events: []
 })
 
 export const mutations = {
@@ -16,6 +17,9 @@ export const mutations = {
   },
   getGroupMembers(state, payload) {
     state.members = payload
+  },
+  getGroupEvents(state, payload) {
+    state.events = payload
   }
 }
 
@@ -50,9 +54,11 @@ export const actions = {
 
       const group = await axios.get(`/groups/${groupId}`, config)
       const groupMembers = await axios.get(`/groups/${groupId}/members`, config)
+      const groupEvents = await axios.get(`/groups/${groupId}/events`, config)
 
       commit('getGroup', group.data)
       commit('getGroupMembers', groupMembers.data)
+      commit('getGroupEvents', groupEvents.data)
     } catch (e) {
       console.error(e)
     }
