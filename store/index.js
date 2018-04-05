@@ -1,10 +1,16 @@
 import axios from '~/plugins/axios'
 
-export const state = () => ({})
+export const state = () => ({
+  isLoggedIn: false
+})
 
 export const mutations = {
-  login() {},
-  logout() {}
+  login(state) {
+    state.isLoggedIn = true
+  },
+  logout(state) {
+    state.isLoggedIn = false
+  }
 }
 
 export const actions = {
