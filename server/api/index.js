@@ -7,6 +7,7 @@ const groupsMembers = require('./groupsMembers')
 const groupsEvents = require('./groupsEvents')
 const events = require('./events')
 const eventsMembers = require('./eventsMembers')
+const eventsGames = require('./eventsGames')
 
 module.exports = {
   users,
@@ -17,5 +18,6 @@ module.exports = {
   groupsMembers,
   groupsEvents,
   events,
-  eventsMembers
+  eventsMembers,
+  eventsGames
 }
