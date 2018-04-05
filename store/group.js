@@ -42,7 +42,7 @@ export const actions = {
       console.error(e)
     }
   },
-  async getGroup({ commit }, { groupId, accessToken }) {
+  async getAll({ commit }, { groupId, accessToken }) {
     try {
       const config = {
         headers: {

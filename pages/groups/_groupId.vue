@@ -5,7 +5,7 @@
     <h2>Group</h2>
     <p>name: {{ name }}</p>
     <p>description: {{ description }}</p>
-    <h3>Members</h3>
+    <h3>Group Members</h3>
     <ul>
       <li
         v-for="(member, index) in members"
@@ -75,7 +75,7 @@
           accessToken
         })
 
-        await context.store.dispatch('group/getGroup', {
+        await context.store.dispatch('group/getAll', {
           accessToken,
           groupId
         })
