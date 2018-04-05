@@ -14,6 +14,9 @@ export const mutations = {
 }
 
 export const actions = {
+  async loginAlready({ commit }) {
+    commit('login')
+  },
   async login({ commit }, { name, password }) {
     try {
       await axios.post('/user_token', {

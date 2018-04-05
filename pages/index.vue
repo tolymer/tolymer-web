@@ -1,30 +1,38 @@
 <template>
   <section>
-    <h1>Index</h1>
-    <Me />
     <Menu />
+    <Me />
   </section>
 </template>
 
 <script>
-  import Me from '~/components/Me'
   import Menu from '~/components/Menu'
+  import Me from '~/components/Me'
 
   export default {
     components: {
-      Me,
-      Menu
+      Menu,
+      Me
     },
     async asyncData(context) {
-      const { accessToken } = context.cookie
+      try {
+        const { accessToken } = context.cookie
 
-      if (!accessToken) {
-        return
+        if (!accessToken) {
+          return
+        }
+
+        await context.store.dispatch('me/getAll', {
+          accessToken
+        })
+
+        await context.store.dispatch('loginAlready')
+      } catch (e) {
+        context.error({
+          message: 'Not found',
+          statusCode: 404
+        })
       }
-
-      await context.store.dispatch('me/getAll', {
-        accessToken
-      })
     }
   }
 </script>

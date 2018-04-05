@@ -1,19 +1,42 @@
 <template>
   <section>
-    <h1>New Event</h1>
     <Menu />
+    <Me />
+    <h2>New Event</h2>
     <CreateEvent />
   </section>
 </template>
 
 <script>
   import Menu from '~/components/Menu'
+  import Me from '~/components/Me'
   import CreateEvent from '~/components/CreateEvent'
 
   export default {
     components: {
       Menu,
+      Me,
       CreateEvent
+    },
+    async asyncData(context) {
+      try {
+        const { accessToken } = context.cookie
+
+        if (!accessToken) {
+          return
+        }
+
+        await context.store.dispatch('me/getAll', {
+          accessToken
+        })
+
+        await context.store.dispatch('loginAlready')
+      } catch (e) {
+        context.error({
+          message: 'Not found',
+          statusCode: 404
+        })
+      }
     }
   }
 </script>

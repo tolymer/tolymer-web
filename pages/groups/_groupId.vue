@@ -1,48 +1,45 @@
 <template>
   <section>
-    <h1>Group</h1>
-    <Me />
     <Menu />
-    <h2>{{ name }}</h2>
+    <Me />
+    <h2>Group</h2>
+    <p>name: {{ name }}</p>
     <p>description: {{ description }}</p>
-    <h2>Members</h2>
+    <h3>Members</h3>
     <ul>
       <li
         v-for="(member, index) in members"
         :key="index">
-        <h3>
-          <router-link :to="userLink(member.id)">
-            {{ member.name }}
-          </router-link>
-        </h3>
+        <router-link :to="userLink(member.id)">
+          {{ member.name }}
+        </router-link>
       </li>
     </ul>
-    <h2>Events</h2>
+    <h3>Group Events</h3>
     <ul>
       <li
         v-for="(event, index) in events"
         :key="index">
-        <h3>
-          <router-link :to="eventLink(event.id)">
-            {{ event.title }}
-          </router-link>
-        </h3>
+        <router-link :to="eventLink(event.id)">
+          {{ event.title }}
+        </router-link>
       </li>
     </ul>
+    <h3>Create Group Event</h3>
     <CreateGroupEvent :group-id="groupId" />
   </section>
 </template>
 
 <script>
   import { mapState } from 'vuex'
-  import Me from '~/components/Me'
   import Menu from '~/components/Menu'
+  import Me from '~/components/Me'
   import CreateGroupEvent from '~/components/CreateGroupEvent'
 
   export default {
     components: {
-      Me,
       Menu,
+      Me,
       CreateGroupEvent
     },
     data() {
@@ -70,10 +67,20 @@
         const { accessToken } = context.cookie
         const { groupId } = context.params
 
+        if (!accessToken) {
+          return
+        }
+
+        await context.store.dispatch('me/getAll', {
+          accessToken
+        })
+
         await context.store.dispatch('group/getGroup', {
           accessToken,
           groupId
         })
+
+        await context.store.dispatch('loginAlready')
 
         return {
           groupId

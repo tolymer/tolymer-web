@@ -15,23 +15,25 @@
       </label>
       <button
         type="submit"
-        @click="onClick">Login</button>
+        @click="onClickLogin">Login</button>
     </form>
     <div v-if="isLoggedIn">
-      <h2>{{ name }}</h2>
+      <h2>User</h2>
+      <p>name: {{ name }}</p>
       <p>id: {{ id }}</p>
-      <h2>Groups</h2>
+      <h3>Joined Groups</h3>
       <ul>
         <li
           v-for="(group, index) in groups"
           :key="index">
-          <h3>
-            <router-link :to="groupLink(group.id)">
-              {{ group.name }}
-            </router-link>
-          </h3>
+          <router-link :to="groupLink(group.id)">
+            {{ group.name }}
+          </router-link>
         </li>
       </ul>
+      <button @click="onClickLogout">
+        logout
+      </button>
     </div>
   </section>
 </template>
@@ -56,7 +58,7 @@
       groupLink(id) {
         return `/groups/${id}`
       },
-      async onClick(e) {
+      async onClickLogin(e) {
         e.preventDefault()
 
         await this.$store.dispatch('login', {
@@ -66,6 +68,13 @@
 
         this.loginName = ''
         this.loginPassword = ''
+      },
+      async onClickLogout(e) {
+        e.preventDefault()
+
+        document.cookie = "accessToken=; max-age=0";
+
+        await this.$store.dispatch('logout')
       }
     }
   }

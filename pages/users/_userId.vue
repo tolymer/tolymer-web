@@ -1,8 +1,8 @@
 <template>
   <section>
-    <h1>User</h1>
-    <Me />
     <Menu />
+    <Me />
+    <h2>User</h2>
     <p>id: {{ id }}</p>
     <p>name: {{ name }}</p>
   </section>
@@ -10,13 +10,13 @@
 
 <script>
   import { mapState } from 'vuex'
-  import Me from '~/components/Me'
   import Menu from '~/components/Menu'
+  import Me from '~/components/Me'
 
   export default {
     components: {
-      Me,
-      Menu
+      Menu,
+      Me
     },
     computed: mapState({
       id: state => state.user.id,
@@ -24,11 +24,22 @@
     }),
     async asyncData(context) {
       try {
+        const { accessToken } = context.cookie
         const { userId } = context.params
+
+        if (!accessToken) {
+          return
+        }
 
         await context.store.dispatch('user/getUser', {
           userId
         })
+
+        await context.store.dispatch('me/getAll', {
+          accessToken
+        })
+
+        await context.store.dispatch('loginAlready')
       } catch (e) {
         context.error({
           message: 'Not found',

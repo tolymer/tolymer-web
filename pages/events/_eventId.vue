@@ -1,8 +1,8 @@
 <template>
   <section>
-    <h1>Event</h1>
-    <Me />
     <Menu />
+    <Me />
+    <h2>Event</h2>
     <p>title: {{ title }}</p>
     <p>description: {{ description }}</p>
     <p>date: {{ date }}</p>
@@ -11,13 +11,13 @@
 
 <script>
   import { mapState } from 'vuex'
-  import Me from '~/components/Me'
   import Menu from '~/components/Menu'
+  import Me from '~/components/Me'
 
   export default {
     components: {
-      Me,
-      Menu
+      Menu,
+      Me
     },
     computed: mapState({
       title: state => state.event.title,
@@ -26,11 +26,23 @@
     }),
     async asyncData(context) {
       try {
+        const { accessToken } = context.cookie
         const { eventId } = context.params
 
+        if (!accessToken) {
+          return
+        }
+
         await context.store.dispatch('event/getEvent', {
-          eventId
+          eventId,
+          accessToken
         })
+
+        await context.store.dispatch('me/getAll', {
+          accessToken
+        })
+
+        await context.store.dispatch('loginAlready')
       } catch (e) {
         context.error({
           message: 'Not found',
