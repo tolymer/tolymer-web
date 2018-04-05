@@ -3,7 +3,9 @@ import axios from '~/plugins/axios'
 export const state = () => ({
   title: '',
   description: '',
-  date: ''
+  date: '',
+  members: [],
+  games: []
 })
 
 export const mutations = {
@@ -12,6 +14,12 @@ export const mutations = {
     state.title = payload.title
     state.description = payload.description
     state.date = payload.date
+  },
+  getEventMembers(state, payload) {
+    state.members = payload
+  },
+  getEventGames(state, payload) {
+    state.games = payload
   }
 }
 
@@ -63,8 +71,12 @@ export const actions = {
       }
 
       const event = await axios.get(`/events/${eventId}`, config)
+      const eventMembers = await axios.get(`/events/${eventId}/members`, config)
+      const eventGames = await axios.get(`/events/${eventId}/events`, config)
 
       commit('getEvent', event.data)
+      commit('getEventMembers', eventMembers.data)
+      commit('getEventGames', eventGames.data)
     } catch (e) {
       console.error(e)
     }

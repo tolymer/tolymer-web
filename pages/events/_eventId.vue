@@ -6,6 +6,30 @@
     <p>title: {{ title }}</p>
     <p>description: {{ description }}</p>
     <p>date: {{ date }}</p>
+    <h3>Event Members</h3>
+    <ul>
+      <li
+        v-for="(member, index) in members"
+        :key="index">
+        <router-link :to="userLink(member.id)">
+          {{ member.name }}
+        </router-link>
+      </li>
+    </ul>
+    <h3>Event Games</h3>
+    <ul>
+      <li
+        v-for="(game, index) in games"
+        :key="index">
+        <ul>
+          <li
+            v-for="(score, index) in game.scores"
+            :key="index">
+            {{ score.id }}:{{ score.point }}
+          </li>
+        </ul>
+      </li>
+    </ul>
   </section>
 </template>
 
@@ -24,6 +48,11 @@
       description: state => state.event.description,
       date: state => state.event.date
     }),
+    methods: {
+      userLink(id) {
+        return `/users/${id}`
+      }
+    },
     async asyncData(context) {
       try {
         const { accessToken } = context.cookie
