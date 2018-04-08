@@ -65,7 +65,7 @@
           accessToken
         })
 
-        await context.store.dispatch('event/getAll', {
+        await context.store.dispatch('event/getEvent', {
           eventId,
           accessToken
         })

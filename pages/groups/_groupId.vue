@@ -74,7 +74,7 @@
           accessToken
         })
 
-        await context.store.dispatch('group/getAll', {
+        await context.store.dispatch('group/getGroup', {
           accessToken,
           groupId
         })

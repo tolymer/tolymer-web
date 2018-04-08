@@ -62,7 +62,7 @@ export const actions = {
       console.error(e)
     }
   },
-  async getAll({ commit }, { eventId, accessToken }) {
+  async getEvent({ commit }, { eventId, accessToken }) {
     try {
       const config = {
         headers: {
