@@ -23,19 +23,32 @@
           <li
             v-for="(score, index) in game.scores"
             :key="index">
-            {{ score.id }}:{{ score.point }}
+            {{ score.user_id }}:{{ score.point }}
           </li>
         </ul>
       </li>
     </ul>
+    <h3>Create Game</h3>
+    <CreateGame
+      :event-id="eventId"
+      :members="members" />
   </section>
 </template>
 
 <script>
   import { mapState } from 'vuex'
+  import CreateGame from '~/components/CreateGame'
 
   export default {
     middleware: ['auth'],
+    components: {
+      CreateGame
+    },
+    data() {
+      return {
+        eventId: ''
+      }
+    },
     computed: mapState({
       title: state => state.event.title,
       description: state => state.event.description,
@@ -46,6 +59,13 @@
     methods: {
       userLink(id) {
         return `/users/${id}`
+      }
+    },
+    async asyncData(context) {
+      const { eventId } = context.params
+
+      return {
+        eventId
       }
     },
     async fetch(context) {

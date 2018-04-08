@@ -57,6 +57,13 @@
         return `/events/${id}`
       }
     },
+    async asyncData(context) {
+      const { groupId } = context.params
+
+      return {
+        groupId
+      }
+    },
     async fetch(context) {
       try {
         const { accessToken } = context.cookie
@@ -79,13 +86,6 @@
           message: 'Not found',
           statusCode: 404
         })
-      }
-    },
-    async asyncData(context) {
-      const { groupId } = context.params
-
-      return {
-        groupId
       }
     }
   }
