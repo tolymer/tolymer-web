@@ -15,19 +15,24 @@
       </li>
     </ul>
     <h3>Event Games</h3>
-    <ul>
-      <li
+    <table>
+      <tr>
+        <th />
+        <th>{{ userA.name }}</th>
+        <th>{{ userB.name }}</th>
+        <th>{{ userC.name }}</th>
+        <th>{{ userD.name }}</th>
+      </tr>
+      <tr
         v-for="(game, index) in games"
         :key="index">
-        <ul>
-          <li
-            v-for="(score, index) in game.scores"
-            :key="index">
-            {{ score.user_id }}:{{ score.point }}
-          </li>
-        </ul>
-      </li>
-    </ul>
+        <td>{{ index + 1 }}</td>
+        <td>{{ game.scores[0].point }}</td>
+        <td>{{ game.scores[1].point }}</td>
+        <td>{{ game.scores[2].point }}</td>
+        <td>{{ game.scores[3].point }}</td>
+      </tr>
+    </table>
     <h3>Create Game</h3>
     <CreateGame
       :event-id="eventId"
@@ -49,13 +54,27 @@
         eventId: ''
       }
     },
-    computed: mapState({
-      title: state => state.event.title,
-      description: state => state.event.description,
-      date: state => state.event.date,
-      members: state => state.event.members,
-      games: state => state.event.games
-    }),
+    computed: {
+      userA: function() {
+        return this.members[0]
+      },
+      userB: function() {
+        return this.members[1]
+      },
+      userC: function() {
+        return this.members[2]
+      },
+      userD: function() {
+        return this.members[3]
+      },
+      ...mapState({
+        title: state => state.event.title,
+        description: state => state.event.description,
+        date: state => state.event.date,
+        members: state => state.event.members,
+        games: state => state.event.games,
+      })
+    },
     methods: {
       userLink(id) {
         return `/users/${id}`
