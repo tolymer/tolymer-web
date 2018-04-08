@@ -61,6 +61,14 @@
       try {
         const { accessToken } = context.cookie
         const { groupId } = context.params
+        const { join } = context.query
+
+        if (join) {
+          await context.store.dispatch('group/addGroupMembers', {
+            groupId,
+            accessToken
+          })
+        }
 
         await context.store.dispatch('group/getGroup', {
           accessToken,

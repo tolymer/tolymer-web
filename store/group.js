@@ -20,7 +20,8 @@ export const mutations = {
   },
   getGroupEvents(state, payload) {
     state.events = payload
-  }
+  },
+  addGroupMembers() {}
 }
 
 export const actions = {
@@ -57,6 +58,21 @@ export const actions = {
       commit('getGroup', group.data)
       commit('getGroupMembers', groupMembers.data)
       commit('getGroupEvents', groupEvents.data)
+    } catch (e) {
+      console.error(e)
+    }
+  },
+  async addGroupMembers({ commit }, { groupId, accessToken }) {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+
+      await axios.post(`/groups/${groupId}/members`, {}, config)
+
+      commit('addGroupMembers')
     } catch (e) {
       console.error(e)
     }
