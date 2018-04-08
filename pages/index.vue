@@ -26,7 +26,7 @@
           accessToken
         })
 
-        await context.store.dispatch('loginAlready')
+        await context.store.dispatch('loggedIn')
       } catch (e) {
         context.error({
           message: 'Not found',

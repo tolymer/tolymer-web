@@ -14,7 +14,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async loginAlready({ commit }) {
+  async loggedIn({ commit }) {
     commit('login')
   },
   async login({ commit }, { name, password }) {

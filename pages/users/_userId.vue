@@ -22,14 +22,17 @@
       id: state => state.user.id,
       name: state => state.user.name
     }),
+    async fetch(context) {
+      const { accessToken } = context.cookie
+
+      if (!accessToken) {
+        context.redirect('/')
+      }
+    },
     async asyncData(context) {
       try {
         const { accessToken } = context.cookie
         const { userId } = context.params
-
-        if (!accessToken) {
-          return
-        }
 
         await context.store.dispatch('user/getUser', {
           userId
@@ -39,7 +42,7 @@
           accessToken
         })
 
-        await context.store.dispatch('loginAlready')
+        await context.store.dispatch('loggedIn')
       } catch (e) {
         context.error({
           message: 'Not found',

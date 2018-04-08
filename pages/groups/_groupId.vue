@@ -62,14 +62,17 @@
         return `/events/${id}`
       }
     },
+    async fetch(context) {
+      const { accessToken } = context.cookie
+
+      if (!accessToken) {
+        context.redirect('/')
+      }
+    },
     async asyncData(context) {
       try {
         const { accessToken } = context.cookie
         const { groupId } = context.params
-
-        if (!accessToken) {
-          return
-        }
 
         await context.store.dispatch('me/getAll', {
           accessToken
@@ -80,7 +83,7 @@
           groupId
         })
 
-        await context.store.dispatch('loginAlready')
+        await context.store.dispatch('loggedIn')
 
         return {
           groupId
