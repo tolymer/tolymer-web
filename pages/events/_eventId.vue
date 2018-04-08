@@ -35,6 +35,7 @@
   import { mapState } from 'vuex'
 
   export default {
+    middleware: ['auth'],
     computed: mapState({
       title: state => state.event.title,
       description: state => state.event.description,
@@ -48,22 +49,9 @@
       }
     },
     async fetch(context) {
-      const { accessToken } = context.cookie
-
-      if (!accessToken) {
-        context.redirect('/')
-      }
-    },
-    async asyncData(context) {
       try {
         const { accessToken } = context.cookie
         const { eventId } = context.params
-
-        await context.store.dispatch('loggedIn')
-
-        await context.store.dispatch('getCurrentUser', {
-          accessToken
-        })
 
         await context.store.dispatch('event/getEvent', {
           eventId,

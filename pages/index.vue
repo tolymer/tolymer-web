@@ -59,6 +59,7 @@
   import { parse } from 'cookie'
 
   export default {
+    middleware: ['auth'],
     data() {
       return {
         loginName: '',
@@ -100,26 +101,6 @@
         await this.$store.dispatch('logout')
 
         await this.$store.dispatch('deleteCurrentUser')
-      }
-    },
-    async asyncData(context) {
-      try {
-        const { accessToken } = context.cookie
-
-        if (!accessToken) {
-          return
-        }
-
-        await context.store.dispatch('loggedIn')
-
-        await context.store.dispatch('getCurrentUser', {
-          accessToken
-        })
-      } catch (e) {
-        context.error({
-          message: 'Not found',
-          statusCode: 404
-        })
       }
     }
   }

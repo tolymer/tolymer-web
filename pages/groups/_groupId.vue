@@ -33,6 +33,7 @@
   import CreateGroupEvent from '~/components/CreateGroupEvent'
 
   export default {
+    middleware: ['auth'],
     components: {
       CreateGroupEvent
     },
@@ -57,36 +58,26 @@
       }
     },
     async fetch(context) {
-      const { accessToken } = context.cookie
-
-      if (!accessToken) {
-        context.redirect('/')
-      }
-    },
-    async asyncData(context) {
       try {
         const { accessToken } = context.cookie
         const { groupId } = context.params
-
-        await context.store.dispatch('loggedIn')
-
-        await context.store.dispatch('getCurrentUser', {
-          accessToken
-        })
 
         await context.store.dispatch('group/getGroup', {
           accessToken,
           groupId
         })
-
-        return {
-          groupId
-        }
       } catch (e) {
         context.error({
           message: 'Not found',
           statusCode: 404
         })
+      }
+    },
+    async asyncData(context) {
+      const { groupId } = context.params
+
+      return {
+        groupId
       }
     }
   }

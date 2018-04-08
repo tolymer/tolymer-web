@@ -1,7 +1,8 @@
 import { parse } from 'cookie'
 
-export default (context) => {
-  const { cookie } = process.server ? context.req.headers: document
+export default context => {
+  const isServer = process.server
+  const { cookie } = isServer ? context.req.headers: document
 
   context.cookie = parse(cookie || '')
 }
