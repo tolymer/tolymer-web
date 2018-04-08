@@ -1,7 +1,5 @@
 <template>
   <section>
-    <Menu />
-    <Me />
     <h2>User</h2>
     <p>id: {{ id }}</p>
     <p>name: {{ name }}</p>
@@ -10,14 +8,8 @@
 
 <script>
   import { mapState } from 'vuex'
-  import Menu from '~/components/Menu'
-  import Me from '~/components/Me'
 
   export default {
-    components: {
-      Menu,
-      Me
-    },
     computed: mapState({
       id: state => state.user.id,
       name: state => state.user.name
@@ -34,15 +26,15 @@
         const { accessToken } = context.cookie
         const { userId } = context.params
 
-        await context.store.dispatch('user/getUser', {
-          userId
-        })
+        await context.store.dispatch('loggedIn')
 
-        await context.store.dispatch('me/getAll', {
+        await context.store.dispatch('getCurrentUser', {
           accessToken
         })
 
-        await context.store.dispatch('loggedIn')
+        await context.store.dispatch('user/getUser', {
+          userId
+        })
       } catch (e) {
         context.error({
           message: 'Not found',

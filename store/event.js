@@ -72,7 +72,7 @@ export const actions = {
 
       const event = await axios.get(`/events/${eventId}`, config)
       const eventMembers = await axios.get(`/events/${eventId}/members`, config)
-      const eventGames = await axios.get(`/events/${eventId}/events`, config)
+      const eventGames = await axios.get(`/events/${eventId}/games`, config)
 
       commit('getEvent', event.data)
       commit('getEventMembers', eventMembers.data)

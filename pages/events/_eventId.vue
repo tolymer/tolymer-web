@@ -1,7 +1,5 @@
 <template>
   <section>
-    <Menu />
-    <Me />
     <h2>Event</h2>
     <p>title: {{ title }}</p>
     <p>description: {{ description }}</p>
@@ -35,18 +33,14 @@
 
 <script>
   import { mapState } from 'vuex'
-  import Menu from '~/components/Menu'
-  import Me from '~/components/Me'
 
   export default {
-    components: {
-      Menu,
-      Me
-    },
     computed: mapState({
       title: state => state.event.title,
       description: state => state.event.description,
-      date: state => state.event.date
+      date: state => state.event.date,
+      members: state => state.event.members,
+      games: state => state.event.games
     }),
     methods: {
       userLink(id) {
@@ -65,16 +59,16 @@
         const { accessToken } = context.cookie
         const { eventId } = context.params
 
+        await context.store.dispatch('loggedIn')
+
+        await context.store.dispatch('getCurrentUser', {
+          accessToken
+        })
+
         await context.store.dispatch('event/getAll', {
           eventId,
           accessToken
         })
-
-        await context.store.dispatch('me/getAll', {
-          accessToken
-        })
-
-        await context.store.dispatch('loggedIn')
       } catch (e) {
         context.error({
           message: 'Not found',

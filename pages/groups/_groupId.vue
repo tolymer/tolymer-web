@@ -1,7 +1,5 @@
 <template>
   <section>
-    <Menu />
-    <Me />
     <h2>Group</h2>
     <p>name: {{ name }}</p>
     <p>description: {{ description }}</p>
@@ -32,14 +30,10 @@
 
 <script>
   import { mapState } from 'vuex'
-  import Menu from '~/components/Menu'
-  import Me from '~/components/Me'
   import CreateGroupEvent from '~/components/CreateGroupEvent'
 
   export default {
     components: {
-      Menu,
-      Me,
       CreateGroupEvent
     },
     data() {
@@ -74,7 +68,9 @@
         const { accessToken } = context.cookie
         const { groupId } = context.params
 
-        await context.store.dispatch('me/getAll', {
+        await context.store.dispatch('loggedIn')
+
+        await context.store.dispatch('getCurrentUser', {
           accessToken
         })
 
@@ -82,8 +78,6 @@
           accessToken,
           groupId
         })
-
-        await context.store.dispatch('loggedIn')
 
         return {
           groupId
