@@ -28,6 +28,7 @@
 
 <script>
   import { parse } from 'cookie'
+  import { format } from 'date-fns'
 
   export default {
     props: {
@@ -40,7 +41,7 @@
       return {
         title: '',
         description: '',
-        date: ''
+        date: format(Date.now(), 'YYYY-MM-DD')
       }
     },
     methods: {
