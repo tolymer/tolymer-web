@@ -1,0 +1,21 @@
+:root {
+  --space-base: 8px;
+  --radius-base: 4px;
+  --color-black: #333;
+  --color-white: #fff;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  font-size: 1.6rem;
+}
