@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2>New Group</h2>
+    <h2>グループを作成する</h2>
     <CreateGroup />
   </section>
 </template>

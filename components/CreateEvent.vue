@@ -1,19 +1,19 @@
 <template>
   <form>
     <label>
-      Title
+      タイトル
       <input
         v-model="title"
         type="text">
     </label>
     <label>
-      Description
+      説明
       <input
         v-model="description"
         type="text">
     </label>
     <label>
-      Date
+      日付
       <input
         v-model="date"
         type="date">
@@ -21,7 +21,7 @@
     <button
       type="submit"
       @click="onClick">
-      Create event
+      イベントを作成する
     </button>
   </form>
 </template>

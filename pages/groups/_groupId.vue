@@ -1,9 +1,8 @@
 <template>
   <section>
-    <h2>Group</h2>
-    <p>name: {{ name }}</p>
-    <p>description: {{ description }}</p>
-    <h3>Group Members</h3>
+    <h2>{{ name }}</h2>
+    <p>{{ description }}</p>
+    <h3>{{ name }}のメンバー</h3>
     <ul>
       <li
         v-for="(member, index) in members"
@@ -13,7 +12,7 @@
         </router-link>
       </li>
     </ul>
-    <h3>Group Events</h3>
+    <h3>{{ name }}のイベント</h3>
     <ul>
       <li
         v-for="(event, index) in events"
@@ -23,7 +22,7 @@
         </router-link>
       </li>
     </ul>
-    <h3>Create Group Event</h3>
+    <h3>{{ name }}のイベントを作成する</h3>
     <CreateGroupEvent
       :group-id="groupId"
       :members="members" />

@@ -1,35 +1,33 @@
 <template>
-  <form>
-    <label>
-      {{ userA.name }}
+  <tr>
+    <td>
+      <button
+        type="submit"
+        @click="onClick">
+        +
+      </button>
+    </td>
+    <td>
       <input
         v-model="scoreA"
         type="number">
-    </label>
-    <label>
-      {{ userB.name }}
+    </td>
+    <td>
       <input
         v-model="scoreB"
         type="number">
-    </label>
-    <label>
-      {{ userC.name }}
+    </td>
+    <td>
       <input
         v-model="scoreC"
         type="number">
-    </label>
-    <label>
-      {{ userD.name }}
+    </td>
+    <td>
       <input
         v-model="scoreD"
         type="number">
-    </label>
-    <button
-      type="submit"
-      @click="onClick">
-      Create game
-    </button>
-  </form>
+    </td>
+  </tr>
 </template>
 
 <script>
@@ -103,3 +101,9 @@
     }
   }
 </script>
+
+<style>
+  input {
+    width: 100%;
+  }
+</style>

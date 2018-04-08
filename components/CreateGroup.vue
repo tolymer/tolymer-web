@@ -1,13 +1,13 @@
 <template>
   <form>
     <label>
-      Name
+      名前
       <input
         v-model="name"
         type="text">
     </label>
     <label>
-      Description
+      説明
       <input
         v-model="description"
         type="description">
@@ -15,7 +15,7 @@
     <button
       type="submit"
       @click="onClick">
-      Create group
+      グループを作成する
     </button>
   </form>
 </template>

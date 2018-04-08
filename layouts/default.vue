@@ -26,6 +26,6 @@
   }
 
   .Main {
-    padding: var(--space-base) calc(var(--space-base) * 2);
+    padding: var(--space-base);
   }
 </style>

@@ -1,8 +1,7 @@
 <template>
   <section>
-    <h2>User</h2>
+    <h2>{{ name }}</h2>
     <p>id: {{ id }}</p>
-    <p>name: {{ name }}</p>
   </section>
 </template>
 

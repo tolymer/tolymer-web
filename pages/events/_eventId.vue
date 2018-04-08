@@ -1,10 +1,8 @@
 <template>
   <section>
-    <h2>Event</h2>
-    <p>title: {{ title }}</p>
-    <p>description: {{ description }}</p>
-    <p>date: {{ date }}</p>
-    <h3>Event Members</h3>
+    <h2>{{ title }}（{{ date }}）</h2>
+    <p>{{ description }}</p>
+    <h3>{{ title }}のメンバー</h3>
     <ul>
       <li
         v-for="(member, index) in members"
@@ -14,29 +12,30 @@
         </router-link>
       </li>
     </ul>
-    <h3>Event Games</h3>
-    <table>
-      <tr>
-        <th />
-        <th>{{ userA.name }}</th>
-        <th>{{ userB.name }}</th>
-        <th>{{ userC.name }}</th>
-        <th>{{ userD.name }}</th>
-      </tr>
-      <tr
-        v-for="(game, index) in games"
-        :key="index">
-        <td>{{ index + 1 }}</td>
-        <td>{{ game.scores[0].point }}</td>
-        <td>{{ game.scores[1].point }}</td>
-        <td>{{ game.scores[2].point }}</td>
-        <td>{{ game.scores[3].point }}</td>
-      </tr>
-    </table>
-    <h3>Create Game</h3>
-    <CreateGame
-      :event-id="eventId"
-      :members="members" />
+    <h3>イベントの結果</h3>
+    <form>
+      <table>
+        <tr>
+          <th />
+          <th>{{ userA.name }}</th>
+          <th>{{ userB.name }}</th>
+          <th>{{ userC.name }}</th>
+          <th>{{ userD.name }}</th>
+        </tr>
+        <tr
+          v-for="(game, index) in games"
+          :key="index">
+          <td>{{ index + 1 }}</td>
+          <td>{{ game.scores[0].point }}</td>
+          <td>{{ game.scores[1].point }}</td>
+          <td>{{ game.scores[2].point }}</td>
+          <td>{{ game.scores[3].point }}</td>
+        </tr>
+        <CreateGame
+          :event-id="eventId"
+          :members="members" />
+      </table>
+    </form>
   </section>
 </template>
 
@@ -56,16 +55,24 @@
     },
     computed: {
       userA: function() {
-        return this.members[0]
+        return this.members[0] || {
+          name: ''
+        }
       },
       userB: function() {
-        return this.members[1]
+        return this.members[1] || {
+          name: ''
+        }
       },
       userC: function() {
-        return this.members[2]
+        return this.members[2] || {
+          name: ''
+        }
       },
       userD: function() {
-        return this.members[3]
+        return this.members[3] || {
+          name: ''
+        }
       },
       ...mapState({
         title: state => state.event.title,
@@ -117,3 +124,23 @@
     }
   }
 </script>
+
+<style>
+  table {
+    table-layout: fixed;
+  }
+
+  th,
+  td {
+    text-align: center;
+  }
+
+  th:first-child {
+    width: 24px;
+  }
+
+  th:not(:first-child) {
+    width: calc((100% - 24px) / 4);
+    word-break: break-word;
+  }
+</style>

@@ -17,11 +17,19 @@ body {
   padding: 0;
   background-color: var(--color-white);
   color: var(--color-black);
-  font-size: 1.6rem;
+  font-size: 2rem;
 }
 
 form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+button {
+  border-radius: var(--radius-base);
+}
+
+input {
+  border-radius: var(--radius-base);
 }

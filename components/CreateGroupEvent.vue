@@ -1,37 +1,41 @@
 <template>
   <form>
     <label>
-      Title
+      タイトル
       <input
         v-model="title"
         type="text">
     </label>
     <label>
-      Description
+      説明
       <input
         v-model="description"
         type="text">
     </label>
     <label>
-      Date
+      日付
       <input
         v-model="date"
         type="date">
     </label>
-    <label
-      v-for="(member, index) in members"
-      :key="index">
-      {{ member.name }}
-      <input
-        :value="member.id"
-        v-model="userIds"
-        type="checkbox"
-        name="members">
-    </label>
+    <ul>
+      <li
+        v-for="(member, index) in members"
+        :key="index">
+        <label>
+          {{ member.name }}
+          <input
+            :value="member.id"
+            v-model="userIds"
+            type="checkbox"
+            name="members">
+        </label>
+      </li>
+    </ul>
     <button
       type="submit"
       @click="onClick">
-      Create event
+      イベントを作成する
     </button>
   </form>
 </template>

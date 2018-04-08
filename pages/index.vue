@@ -1,37 +1,45 @@
 <template>
   <section>
     <div v-if="!isLoggedIn">
-      <h2>Log in</h2>
+      <h2>ログイン</h2>
       <form @submit="onSubmitLogin">
         <label>
-          Name
+          名前
           <input
             v-model="loginName"
             type="text">
         </label>
         <label>
-          Password
+          パスワード
           <input
             v-model="loginPassword"
             type="password">
         </label>
-        <button type="submit">Log in</button>
+        <button type="submit">ログインする</button>
       </form>
-      <h2>
-        <router-link to="/users/new">
-          Sign up
-        </router-link>
-      </h2>
+      <h2>新規登録</h2>
+      <form @submit="onSubmitSignup">
+        <label>
+          名前
+          <input
+            v-model="signupName"
+            type="text">
+        </label>
+        <label>
+          パスワード
+          <input
+            v-model="signupPassword"
+            type="password">
+        </label>
+        <button type="submit">ユーザーを作成する</button>
+      </form>
     </div>
     <div v-if="isLoggedIn">
-      <h2>Your data</h2>
-      <p>id: {{ id }}</p>
-      <p>name: {{ name }}</p>
-      <h3>Log out</h3>
+      <h2>{{ name }}</h2>
       <form @submit="onSubmitLogout">
-        <button type="submit">Logout</button>
+        <button type="submit">ログアウトする</button>
       </form>
-      <h3>Joined Groups</h3>
+      <h3>参加中のグループ</h3>
       <ul>
         <li
           v-for="(group, index) in groups"
@@ -43,11 +51,12 @@
       </ul>
       <h2>
         <router-link to="/groups/new">
-          Create Group
+          グループを作成する
         </router-link>
       </h2>
+      <p>Create group which people you play with belong to.</p>
       <h2>
-        Create Event (WIP)
+        イベントを作成する
       </h2>
       <p>New feature to create new event without group context.</p>
     </div>
@@ -63,12 +72,13 @@
     data() {
       return {
         loginName: '',
-        loginPassword: ''
+        loginPassword: '',
+        signupName: '',
+        signupPassword: ''
       }
     },
     computed: mapState({
       isLoggedIn: state => state.isLoggedIn,
-      id: state => state.id,
       name: state => state.name,
       groups: state => state.groups
     }),
@@ -86,6 +96,31 @@
 
         this.loginName = ''
         this.loginPassword = ''
+
+        const { accessToken } = parse(document.cookie)
+
+        await this.$store.dispatch('getCurrentUser', {
+          accessToken
+        })
+      },
+      async onSubmitSignup(e) {
+        e.preventDefault()
+
+        const name = this.signupName
+        const password = this.signupPassword
+
+        await this.$store.dispatch('user/createUser', {
+          name,
+          password
+        })
+
+        this.signupName = ''
+        this.signupPassword = ''
+
+        await this.$store.dispatch('login', {
+          name,
+          password
+        })
 
         const { accessToken } = parse(document.cookie)
 
