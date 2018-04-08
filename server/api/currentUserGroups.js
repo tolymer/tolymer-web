@@ -4,7 +4,7 @@ const apiBaseUrl = process.env.API_BASE_URL || 'http://localhost:3000'
 module.exports = {
   create: {
     path: '/current_user/groups',
-    handler: async (req, res) => res.status(403)
+    handler: async (req, res) => res.status(403).json({})
   },
   read: {
     path: '/current_user/groups',
@@ -24,10 +24,10 @@ module.exports = {
   },
   update: {
     path: '/current_user/groups',
-    handler: async (req, res) => res.status(403)
+    handler: async (req, res) => res.status(403).json({})
   },
   delete: {
     path: '/current_user/groups',
-    handler: async (req, res) => res.status(403)
+    handler: async (req, res) => res.status(403).json({})
   }
 }

@@ -42,10 +42,10 @@ module.exports = {
   },
   update: {
     path: '/events/:eventId',
-    handler: async (req, res) => res.status(403)
+    handler: async (req, res) => res.status(403).json({})
   },
   delete: {
     path: '/events/:eventId',
-    handler: async (req, res) => res.status(403)
+    handler: async (req, res) => res.status(403).json({})
   }
 }

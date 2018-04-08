@@ -20,24 +20,22 @@ module.exports = {
           maxAge: 1000 * 60 * 60 * 24,
           secure: false // true
         })
-        res.status(200)
+        res.status(200).json({})
       } catch (e) {
-        res.status(404)
+        res.status(404).json({})
       }
-
-      res.json({})
     }
   },
   read: {
     path: '/user_token/*',
-    handler: async (req, res) => res.status(403)
+    handler: async (req, res) => res.status(403).json({})
   },
   update: {
     path: '/user_token/*',
-    handler: async (req, res) => res.status(403)
+    handler: async (req, res) => res.status(403).json({})
   },
   delete: {
     path: '/user_token/*',
-    handler: async (req, res) => res.status(403)
+    handler: async (req, res) => res.status(403).json({})
   }
 }

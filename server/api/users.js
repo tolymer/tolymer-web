@@ -15,10 +15,8 @@ module.exports = {
 
         res.status(201).json(users.data)
       } catch (e) {
-        res.status(404)
+        res.status(404).json({})
       }
-
-      res.json({})
     }
   },
   read: {
@@ -37,10 +35,10 @@ module.exports = {
   },
   update: {
     path: '/users/*',
-    handler: async (req, res) => res.status(403)
+    handler: async (req, res) => res.status(403).json({})
   },
   delete: {
     path: '/users/*',
-    handler: async (req, res) => res.status(403)
+    handler: async (req, res) => res.status(403).json({})
   }
 }

@@ -38,10 +38,10 @@ module.exports = {
   },
   update: {
     path: '/groups/:groupId/members',
-    handler: async (req, res) => res.status(403)
+    handler: async (req, res) => res.status(403).json({})
   },
   delete: {
     path: '/groups/:groupId/members',
-    handler: async (req, res) => res.status(403)
+    handler: async (req, res) => res.status(403).json({})
   }
 }
