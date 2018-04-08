@@ -87,10 +87,16 @@
           point: this.scoreD
         }]
         const { accessToken } = parse(document.cookie)
+        const { eventId } = this
 
         await this.$store.dispatch('event/addEventGames', {
-          eventId: this.eventId,
+          eventId,
           scores,
+          accessToken
+        })
+
+        await this.$store.dispatch('event/getEvent', {
+          eventId,
           accessToken
         })
       }
