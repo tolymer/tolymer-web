@@ -34,6 +34,13 @@
         <CreateGame
           :event-id="eventId"
           :members="members" />
+        <tr>
+          <td>計</td>
+          <td>{{ scoreA }}</td>
+          <td>{{ scoreB }}</td>
+          <td>{{ scoreC }}</td>
+          <td>{{ scoreD }}</td>
+        </tr>
       </table>
     </form>
   </section>
@@ -73,6 +80,26 @@
         return this.members[3] || {
           name: ''
         }
+      },
+      scoreA: function() {
+        return this.games
+          .map(game => game.scores[0].point)
+          .reduce((a, b) => a + b)
+      },
+      scoreB: function() {
+        return this.games
+          .map(game => game.scores[1].point)
+          .reduce((a, b) => a + b)
+      },
+      scoreC: function() {
+        return this.games
+          .map(game => game.scores[2].point)
+          .reduce((a, b) => a + b)
+      },
+      scoreD: function() {
+        return this.games
+          .map(game => game.scores[3].point)
+          .reduce((a, b) => a + b)
       },
       ...mapState({
         title: state => state.event.title,
