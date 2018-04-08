@@ -24,7 +24,9 @@
       </li>
     </ul>
     <h3>Create Group Event</h3>
-    <CreateGroupEvent :group-id="groupId" />
+    <CreateGroupEvent
+      :group-id="groupId"
+      :members="members" />
   </section>
 </template>
 

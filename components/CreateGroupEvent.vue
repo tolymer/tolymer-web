@@ -18,6 +18,16 @@
         v-model="date"
         type="date">
     </label>
+    <label
+      v-for="(member, index) in members"
+      :key="index">
+      {{ member.name }}
+      <input
+        :value="member.id"
+        v-model="userIds"
+        type="checkbox"
+        name="members">
+    </label>
     <button
       type="submit"
       @click="onClick">
@@ -35,13 +45,19 @@
       groupId: {
         type: String,
         required: true
+      },
+      members: {
+        type: Array,
+        required: true,
+        default: () => []
       }
     },
     data() {
       return {
         title: '',
         description: '',
-        date: format(Date.now(), 'YYYY-MM-DD')
+        date: format(Date.now(), 'YYYY-MM-DD'),
+        userIds: []
       }
     },
     methods: {
@@ -49,13 +65,25 @@
         e.preventDefault()
 
         const { accessToken } = parse(document.cookie)
+        const {
+          groupId,
+          title,
+          description,
+          date,
+          userIds
+        } = this
+
+        if (userIds.length !== 4) {
+          return
+        }
 
         await this.$store.dispatch('event/createGroupEvent', {
-          groupId: this.groupId,
-          title: this.title,
-          description: this.description,
-          date: this.date,
-          accessToken
+          groupId,
+          title,
+          description,
+          date,
+          accessToken,
+          userIds
         })
 
         this.title = ''

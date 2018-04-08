@@ -45,7 +45,7 @@ export const actions = {
       console.error(e)
     }
   },
-  async createGroupEvent({ commit }, { groupId, title, description, date, accessToken }) {
+  async createGroupEvent({ commit }, { groupId, title, description, date, userIds, accessToken }) {
     try {
       const config = {
         headers: {
@@ -57,6 +57,10 @@ export const actions = {
         title,
         description,
         date
+      }, config)
+
+      await axios.post(`/events/${event.data.id}/members`, {
+        userIds
       }, config)
 
       commit('createEvent', event.data)
