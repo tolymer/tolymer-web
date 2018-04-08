@@ -52,6 +52,18 @@
       try {
         const { accessToken } = context.cookie
         const { eventId } = context.params
+        const { join } = context.query
+
+        if (join) {
+          const { id } = context.store.state
+          const userIds = [id]
+
+          await context.store.dispatch('event/addEventMembers', {
+            userIds,
+            eventId,
+            accessToken
+          })
+        }
 
         await context.store.dispatch('event/getEvent', {
           eventId,

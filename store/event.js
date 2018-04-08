@@ -20,7 +20,8 @@ export const mutations = {
   },
   getEventGames(state, payload) {
     state.games = payload
-  }
+  },
+  addEventMembers() {}
 }
 
 export const actions = {
@@ -77,6 +78,23 @@ export const actions = {
       commit('getEvent', event.data)
       commit('getEventMembers', eventMembers.data)
       commit('getEventGames', eventGames.data)
+    } catch (e) {
+      console.error(e)
+    }
+  },
+  async addEventMembers({ commit }, { eventId, userIds, accessToken }) {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+
+      await axios.post(`/events/${eventId}/members`, {
+        userIds
+      }, config)
+
+      commit('addEventMembers')
     } catch (e) {
       console.error(e)
     }
