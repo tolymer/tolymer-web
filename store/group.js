@@ -5,7 +5,8 @@ export const state = () => ({
   name: '',
   description: '',
   members: [],
-  events: []
+  events: [],
+  stats: [],
 })
 
 export const mutations = {
@@ -21,7 +22,10 @@ export const mutations = {
   getGroupEvents(state, payload) {
     state.events = payload
   },
-  addGroupMembers() {}
+  addGroupMembers() {},
+  getStats(state, payload) {
+    state.stats = payload
+  }
 }
 
 export const actions = {
@@ -73,6 +77,19 @@ export const actions = {
       await axios.post(`/groups/${groupId}/members`, {}, config)
 
       commit('addGroupMembers')
+    } catch (e) {
+      console.error(e)
+    }
+  },
+  async getStats({ commit }, { groupId, accessToken }) {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+      const stats = await axios.get(`/groups/${groupId}/stats`, config)
+      commit('getStats', stats.data)
     } catch (e) {
       console.error(e)
     }
