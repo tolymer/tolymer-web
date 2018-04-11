@@ -90,24 +90,40 @@ export default {
       );
     },
     scoreA: function() {
-      return this.games
-        .map(game => game.scores[0].point)
-        .reduce((a, b) => a + b);
+      const points = this.games.map(game => game.scores[0].point);
+
+      if (points.length === 0) {
+        return 0;
+      }
+
+      return points.reduce((a, b) => a + b);
     },
     scoreB: function() {
-      return this.games
-        .map(game => game.scores[1].point)
-        .reduce((a, b) => a + b);
+      const points = this.games.map(game => game.scores[1].point);
+
+      if (points.length === 0) {
+        return 0;
+      }
+
+      return points.reduce((a, b) => a + b);
     },
     scoreC: function() {
-      return this.games
-        .map(game => game.scores[2].point)
-        .reduce((a, b) => a + b);
+      const points = this.games.map(game => game.scores[2].point);
+
+      if (points.length === 0) {
+        return 0;
+      }
+
+      return points.reduce((a, b) => a + b);
     },
     scoreD: function() {
-      return this.games
-        .map(game => game.scores[3].point)
-        .reduce((a, b) => a + b);
+      const points = this.games.map(game => game.scores[3].point);
+
+      if (points.length === 0) {
+        return 0;
+      }
+
+      return points.reduce((a, b) => a + b);
     },
     ...mapState({
       title: state => state.event.title,
