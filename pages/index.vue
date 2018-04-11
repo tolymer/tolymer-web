@@ -64,79 +64,79 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import { parse } from 'cookie'
+import { mapState } from "vuex";
+import { parse } from "cookie";
 
-  export default {
-    middleware: ['auth'],
-    data() {
-      return {
-        loginName: '',
-        loginPassword: '',
-        signupName: '',
-        signupPassword: ''
-      }
+export default {
+  middleware: ["auth"],
+  data() {
+    return {
+      loginName: "",
+      loginPassword: "",
+      signupName: "",
+      signupPassword: ""
+    };
+  },
+  computed: mapState({
+    isLoggedIn: state => state.isLoggedIn,
+    name: state => state.name,
+    groups: state => state.groups
+  }),
+  methods: {
+    groupLink(id) {
+      return `/groups/${id}`;
     },
-    computed: mapState({
-      isLoggedIn: state => state.isLoggedIn,
-      name: state => state.name,
-      groups: state => state.groups
-    }),
-    methods: {
-      groupLink(id) {
-        return `/groups/${id}`
-      },
-      async onSubmitLogin(e) {
-        e.preventDefault()
+    async onSubmitLogin(e) {
+      e.preventDefault();
 
-        await this.$store.dispatch('login', {
-          name: this.loginName,
-          password: this.loginPassword
-        })
+      await this.$store.dispatch("login", {
+        name: this.loginName,
+        password: this.loginPassword
+      });
 
-        this.loginName = ''
-        this.loginPassword = ''
+      this.loginName = "";
+      this.loginPassword = "";
 
-        const { accessToken } = parse(document.cookie)
+      const { accessToken } = parse(document.cookie);
 
-        await this.$store.dispatch('getCurrentUser', {
-          accessToken
-        })
-      },
-      async onSubmitSignup(e) {
-        e.preventDefault()
+      await this.$store.dispatch("getCurrentUser", {
+        accessToken
+      });
+    },
+    async onSubmitSignup(e) {
+      e.preventDefault();
 
-        const name = this.signupName
-        const password = this.signupPassword
+      const name = this.signupName;
+      const password = this.signupPassword;
 
-        await this.$store.dispatch('user/createUser', {
-          name,
-          password
-        })
+      await this.$store.dispatch("user/createUser", {
+        name,
+        password
+      });
 
-        this.signupName = ''
-        this.signupPassword = ''
+      this.signupName = "";
+      this.signupPassword = "";
 
-        await this.$store.dispatch('login', {
-          name,
-          password
-        })
+      await this.$store.dispatch("login", {
+        name,
+        password
+      });
 
-        const { accessToken } = parse(document.cookie)
+      const { accessToken } = parse(document.cookie);
 
-        await this.$store.dispatch('getCurrentUser', {
-          accessToken
-        })
-      },
-      async onSubmitLogout(e) {
-        e.preventDefault()
+      await this.$store.dispatch("getCurrentUser", {
+        accessToken
+      });
+    },
+    async onSubmitLogout(e) {
+      e.preventDefault();
 
-        document.cookie = "accessToken=; max-age=0";
+      document.cookie = "accessToken=; max-age=0";
 
-        await this.$store.dispatch('logout')
+      await this.$store.dispatch("logout");
 
-        await this.$store.dispatch('deleteCurrentUser')
-      }
+      await this.$store.dispatch("deleteCurrentUser");
     }
   }
+};
 </script>

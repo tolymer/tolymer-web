@@ -41,59 +41,53 @@
 </template>
 
 <script>
-  import { parse } from 'cookie'
-  import { format } from 'date-fns'
+import { parse } from "cookie";
+import { format } from "date-fns";
 
-  export default {
-    props: {
-      groupId: {
-        type: String,
-        required: true
-      },
-      members: {
-        type: Array,
-        required: true,
-        default: () => []
-      }
+export default {
+  props: {
+    groupId: {
+      type: String,
+      required: true
     },
-    data() {
-      return {
-        title: '',
-        description: '',
-        date: format(Date.now(), 'YYYY-MM-DD'),
-        userIds: []
+    members: {
+      type: Array,
+      required: true,
+      default: () => []
+    }
+  },
+  data() {
+    return {
+      title: "",
+      description: "",
+      date: format(Date.now(), "YYYY-MM-DD"),
+      userIds: []
+    };
+  },
+  methods: {
+    async onClick(e) {
+      e.preventDefault();
+
+      const { accessToken } = parse(document.cookie);
+      const { groupId, title, description, date, userIds } = this;
+
+      if (userIds.length !== 4) {
+        return;
       }
-    },
-    methods: {
-      async onClick(e) {
-        e.preventDefault()
 
-        const { accessToken } = parse(document.cookie)
-        const {
-          groupId,
-          title,
-          description,
-          date,
-          userIds
-        } = this
+      await this.$store.dispatch("event/createGroupEvent", {
+        groupId,
+        title,
+        description,
+        date,
+        accessToken,
+        userIds
+      });
 
-        if (userIds.length !== 4) {
-          return
-        }
-
-        await this.$store.dispatch('event/createGroupEvent', {
-          groupId,
-          title,
-          description,
-          date,
-          accessToken,
-          userIds
-        })
-
-        this.title = ''
-        this.description = ''
-        this.date = ''
-      }
+      this.title = "";
+      this.description = "";
+      this.date = "";
     }
   }
+};
 </script>
