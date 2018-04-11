@@ -17,17 +17,53 @@
         </tr>
       </tbody>
     </table>
+    <h2>Chart</h2>
+    <line-chart :data="calcChartData()" />
   </section>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import LineChart from "~/components/LineChart";
 
 export default {
   middleware: ["auth"],
+  components: { LineChart },
   data() {
     return {
-      groupId: ""
+      groupId: "",
+      d: {
+        labels: [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December"
+        ],
+        datasets: [
+          {
+            label: "1000ch",
+            fill: false,
+            borderColor: "red",
+            backgroundColor: "red",
+            data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+          },
+          {
+            label: "hokaccha",
+            fill: false,
+            borderColor: "blue",
+            backgroundColor: "blue",
+            data: [10, 30, 14, 19, 0, 20, 9, 8, 0, 30, 32, 21]
+          }
+        ]
+      }
     };
   },
   async asyncData(context) {
@@ -62,6 +98,39 @@ export default {
         });
       });
       return totalScore;
+    },
+    calcChartData() {
+      const labels = [];
+      const datasets = {};
+      const colors = ["red", "blue", "green", "yellow"];
+      this.members.forEach((member, i) => {
+        datasets[member.id] = {
+          label: member.name,
+          fill: false,
+          borderColor: colors[i],
+          backgroundColor: colors[i],
+          data: []
+        };
+      });
+      this.stats.forEach(stat => {
+        labels.push(stat.date);
+        const scoreByUserId = {};
+        this.members.forEach(m => (scoreByUserId[m.id] = 0));
+        stat.scores.forEach(score => {
+          score.forEach(s => {
+            scoreByUserId[s.user_id] += s.point;
+          });
+        });
+        stat.tips.forEach(t => {
+          scoreByUserId[t.user_id] += t.point;
+        });
+        this.members.forEach(member => {
+          const data = datasets[member.id].data;
+          const beforeValue = data[data.length - 1] || 0;
+          datasets[member.id].data.push(scoreByUserId[member.id] + beforeValue);
+        });
+      });
+      return { labels, datasets: Object.values(datasets) };
     }
   },
   async fetch(context) {
