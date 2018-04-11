@@ -1,5 +1,4 @@
-const axios = require("axios");
-const apiBaseUrl = process.env.API_BASE_URL || "http://localhost:3000";
+const axios = require("../axios");
 
 module.exports = {
   create: {
@@ -10,7 +9,7 @@ module.exports = {
 
       try {
         const group = await axios.post(
-          `${apiBaseUrl}/groups`,
+          `/groups`,
           {
             name,
             description
@@ -33,7 +32,7 @@ module.exports = {
       const { headers } = req;
 
       try {
-        const group = await axios.get(`${apiBaseUrl}/groups/${groupId}`, {
+        const group = await axios.get(`/groups/${groupId}`, {
           headers
         });
 
@@ -52,7 +51,7 @@ module.exports = {
 
       try {
         const group = await axios.post(
-          `${apiBaseUrl}/groups/${groupId}`,
+          `/groups/${groupId}`,
           {
             name,
             description
