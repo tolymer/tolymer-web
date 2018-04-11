@@ -43,7 +43,7 @@ module.exports = {
   },
   env: {
     apiBaseUrl: process.env.API_BASE_URL || 'http://localhost:3000',
-    appBaseUrl: process.env.APP_BASE_URL || 'http://localhost:5000'
+    appBaseUrl: process.env.APP_BASE_URL || 'http://localhost:7700'
   },
   css: [
     '~assets/css/lib.css',
