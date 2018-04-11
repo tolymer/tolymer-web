@@ -30,64 +30,64 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import CreateGroupEvent from '~/components/CreateGroupEvent'
+import { mapState } from "vuex";
+import CreateGroupEvent from "~/components/CreateGroupEvent";
 
-  export default {
-    middleware: ['auth'],
-    components: {
-      CreateGroupEvent
+export default {
+  middleware: ["auth"],
+  components: {
+    CreateGroupEvent
+  },
+  data() {
+    return {
+      groupId: ""
+    };
+  },
+  computed: mapState({
+    id: state => state.group.id,
+    name: state => state.group.name,
+    description: state => state.group.description,
+    members: state => state.group.members,
+    events: state => state.group.events
+  }),
+  methods: {
+    userLink(id) {
+      return `/users/${id}`;
     },
-    data() {
-      return {
-        groupId: ''
-      }
-    },
-    computed: mapState({
-      id: state => state.group.id,
-      name: state => state.group.name,
-      description: state => state.group.description,
-      members: state => state.group.members,
-      events: state => state.group.events
-    }),
-    methods: {
-      userLink(id) {
-        return `/users/${id}`
-      },
-      eventLink(id) {
-        return `/events/${id}`
-      }
-    },
-    async asyncData(context) {
-      const { groupId } = context.params
+    eventLink(id) {
+      return `/events/${id}`;
+    }
+  },
+  async asyncData(context) {
+    const { groupId } = context.params;
 
-      return {
+    return {
+      groupId
+    };
+  },
+  async fetch(context) {
+    try {
+      const { accessToken } = context.cookie;
+      const { groupId } = context.params;
+      const { join } = context.query;
+
+      if (join) {
+        await context.store.dispatch("group/addGroupMembers", {
+          groupId,
+          accessToken
+        });
+      }
+
+      await context.store.dispatch("group/getGroup", {
+        accessToken,
         groupId
-      }
-    },
-    async fetch(context) {
-      try {
-        const { accessToken } = context.cookie
-        const { groupId } = context.params
-        const { join } = context.query
-
-        if (join) {
-          await context.store.dispatch('group/addGroupMembers', {
-            groupId,
-            accessToken
-          })
-        }
-
-        await context.store.dispatch('group/getGroup', {
-          accessToken,
-          groupId
-        })
-      } catch (e) {
-        context.error({
-          message: 'Not found',
-          statusCode: 404
-        })
-      }
+      });
+    } catch (e) {
+      context.error({
+        message: "Not found",
+        statusCode: 404
+      });
     }
   }
+};
 </script>

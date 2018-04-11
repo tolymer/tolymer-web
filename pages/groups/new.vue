@@ -6,12 +6,12 @@
 </template>
 
 <script>
-  import CreateGroup from '~/components/CreateGroup'
+import CreateGroup from "~/components/CreateGroup";
 
-  export default {
-    middleware: ['auth'],
-    components: {
-      CreateGroup
-    }
+export default {
+  middleware: ["auth"],
+  components: {
+    CreateGroup
   }
+};
 </script>
