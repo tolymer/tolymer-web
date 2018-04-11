@@ -29,11 +29,13 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.1.1",
     "body-parser": "^1.18.2",
+    "chart.js": "^2.7.2",
     "cookie": "^0.3.1",
     "cookie-parser": "^1.4.3",
     "date-fns": "^1.29.0",
     "normalize.css": "^8.0.0",
-    "nuxt": "^1.0.0"
+    "nuxt": "^1.0.0",
+    "vue-chartjs": "^3.3.1"
   },
   "devDependencies": {
     "@mapbox/stylelint-processor-arbitrary-tags": "^0.2.0",
