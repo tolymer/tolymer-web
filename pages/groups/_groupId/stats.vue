@@ -31,39 +31,7 @@ export default {
   components: { LineChart },
   data() {
     return {
-      groupId: "",
-      d: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December"
-        ],
-        datasets: [
-          {
-            label: "1000ch",
-            fill: false,
-            borderColor: "red",
-            backgroundColor: "red",
-            data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
-          },
-          {
-            label: "hokaccha",
-            fill: false,
-            borderColor: "blue",
-            backgroundColor: "blue",
-            data: [10, 30, 14, 19, 0, 20, 9, 8, 0, 30, 32, 21]
-          }
-        ]
-      }
+      groupId: ""
     };
   },
   async asyncData(context) {
