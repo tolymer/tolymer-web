@@ -1,6 +1,6 @@
 module.exports = {
   plugins: {
-    'postcss-import': true,
-    'postcss-cssnext': false
+    "postcss-import": true,
+    "postcss-cssnext": false
   }
-}
+};

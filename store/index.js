@@ -1,68 +1,68 @@
-import axios from '~/plugins/axios'
+import axios from "~/plugins/axios";
 
 export const state = () => ({
   isLoggedIn: false,
-  id: '',
-  name: '',
+  id: "",
+  name: "",
   groups: []
-})
+});
 
 export const mutations = {
   login(state) {
-    state.isLoggedIn = true
+    state.isLoggedIn = true;
   },
   logout(state) {
-    state.isLoggedIn = false
+    state.isLoggedIn = false;
   },
   getCurrentUser(state, payload) {
-    state.id = payload.id
-    state.name = payload.name
-    state.groups = payload.groups
+    state.id = payload.id;
+    state.name = payload.name;
+    state.groups = payload.groups;
   },
   deleteCurrentUser(state) {
-    state.id = ''
-    state.name = ''
-    state.groups = []
+    state.id = "";
+    state.name = "";
+    state.groups = [];
   }
-}
+};
 
 export const actions = {
   async loggedIn({ commit }) {
-    commit('login')
+    commit("login");
   },
   async login({ commit }, { name, password }) {
     try {
-      await axios.post('/user_token', {
+      await axios.post("/user_token", {
         auth: {
           name,
           password
         }
-      })
+      });
 
-      commit('login')
+      commit("login");
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
   },
   async logout({ commit }) {
-    commit('logout')
+    commit("logout");
   },
   async getCurrentUser({ commit }, { accessToken }) {
     const config = {
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
-    }
+    };
 
-    const user = await axios.get('/current_user', config)
-    const userGroups = await axios.get('/current_user/groups', config)
+    const user = await axios.get("/current_user", config);
+    const userGroups = await axios.get("/current_user/groups", config);
     const payload = Object.assign({}, user.data, {
       groups: userGroups.data
-    })
+    });
 
-    commit('getCurrentUser', payload)
+    commit("getCurrentUser", payload);
   },
   async deleteCurrentUser({ commit }) {
-    commit('deleteCurrentUser')
+    commit("deleteCurrentUser");
   }
-}
+};
