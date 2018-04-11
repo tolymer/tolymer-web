@@ -6,12 +6,12 @@
 </template>
 
 <script>
-  import CreateEvent from '~/components/CreateEvent'
+import CreateEvent from "~/components/CreateEvent";
 
-  export default {
-    middleware: ['auth'],
-    components: {
-      CreateEvent
-    }
+export default {
+  middleware: ["auth"],
+  components: {
+    CreateEvent
   }
+};
 </script>
