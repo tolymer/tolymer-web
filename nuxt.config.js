@@ -15,6 +15,7 @@ module.exports = {
   ** Customize the progress bar color
   */
   loading: false,
+  srcDir: "src",
   /*
   ** Build configuration
   */
