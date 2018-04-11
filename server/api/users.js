@@ -1,44 +1,44 @@
-const axios = require('axios')
-const apiBaseUrl = process.env.API_BASE_URL || 'http://localhost:3000'
+const axios = require("axios");
+const apiBaseUrl = process.env.API_BASE_URL || "http://localhost:3000";
 
 module.exports = {
   create: {
-    path: '/users',
+    path: "/users",
     handler: async (req, res) => {
-      const { name, password } = req.body
+      const { name, password } = req.body;
 
       try {
         const users = await axios.post(`${apiBaseUrl}/users`, {
           name,
           password
-        })
+        });
 
-        res.status(201).json(users.data)
+        res.status(201).json(users.data);
       } catch (e) {
-        res.status(404).json({})
+        res.status(404).json({});
       }
     }
   },
   read: {
-    path: '/users/:userId',
+    path: "/users/:userId",
     handler: async (req, res) => {
-      const { userId } = req.params
+      const { userId } = req.params;
 
       try {
-        const users = await axios.get(`${apiBaseUrl}/users/${userId}`)
+        const users = await axios.get(`${apiBaseUrl}/users/${userId}`);
 
-        res.status(200).json(users.data)
+        res.status(200).json(users.data);
       } catch (e) {
-        res.status(404).json({})
+        res.status(404).json({});
       }
     }
   },
   update: {
-    path: '/users/*',
+    path: "/users/*",
     handler: async (req, res) => res.status(403).json({})
   },
   delete: {
-    path: '/users/*',
+    path: "/users/*",
     handler: async (req, res) => res.status(403).json({})
   }
-}
+};
