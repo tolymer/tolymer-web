@@ -1,5 +1,4 @@
-const axios = require("axios");
-const apiBaseUrl = process.env.API_BASE_URL || "http://localhost:3000";
+const axios = require("../axios");
 
 module.exports = {
   create: {
@@ -10,7 +9,7 @@ module.exports = {
 
       try {
         const event = await axios.post(
-          `${apiBaseUrl}/events`,
+          `/events`,
           {
             title,
             description,
@@ -34,7 +33,7 @@ module.exports = {
       const { headers } = req;
 
       try {
-        const event = await axios.get(`${apiBaseUrl}/events/${eventId}`, {
+        const event = await axios.get(`/events/${eventId}`, {
           headers
         });
 

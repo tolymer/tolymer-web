@@ -1,5 +1,4 @@
-const axios = require("axios");
-const apiBaseUrl = process.env.API_BASE_URL || "http://localhost:3000";
+const axios = require("../axios");
 
 module.exports = {
   create: {
@@ -8,7 +7,7 @@ module.exports = {
       const { name, password } = req.body.auth;
 
       try {
-        const userToken = await axios.post(`${apiBaseUrl}/user_token`, {
+        const userToken = await axios.post(`/user_token`, {
           auth: {
             name,
             password
@@ -16,7 +15,7 @@ module.exports = {
         });
 
         res.cookie("accessToken", userToken.data.jwt, {
-          httpOnly: false,
+          axiosOnly: false,
           maxAge: 1000 * 60 * 60 * 24,
           secure: false // true
         });

@@ -1,5 +1,4 @@
-const axios = require("axios");
-const apiBaseUrl = process.env.API_BASE_URL || "http://localhost:3000";
+const axios = require("../axios");
 
 module.exports = {
   create: {
@@ -8,7 +7,7 @@ module.exports = {
       const { name, password } = req.body;
 
       try {
-        const users = await axios.post(`${apiBaseUrl}/users`, {
+        const users = await axios.post(`/users`, {
           name,
           password
         });
@@ -25,7 +24,7 @@ module.exports = {
       const { userId } = req.params;
 
       try {
-        const users = await axios.get(`${apiBaseUrl}/users/${userId}`);
+        const users = await axios.get(`/users/${userId}`);
 
         res.status(200).json(users.data);
       } catch (e) {

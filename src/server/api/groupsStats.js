@@ -1,5 +1,4 @@
-const axios = require("axios");
-const apiBaseUrl = process.env.API_BASE_URL || "http://localhost:3000";
+const axios = require("../axios");
 
 module.exports = {
   read: {
@@ -9,7 +8,7 @@ module.exports = {
       const { headers } = req;
 
       try {
-        const stats = await axios.get(`${apiBaseUrl}/groups/${groupId}/stats`, {
+        const stats = await axios.get(`/groups/${groupId}/stats`, {
           headers
         });
 
