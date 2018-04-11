@@ -6,17 +6,17 @@
 }
 
 html {
-  font-size: 62.5%;
   box-sizing: border-box;
   word-wrap: break-word;
+  font-size: 62.5%;
   overflow-wrap: break-word;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--color-white);
   color: var(--color-black);
+  background-color: var(--color-white);
   font-size: 2rem;
 }
 

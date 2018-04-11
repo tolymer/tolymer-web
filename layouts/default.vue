@@ -20,9 +20,9 @@ export default {
 
 <style>
 main {
-  margin: 0 auto;
   min-width: 320px;
   max-width: 640px;
+  margin: 0 auto;
 }
 
 .Main {
