@@ -1,17 +1,56 @@
 <template>
   <section>
-    <h2>グループを作成する</h2>
-    <CreateGroup />
+    <Header/>
+    <form
+      class="FormContainer"
+      @submit="onSubmit">
+      <BaseInput
+        v-model="name"
+        label="グループ名" />
+      <BaseInput
+        v-model="description"
+        label="グループ" />
+      <BaseButton type="submit">
+        登録
+      </BaseButton>
+    </form>
   </section>
 </template>
 
 <script>
-import CreateGroup from "~/components/CreateGroup";
+import { parse } from "cookie";
+import Header from '~/components/Header';
+import BaseInput from '~/components/BaseInput';
+import BaseButton from '~/components/BaseButton';
 
 export default {
   middleware: ["auth"],
   components: {
-    CreateGroup
+    Header,
+    BaseInput,
+    BaseButton
+  },
+  data() {
+    return {
+      name: "",
+      description: ""
+    };
+  },
+  methods: {
+    async onSubmit(e) {
+      e.preventDefault();
+
+      const { accessToken } = parse(document.cookie);
+
+      await this.$store.dispatch("group/createGroup", {
+        name: this.name,
+        description: this.description,
+        accessToken
+      });
+
+      this.name = "";
+      this.description = "";
+    }
   }
 };
 </script>

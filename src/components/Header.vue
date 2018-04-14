@@ -1,23 +1,25 @@
 <template>
   <header>
-    <h1>
-      <router-link
-        class="Title"
-        to="/">
-        Tolymer
-      </router-link>
-    </h1>
+    {{ name }}
   </header>
 </template>
 
+<script>
+import { mapState } from "vuex";
+
+export default {
+  computed: mapState({
+    name: state => state.name
+  })
+};
+</script>
+
 <style>
 header {
-  padding: var(--space-base) calc(var(--space-base) * 2);
-  color: var(--color-white);
-  background-color: var(--color-black);
-}
-
-.Title {
-  color: var(--color-white);
+  padding: calc(var(--space-base) * 2);
+  color: var(--color-black);
+  background-color: var(--color-gray);
+  font-weight: bold;
+  text-align: center;
 }
 </style>

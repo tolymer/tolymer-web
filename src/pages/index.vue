@@ -1,64 +1,35 @@
 <template>
   <section>
     <div v-if="!isLoggedIn">
-      <h2>ログイン</h2>
-      <form @submit="onSubmitLogin">
-        <label>
-          名前
-          <input
-            v-model="loginName"
-            type="text">
-        </label>
-        <label>
-          パスワード
-          <input
-            v-model="loginPassword"
-            type="password">
-        </label>
-        <button type="submit">ログインする</button>
-      </form>
-      <h2>新規登録</h2>
-      <form @submit="onSubmitSignup">
-        <label>
-          名前
-          <input
-            v-model="signupName"
-            type="text">
-        </label>
-        <label>
-          パスワード
-          <input
-            v-model="signupPassword"
-            type="password">
-        </label>
-        <button type="submit">ユーザーを作成する</button>
+      <form
+        class="FormContainer"
+        @submit="onSubmitLogin">
+        <BaseInput
+          v-model="name"
+          label="ログインID"/>
+        <BaseInput
+          v-model="password"
+          label="パスワード"/>
+        <BaseButton type="submit">
+          ログイン
+        </BaseButton>
       </form>
     </div>
     <div v-if="isLoggedIn">
-      <h2>{{ name }}</h2>
-      <form @submit="onSubmitLogout">
-        <button type="submit">ログアウトする</button>
-      </form>
-      <h3>参加中のグループ</h3>
-      <ul>
-        <li
-          v-for="(group, index) in groups"
-          :key="index">
-          <router-link :to="groupLink(group.id)">
-            {{ group.name }}
-          </router-link>
-        </li>
-      </ul>
-      <h2>
-        <router-link to="/groups/new">
-          グループを作成する
-        </router-link>
-      </h2>
-      <p>Create group which people you play with belong to.</p>
-      <h2>
-        イベントを作成する
-      </h2>
-      <p>New feature to create new event without group context.</p>
+      <Header />
+      <GroupList :groups="groups"/>
+      <div class="FormContainer">
+        <BaseButton
+          kind="bordered"
+          @click="onClickCreateGroup">
+          新しいグループをつくる
+        </BaseButton>
+        <BaseButton
+          kind="bordered"
+          @click="onClickLogout">
+          ログアウト
+        </BaseButton>
+      </div>
     </div>
   </section>
 </template>
@@ -66,36 +37,40 @@
 <script>
 import { mapState } from "vuex";
 import { parse } from "cookie";
+import Header from '~/components/Header';
+import GroupList from '~/components/GroupList';
+import BaseInput from '~/components/BaseInput';
+import BaseButton from '~/components/BaseButton';
 
 export default {
   middleware: ["auth"],
+  components: {
+    Header,
+    GroupList,
+    BaseInput,
+    BaseButton
+  },
   data() {
     return {
-      loginName: "",
-      loginPassword: "",
-      signupName: "",
-      signupPassword: ""
+      name: "",
+      password: ""
     };
   },
   computed: mapState({
     isLoggedIn: state => state.isLoggedIn,
-    name: state => state.name,
     groups: state => state.groups
   }),
   methods: {
-    groupLink(id) {
-      return `/groups/${id}`;
-    },
     async onSubmitLogin(e) {
       e.preventDefault();
 
       await this.$store.dispatch("login", {
-        name: this.loginName,
-        password: this.loginPassword
+        name: this.name,
+        password: this.password
       });
 
-      this.loginName = "";
-      this.loginPassword = "";
+      this.name = "";
+      this.password = "";
 
       const { accessToken } = parse(document.cookie);
 
@@ -103,38 +78,15 @@ export default {
         accessToken
       });
     },
-    async onSubmitSignup(e) {
-      e.preventDefault();
-
-      const name = this.signupName;
-      const password = this.signupPassword;
-
-      await this.$store.dispatch("user/createUser", {
-        name,
-        password
-      });
-
-      this.signupName = "";
-      this.signupPassword = "";
-
-      await this.$store.dispatch("login", {
-        name,
-        password
-      });
-
-      const { accessToken } = parse(document.cookie);
-
-      await this.$store.dispatch("getCurrentUser", {
-        accessToken
-      });
+    async onClickCreateGroup() {
+      this.$router.push('/groups/new');
     },
-    async onSubmitLogout(e) {
+    async onClickLogout(e) {
       e.preventDefault();
 
       document.cookie = "accessToken=; max-age=0";
 
       await this.$store.dispatch("logout");
-
       await this.$store.dispatch("deleteCurrentUser");
     }
   }
