@@ -1,8 +1,8 @@
-const axios = require("../axios");
+const axios = require('../axios');
 
 module.exports = {
   create: {
-    path: "/events/:eventId/games",
+    path: '/events/:eventId/games',
     handler: async (req, res) => {
       const { eventId } = req.params;
       const { scores } = req.body;
@@ -26,7 +26,7 @@ module.exports = {
     }
   },
   read: {
-    path: "/events/:eventId/games",
+    path: '/events/:eventId/games',
     handler: async (req, res) => {
       const { eventId } = req.params;
       const { headers } = req;
@@ -43,11 +43,11 @@ module.exports = {
     }
   },
   update: {
-    path: "/events/:eventId/games",
+    path: '/events/:eventId/games',
     handler: async (req, res) => res.status(403).json({})
   },
   delete: {
-    path: "/events/:eventId/games",
+    path: '/events/:eventId/games',
     handler: async (req, res) => res.status(403).json({})
   }
 };

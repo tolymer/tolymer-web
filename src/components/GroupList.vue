@@ -26,7 +26,7 @@ export default {
       return `/groups/${id}`;
     }
   }
-}
+};
 </script>
 
 <style>

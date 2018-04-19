@@ -1,9 +1,9 @@
-import axios from "~/plugins/axios";
+import axios from '~/plugins/axios';
 
 export const state = () => ({
-  id: "",
-  name: "",
-  description: "",
+  id: '',
+  name: '',
+  description: '',
   members: [],
   events: [],
   stats: []
@@ -46,7 +46,7 @@ export const actions = {
         config
       );
 
-      commit("createGroup", group.data);
+      commit('createGroup', group.data);
     } catch (e) {
       console.error(e);
     }
@@ -60,15 +60,12 @@ export const actions = {
       };
 
       const group = await axios.get(`/groups/${groupId}`, config);
-      const groupMembers = await axios.get(
-        `/groups/${groupId}/members`,
-        config
-      );
+      const groupMembers = await axios.get(`/groups/${groupId}/members`, config);
       const groupEvents = await axios.get(`/groups/${groupId}/events`, config);
 
-      commit("getGroup", group.data);
-      commit("getGroupMembers", groupMembers.data);
-      commit("getGroupEvents", groupEvents.data);
+      commit('getGroup', group.data);
+      commit('getGroupMembers', groupMembers.data);
+      commit('getGroupEvents', groupEvents.data);
     } catch (e) {
       console.error(e);
     }
@@ -83,7 +80,7 @@ export const actions = {
 
       await axios.post(`/groups/${groupId}/members`, {}, config);
 
-      commit("addGroupMembers");
+      commit('addGroupMembers');
     } catch (e) {
       console.error(e);
     }
@@ -96,7 +93,7 @@ export const actions = {
         }
       };
       const stats = await axios.get(`/groups/${groupId}/stats`, config);
-      commit("getStats", stats.data);
+      commit('getStats', stats.data);
     } catch (e) {
       console.error(e);
     }

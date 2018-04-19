@@ -1,7 +1,7 @@
-const express = require("express");
-const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
-const api = require("./api");
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const api = require('./api');
 
 class Server {
   constructor() {

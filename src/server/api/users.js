@@ -1,8 +1,8 @@
-const axios = require("../axios");
+const axios = require('../axios');
 
 module.exports = {
   create: {
-    path: "/users",
+    path: '/users',
     handler: async (req, res) => {
       const { name, password } = req.body;
 
@@ -19,7 +19,7 @@ module.exports = {
     }
   },
   read: {
-    path: "/users/:userId",
+    path: '/users/:userId',
     handler: async (req, res) => {
       const { userId } = req.params;
 
@@ -33,11 +33,11 @@ module.exports = {
     }
   },
   update: {
-    path: "/users/*",
+    path: '/users/*',
     handler: async (req, res) => res.status(403).json({})
   },
   delete: {
-    path: "/users/*",
+    path: '/users/*',
     handler: async (req, res) => res.status(403).json({})
   }
 };

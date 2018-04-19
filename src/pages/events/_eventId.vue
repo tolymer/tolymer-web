@@ -47,45 +47,45 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import CreateGame from "~/components/CreateGame";
+import { mapState } from 'vuex';
+import CreateGame from '~/components/CreateGame';
 
 export default {
-  middleware: ["auth"],
+  middleware: ['auth'],
   components: {
     CreateGame
   },
   data() {
     return {
-      eventId: ""
+      eventId: ''
     };
   },
   computed: {
     userA: function() {
       return (
         this.members[0] || {
-          name: ""
+          name: ''
         }
       );
     },
     userB: function() {
       return (
         this.members[1] || {
-          name: ""
+          name: ''
         }
       );
     },
     userC: function() {
       return (
         this.members[2] || {
-          name: ""
+          name: ''
         }
       );
     },
     userD: function() {
       return (
         this.members[3] || {
-          name: ""
+          name: ''
         }
       );
     },
@@ -155,20 +155,20 @@ export default {
         const { id } = context.store.state;
         const userIds = [id];
 
-        await context.store.dispatch("event/addEventMembers", {
+        await context.store.dispatch('event/addEventMembers', {
           userIds,
           eventId,
           accessToken
         });
       }
 
-      await context.store.dispatch("event/getEvent", {
+      await context.store.dispatch('event/getEvent', {
         eventId,
         accessToken
       });
     } catch (e) {
       context.error({
-        message: "Not found",
+        message: 'Not found',
         statusCode: 404
       });
     }

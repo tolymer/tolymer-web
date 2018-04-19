@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { parse } from "cookie";
+import { mapState } from 'vuex';
+import { parse } from 'cookie';
 import BaseInput from '~/components/BaseInput';
 import BaseButton from '~/components/BaseButton';
 
@@ -29,8 +29,8 @@ export default {
   },
   data() {
     return {
-      name: "",
-      password: ""
+      name: '',
+      password: ''
     };
   },
   computed: mapState({
@@ -40,22 +40,22 @@ export default {
     async onSubmit(e) {
       e.preventDefault();
 
-      await this.$store.dispatch("user/createUser", {
+      await this.$store.dispatch('user/createUser', {
         name: this.name,
         password: this.password
       });
 
-      await this.$store.dispatch("login", {
+      await this.$store.dispatch('login', {
         name: this.name,
         password: this.password
       });
 
-      this.name = "";
-      this.password = "";
+      this.name = '';
+      this.password = '';
 
       const { accessToken } = parse(document.cookie);
 
-      await this.$store.dispatch("getCurrentUser", {
+      await this.$store.dispatch('getCurrentUser', {
         accessToken
       });
     }

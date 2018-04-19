@@ -1,8 +1,8 @@
-const axios = require("../axios");
+const axios = require('../axios');
 
 module.exports = {
   create: {
-    path: "/events/:eventId/members",
+    path: '/events/:eventId/members',
     handler: async (req, res) => {
       const { eventId } = req.params;
       const { userIds } = req.body;
@@ -26,18 +26,15 @@ module.exports = {
     }
   },
   read: {
-    path: "/events/:eventId/members",
+    path: '/events/:eventId/members',
     handler: async (req, res) => {
       const { eventId } = req.params;
       const { headers } = req;
 
       try {
-        const members = await axios.get(
-          `/events/${eventId}/members`,
-          {
-            headers
-          }
-        );
+        const members = await axios.get(`/events/${eventId}/members`, {
+          headers
+        });
 
         res.status(200).json(members.data);
       } catch (e) {
@@ -46,11 +43,11 @@ module.exports = {
     }
   },
   update: {
-    path: "/events/:eventId/members",
+    path: '/events/:eventId/members',
     handler: async (req, res) => res.status(403).json({})
   },
   delete: {
-    path: "/events/:eventId/members",
+    path: '/events/:eventId/members',
     handler: async (req, res) => res.status(403).json({})
   }
 };

@@ -1,8 +1,8 @@
-import axios from "~/plugins/axios";
+import axios from '~/plugins/axios';
 
 export const state = () => ({
-  id: "",
-  name: ""
+  id: '',
+  name: ''
 });
 
 export const mutations = {
@@ -16,12 +16,12 @@ export const mutations = {
 export const actions = {
   async createUser({ commit }, { name, password }) {
     try {
-      const user = await axios.post("/users", {
+      const user = await axios.post('/users', {
         name,
         password
       });
 
-      commit("createUser", user.data);
+      commit('createUser', user.data);
     } catch (e) {
       console.error(e);
     }
@@ -30,7 +30,7 @@ export const actions = {
     try {
       const user = await axios.get(`/users/${userId}`);
 
-      commit("getUser", user.data);
+      commit('getUser', user.data);
     } catch (e) {
       console.error(e);
     }

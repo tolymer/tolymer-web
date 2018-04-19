@@ -1,8 +1,8 @@
-const axios = require("../axios");
+const axios = require('../axios');
 
 module.exports = {
   read: {
-    path: "/groups/:groupId/stats",
+    path: '/groups/:groupId/stats',
     handler: async (req, res) => {
       const { groupId } = req.params;
       const { headers } = req;

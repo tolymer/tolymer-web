@@ -39,14 +39,14 @@
 
 <script>
 import { mapState } from 'vuex';
-import { parse } from "cookie";
-import { format } from "date-fns";
-import Header from "~/components/Header";
-import BaseInput from "~/components/BaseInput";
-import BaseButton from "~/components/BaseButton";
+import { parse } from 'cookie';
+import { format } from 'date-fns';
+import Header from '~/components/Header';
+import BaseInput from '~/components/BaseInput';
+import BaseButton from '~/components/BaseButton';
 
 export default {
-  middleware: ["auth"],
+  middleware: ['auth'],
   components: {
     Header,
     BaseInput,
@@ -54,9 +54,9 @@ export default {
   },
   data() {
     return {
-      title: "",
-      description: "",
-      date: format(Date.now(), "YYYY-MM-DD"),
+      title: '',
+      description: '',
+      date: format(Date.now(), 'YYYY-MM-DD'),
       groupId: null,
       userIds: []
     };
@@ -74,16 +74,16 @@ export default {
         return;
       }
 
-      await this.$store.dispatch("event/createEvent", {
+      await this.$store.dispatch('event/createEvent', {
         title: this.title,
         description: this.description,
         date: this.date,
         accessToken
       });
 
-      this.title = "";
-      this.description = "";
-      this.date = "";
+      this.title = '';
+      this.description = '';
+      this.date = '';
     }
   },
   async asyncData(context) {
@@ -101,7 +101,7 @@ export default {
       return;
     }
 
-    await context.store.dispatch("event/getGroupMembers", {
+    await context.store.dispatch('event/getGroupMembers', {
       accessToken,
       groupId
     });
