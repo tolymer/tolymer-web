@@ -17,9 +17,9 @@ export default {
 <style>
 header {
   padding: calc(var(--space-base) * 2);
+  text-align: center;
   color: var(--color-black);
   background-color: var(--color-gray);
   font-weight: bold;
-  text-align: center;
 }
 </style>

@@ -48,14 +48,14 @@ export default {
 }
 
 .Button.-normal {
-  background-color: var(--color-gray);
   color: var(--color-black);
   border: solid 1px var(--color-gray);
+  background-color: var(--color-gray);
 }
 
 .Button.-bordered {
-  background-color: var(--color-light-gray);
   color: var(--color-black);
   border: solid 1px currentColor;
+  background-color: var(--color-light-gray);
 }
 </style>
