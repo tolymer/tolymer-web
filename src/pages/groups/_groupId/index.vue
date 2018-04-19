@@ -22,22 +22,15 @@
         </router-link>
       </li>
     </ul>
-    <h3>{{ name }}のイベントを作成する</h3>
-    <CreateGroupEvent
-      :group-id="groupId"
-      :members="members" />
+    <router-link :to="createGroupEventLink(groupId)">イベントを作成する</router-link>
   </section>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import CreateGroupEvent from "~/components/CreateGroupEvent";
 
 export default {
   middleware: ["auth"],
-  components: {
-    CreateGroupEvent
-  },
   data() {
     return {
       groupId: ""
@@ -56,6 +49,9 @@ export default {
     },
     eventLink(id) {
       return `/events/${id}`;
+    },
+    createGroupEventLink(id) {
+      return `/events/new?groupId=${id}`;
     }
   },
   async asyncData(context) {

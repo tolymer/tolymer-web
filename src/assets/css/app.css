@@ -1,7 +1,9 @@
 :root {
   --space-base: 8px;
   --radius-base: 4px;
-  --color-black: #333;
+  --color-black: #000;
+  --color-light-gray: #f0f0f0;
+  --color-gray: #bcbcbc;
   --color-white: #fff;
 }
 
@@ -12,24 +14,28 @@ html {
   overflow-wrap: break-word;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
   padding: 0;
   color: var(--color-black);
-  background-color: var(--color-white);
+  background-color: var(--color-light-gray);
+  font-family: sans-serif;
   font-size: 2rem;
 }
 
-form {
+.FormContainer {
+  padding: calc(var(--space-base) * 2);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 
-button {
-  border-radius: var(--radius-base);
-}
-
-input {
-  border-radius: var(--radius-base);
+.FormContainer > * {
+  margin: calc(var(--space-base) * 2) auto;
 }
