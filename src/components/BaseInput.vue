@@ -73,8 +73,8 @@ export default {
 
 .Input {
   padding: calc(var(--space-base) * 2);
+  color: var(--color-black);
   border: solid 1px var(--color-white);
   background-color: var(--color-white);
-  color: var(--color-black);
 }
 </style>

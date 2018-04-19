@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { parse } from "cookie";
+import { parse } from 'cookie';
 
 export default {
   props: {
@@ -92,13 +92,13 @@ export default {
       const { accessToken } = parse(document.cookie);
       const { eventId } = this;
 
-      await this.$store.dispatch("event/addEventGames", {
+      await this.$store.dispatch('event/addEventGames', {
         eventId,
         scores,
         accessToken
       });
 
-      await this.$store.dispatch("event/getEvent", {
+      await this.$store.dispatch('event/getEvent', {
         eventId,
         accessToken
       });

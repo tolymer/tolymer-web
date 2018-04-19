@@ -27,15 +27,15 @@
 </template>
 
 <script>
-import { parse } from "cookie";
-import { format } from "date-fns";
+import { parse } from 'cookie';
+import { format } from 'date-fns';
 
 export default {
   data() {
     return {
-      title: "",
-      description: "",
-      date: format(Date.now(), "YYYY-MM-DD")
+      title: '',
+      description: '',
+      date: format(Date.now(), 'YYYY-MM-DD')
     };
   },
   methods: {
@@ -44,16 +44,16 @@ export default {
 
       const { accessToken } = parse(document.cookie);
 
-      await this.$store.dispatch("event/createEvent", {
+      await this.$store.dispatch('event/createEvent', {
         title: this.title,
         description: this.description,
         date: this.date,
         accessToken
       });
 
-      this.title = "";
-      this.description = "";
-      this.date = "";
+      this.title = '';
+      this.description = '';
+      this.date = '';
     }
   }
 };

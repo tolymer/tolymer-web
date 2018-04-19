@@ -23,15 +23,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import LineChart from "~/components/LineChart";
+import { mapState } from 'vuex';
+import LineChart from '~/components/LineChart';
 
 export default {
-  middleware: ["auth"],
+  middleware: ['auth'],
   components: { LineChart },
   data() {
     return {
-      groupId: ""
+      groupId: ''
     };
   },
   async asyncData(context) {
@@ -70,7 +70,7 @@ export default {
     calcChartData() {
       const labels = [];
       const datasets = {};
-      const colors = ["red", "blue", "green", "yellow"];
+      const colors = ['red', 'blue', 'green', 'yellow'];
       this.members.forEach((member, i) => {
         datasets[member.id] = {
           label: member.name,
@@ -106,18 +106,18 @@ export default {
       const { accessToken } = context.cookie;
       const { groupId } = context.params;
 
-      await context.store.dispatch("group/getGroup", {
+      await context.store.dispatch('group/getGroup', {
         groupId,
         accessToken
       });
 
-      await context.store.dispatch("group/getStats", {
+      await context.store.dispatch('group/getStats', {
         accessToken,
         groupId
       });
     } catch (e) {
       context.error({
-        message: "Not found",
+        message: 'Not found',
         statusCode: 404
       });
     }

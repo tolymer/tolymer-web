@@ -35,15 +35,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { parse } from "cookie";
+import { mapState } from 'vuex';
+import { parse } from 'cookie';
 import Header from '~/components/Header';
 import GroupList from '~/components/GroupList';
 import BaseInput from '~/components/BaseInput';
 import BaseButton from '~/components/BaseButton';
 
 export default {
-  middleware: ["auth"],
+  middleware: ['auth'],
   components: {
     Header,
     GroupList,
@@ -52,8 +52,8 @@ export default {
   },
   data() {
     return {
-      name: "",
-      password: ""
+      name: '',
+      password: ''
     };
   },
   computed: mapState({
@@ -64,17 +64,17 @@ export default {
     async onSubmitLogin(e) {
       e.preventDefault();
 
-      await this.$store.dispatch("login", {
+      await this.$store.dispatch('login', {
         name: this.name,
         password: this.password
       });
 
-      this.name = "";
-      this.password = "";
+      this.name = '';
+      this.password = '';
 
       const { accessToken } = parse(document.cookie);
 
-      await this.$store.dispatch("getCurrentUser", {
+      await this.$store.dispatch('getCurrentUser', {
         accessToken
       });
     },
@@ -84,10 +84,10 @@ export default {
     async onClickLogout(e) {
       e.preventDefault();
 
-      document.cookie = "accessToken=; max-age=0";
+      document.cookie = 'accessToken=; max-age=0';
 
-      await this.$store.dispatch("logout");
-      await this.$store.dispatch("deleteCurrentUser");
+      await this.$store.dispatch('logout');
+      await this.$store.dispatch('deleteCurrentUser');
     }
   }
 };

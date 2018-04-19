@@ -1,9 +1,9 @@
-import axios from "~/plugins/axios";
+import axios from '~/plugins/axios';
 
 export const state = () => ({
-  title: "",
-  description: "",
-  date: "",
+  title: '',
+  description: '',
+  date: '',
   members: [],
   games: [],
   groupMembers: []
@@ -48,15 +48,12 @@ export const actions = {
         config
       );
 
-      commit("createEvent", event.data);
+      commit('createEvent', event.data);
     } catch (e) {
       console.error(e);
     }
   },
-  async createGroupEvent(
-    { commit },
-    { groupId, title, description, date, userIds, accessToken }
-  ) {
+  async createGroupEvent({ commit }, { groupId, title, description, date, userIds, accessToken }) {
     try {
       const config = {
         headers: {
@@ -82,7 +79,7 @@ export const actions = {
         config
       );
 
-      commit("createEvent", event.data);
+      commit('createEvent', event.data);
     } catch (e) {
       console.error(e);
     }
@@ -96,15 +93,12 @@ export const actions = {
       };
 
       const event = await axios.get(`/events/${eventId}`, config);
-      const eventMembers = await axios.get(
-        `/events/${eventId}/members`,
-        config
-      );
+      const eventMembers = await axios.get(`/events/${eventId}/members`, config);
       const eventGames = await axios.get(`/events/${eventId}/games`, config);
 
-      commit("getEvent", event.data);
-      commit("getEventMembers", eventMembers.data);
-      commit("getEventGames", eventGames.data);
+      commit('getEvent', event.data);
+      commit('getEventMembers', eventMembers.data);
+      commit('getEventGames', eventGames.data);
     } catch (e) {
       console.error(e);
     }
@@ -117,12 +111,9 @@ export const actions = {
         }
       };
 
-      const groupMembers = await axios.get(
-        `/groups/${groupId}/members`,
-        config
-      );
+      const groupMembers = await axios.get(`/groups/${groupId}/members`, config);
 
-      commit("getGroupMembers", groupMembers.data);
+      commit('getGroupMembers', groupMembers.data);
     } catch (e) {
       console.error(e);
     }
@@ -143,7 +134,7 @@ export const actions = {
         config
       );
 
-      commit("addEventMembers");
+      commit('addEventMembers');
     } catch (e) {
       console.error(e);
     }
@@ -164,7 +155,7 @@ export const actions = {
         config
       );
 
-      commit("addEventMembers");
+      commit('addEventMembers');
     } catch (e) {
       console.error(e);
     }

@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import { parse } from "cookie";
+import { parse } from 'cookie';
 import Header from '~/components/Header';
 import BaseInput from '~/components/BaseInput';
 import BaseButton from '~/components/BaseButton';
 
 export default {
-  middleware: ["auth"],
+  middleware: ['auth'],
   components: {
     Header,
     BaseInput,
@@ -32,8 +32,8 @@ export default {
   },
   data() {
     return {
-      name: "",
-      description: ""
+      name: '',
+      description: ''
     };
   },
   methods: {
@@ -42,14 +42,14 @@ export default {
 
       const { accessToken } = parse(document.cookie);
 
-      await this.$store.dispatch("group/createGroup", {
+      await this.$store.dispatch('group/createGroup', {
         name: this.name,
         description: this.description,
         accessToken
       });
 
-      this.name = "";
-      this.description = "";
+      this.name = '';
+      this.description = '';
     }
   }
 };

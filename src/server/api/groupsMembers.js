@@ -1,8 +1,8 @@
-const axios = require("../axios");
+const axios = require('../axios');
 
 module.exports = {
   create: {
-    path: "/groups/:groupId/members",
+    path: '/groups/:groupId/members',
     handler: async (req, res) => {
       const { groupId } = req.params;
       const { headers } = req;
@@ -23,18 +23,15 @@ module.exports = {
     }
   },
   read: {
-    path: "/groups/:groupId/members",
+    path: '/groups/:groupId/members',
     handler: async (req, res) => {
       const { groupId } = req.params;
       const { headers } = req;
 
       try {
-        const group = await axios.get(
-          `/groups/${groupId}/members`,
-          {
-            headers
-          }
-        );
+        const group = await axios.get(`/groups/${groupId}/members`, {
+          headers
+        });
 
         res.status(200).json(group.data);
       } catch (e) {
@@ -43,11 +40,11 @@ module.exports = {
     }
   },
   update: {
-    path: "/groups/:groupId/members",
+    path: '/groups/:groupId/members',
     handler: async (req, res) => res.status(403).json({})
   },
   delete: {
-    path: "/groups/:groupId/members",
+    path: '/groups/:groupId/members',
     handler: async (req, res) => res.status(403).json({})
   }
 };

@@ -27,13 +27,13 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
-  middleware: ["auth"],
+  middleware: ['auth'],
   data() {
     return {
-      groupId: ""
+      groupId: ''
     };
   },
   computed: mapState({
@@ -68,19 +68,19 @@ export default {
       const { join } = context.query;
 
       if (join) {
-        await context.store.dispatch("group/addGroupMembers", {
+        await context.store.dispatch('group/addGroupMembers', {
           groupId,
           accessToken
         });
       }
 
-      await context.store.dispatch("group/getGroup", {
+      await context.store.dispatch('group/getGroup', {
         accessToken,
         groupId
       });
     } catch (e) {
       context.error({
-        message: "Not found",
+        message: 'Not found',
         statusCode: 404
       });
     }

@@ -1,8 +1,8 @@
-const axios = require("../axios");
+const axios = require('../axios');
 
 module.exports = {
   create: {
-    path: "/groups",
+    path: '/groups',
     handler: async (req, res) => {
       const { name, description } = req.body;
       const { headers } = req;
@@ -26,7 +26,7 @@ module.exports = {
     }
   },
   read: {
-    path: "/groups/:groupId",
+    path: '/groups/:groupId',
     handler: async (req, res) => {
       const { groupId } = req.params;
       const { headers } = req;
@@ -43,7 +43,7 @@ module.exports = {
     }
   },
   update: {
-    path: "/groups/:groupId",
+    path: '/groups/:groupId',
     handler: async (req, res) => {
       const { groupId } = req.params;
       const { name, description } = req.body;
@@ -68,7 +68,7 @@ module.exports = {
     }
   },
   delete: {
-    path: "/groups",
+    path: '/groups',
     handler: async (req, res) => res.status(403).json({})
   }
 };

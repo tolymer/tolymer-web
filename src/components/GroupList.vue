@@ -26,7 +26,7 @@ export default {
       return `/groups/${id}`;
     }
   }
-}
+};
 </script>
 
 <style>
@@ -46,9 +46,9 @@ export default {
 }
 
 .GroupList__Link {
-  padding: calc(var(--space-base) * 2);
   width: 100%;
-  color: var(--color-black);
+  padding: calc(var(--space-base) * 2);
   text-decoration: none;
+  color: var(--color-black);
 }
 </style>

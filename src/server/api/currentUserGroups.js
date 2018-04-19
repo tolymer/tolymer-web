@@ -1,22 +1,19 @@
-const axios = require("../axios");
+const axios = require('../axios');
 
 module.exports = {
   create: {
-    path: "/current_user/groups",
+    path: '/current_user/groups',
     handler: async (req, res) => res.status(403).json({})
   },
   read: {
-    path: "/current_user/groups",
+    path: '/current_user/groups',
     handler: async (req, res) => {
       const { headers } = req;
 
       try {
-        const currentUserGroups = await axios.get(
-          `/current_user/groups`,
-          {
-            headers
-          }
-        );
+        const currentUserGroups = await axios.get(`/current_user/groups`, {
+          headers
+        });
 
         res.status(200).json(currentUserGroups.data);
       } catch (e) {
@@ -25,11 +22,11 @@ module.exports = {
     }
   },
   update: {
-    path: "/current_user/groups",
+    path: '/current_user/groups',
     handler: async (req, res) => res.status(403).json({})
   },
   delete: {
-    path: "/current_user/groups",
+    path: '/current_user/groups',
     handler: async (req, res) => res.status(403).json({})
   }
 };
