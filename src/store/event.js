@@ -10,11 +10,25 @@ export const state = () => ({
 });
 
 export const mutations = {
-  createEvent() {},
+  createEvent(state, payload) {
+    state.title = payload.title;
+    state.description = payload.description;
+    state.date = payload.date;
+  },
   getEvent(state, payload) {
     state.title = payload.title;
     state.description = payload.description;
     state.date = payload.date;
+  },
+  updateEvent(state, payload) {
+    state.title = payload.title;
+    state.description = payload.description;
+    state.date = payload.date;
+  },
+  deleteEvent(state) {
+    state.title = '';
+    state.description = '';
+    state.date = '';
   },
   getEventMembers(state, payload) {
     state.members = payload;
@@ -53,6 +67,67 @@ export const actions = {
       console.error(e);
     }
   },
+  async getEvent({ commit }, { eventId, accessToken }) {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      };
+
+      const event = await axios.get(`/events/${eventId}`, config);
+      const eventMembers = await axios.get(`/events/${eventId}/members`, config);
+      const eventGames = await axios.get(`/events/${eventId}/games`, config);
+
+      commit('getEvent', event.data);
+      commit('getEventMembers', eventMembers.data);
+      commit('getEventGames', eventGames.data);
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  async updateEvent({ commit }, { eventId, title, description, date, accessToken }) {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      };
+
+      const event = await axios.patch(
+        `/events/${eventId}`,
+        {
+          title,
+          description,
+          date
+        },
+        config
+      );
+
+      commit('updateEvent', event.data);
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  async deleteEvent({ commit }, { eventId, accessToken }) {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      };
+
+      const event = await axios.delete(
+        `/events/${eventId}`,
+        {},
+        config
+      );
+
+      commit('deleteEvent', event.data);
+    } catch (e) {
+      console.error(e);
+    }
+  },
   async createGroupEvent({ commit }, { groupId, title, description, date, userIds, accessToken }) {
     try {
       const config = {
@@ -80,25 +155,6 @@ export const actions = {
       );
 
       commit('createEvent', event.data);
-    } catch (e) {
-      console.error(e);
-    }
-  },
-  async getEvent({ commit }, { eventId, accessToken }) {
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
-      const event = await axios.get(`/events/${eventId}`, config);
-      const eventMembers = await axios.get(`/events/${eventId}/members`, config);
-      const eventGames = await axios.get(`/events/${eventId}/games`, config);
-
-      commit('getEvent', event.data);
-      commit('getEventMembers', eventMembers.data);
-      commit('getEventGames', eventGames.data);
     } catch (e) {
       console.error(e);
     }
