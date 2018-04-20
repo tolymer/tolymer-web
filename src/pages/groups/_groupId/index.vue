@@ -1,36 +1,32 @@
 <template>
   <section>
-    <h2>{{ name }}</h2>
-    <p>{{ description }}</p>
-    <h3>{{ name }}のメンバー</h3>
-    <ul>
-      <li
-        v-for="(member, index) in members"
-        :key="index">
-        <router-link :to="userLink(member.id)">
-          {{ member.name }}
-        </router-link>
-      </li>
-    </ul>
-    <h3>{{ name }}のイベント</h3>
-    <ul>
-      <li
-        v-for="(event, index) in events"
-        :key="index">
-        <router-link :to="eventLink(event.id)">
-          {{ event.title }}
-        </router-link>
-      </li>
-    </ul>
-    <router-link :to="createGroupEventLink(groupId)">イベントを作成する</router-link>
+    <Header :title="name" />
+    <EventList :events="events" />
+    <FormContainer>
+      <BaseButton
+        kind="bordered"
+        @click="onClickCreateEvent">
+        新しいイベントをつくる
+      </BaseButton>
+    </FormContainer>
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import Header from '~/components/Header';
+import EventList from '~/components/EventList';
+import FormContainer from '~/components/FormContainer';
+import BaseButton from '~/components/BaseButton';
 
 export default {
   middleware: ['auth'],
+  components: {
+    Header,
+    EventList,
+    FormContainer,
+    BaseButton
+  },
   data() {
     return {
       groupId: ''
@@ -39,7 +35,6 @@ export default {
   computed: mapState({
     id: state => state.group.id,
     name: state => state.group.name,
-    description: state => state.group.description,
     members: state => state.group.members,
     events: state => state.group.events
   }),
@@ -47,11 +42,8 @@ export default {
     userLink(id) {
       return `/users/${id}`;
     },
-    eventLink(id) {
-      return `/events/${id}`;
-    },
-    createGroupEventLink(id) {
-      return `/events/new?groupId=${id}`;
+    async onClickCreateEvent() {
+      this.$router.push(`/events/new?groupId=${this.groupId}`);
     }
   },
   async asyncData(context) {

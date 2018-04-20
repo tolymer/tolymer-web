@@ -1,24 +1,24 @@
 <template>
   <section>
     <div v-if="!isLoggedIn">
-      <form
-        class="FormContainer"
-        @submit="onSubmitLogin">
+      <Header title="tolymer" />
+      <FormContainer @submit="onSubmitLogin">
         <BaseInput
           v-model="name"
           label="ログインID"/>
         <BaseInput
           v-model="password"
+          type="password"
           label="パスワード"/>
         <BaseButton type="submit">
           ログイン
         </BaseButton>
-      </form>
+      </FormContainer>
     </div>
     <div v-if="isLoggedIn">
       <Header />
       <GroupList :groups="groups"/>
-      <div class="FormContainer">
+      <FormContainer>
         <BaseButton
           kind="bordered"
           @click="onClickCreateGroup">
@@ -29,7 +29,7 @@
           @click="onClickLogout">
           ログアウト
         </BaseButton>
-      </div>
+      </FormContainer>
     </div>
   </section>
 </template>
@@ -39,6 +39,7 @@ import { mapState } from 'vuex';
 import { parse } from 'cookie';
 import Header from '~/components/Header';
 import GroupList from '~/components/GroupList';
+import FormContainer from '~/components/FormContainer';
 import BaseInput from '~/components/BaseInput';
 import BaseButton from '~/components/BaseButton';
 
@@ -47,6 +48,7 @@ export default {
   components: {
     Header,
     GroupList,
+    FormContainer,
     BaseInput,
     BaseButton
   },

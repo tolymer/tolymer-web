@@ -1,13 +1,14 @@
 <template>
-  <ul class="GroupList">
+  <ul class="EventList">
     <li
-      v-for="(group, index) in groups"
+      v-for="(event, index) in events"
       :key="index"
-      class="GroupList__Item">
+      class="EventList__Item">
       <router-link
-        :to="groupLink(group.id)"
-        class="GroupList__Link">
-        <h2>{{ group.name }}</h2>
+        :to="eventLink(event.id)"
+        class="EventList__Link">
+        <time>{{ event.date }}</time>
+        <h2>{{ event.title }}</h2>
       </router-link>
     </li>
   </ul>
@@ -16,41 +17,46 @@
 <script>
 export default {
   props: {
-    groups: {
+    events: {
       type: Array,
       default: () => []
     }
   },
   methods: {
-    groupLink(id) {
-      return `/groups/${id}`;
+    eventLink(id) {
+      return `/events/${id}`;
     }
   }
 };
 </script>
 
 <style>
-.GroupList {
+.EventList {
   margin: 0;
   padding: 0;
   list-style-type: none;
   border: 1px solid var(--color-gray);
 }
 
-.GroupList__Item {
+.EventList__Item {
   display: flex;
 }
 
-.GroupList__Item:not(:last-child) {
+.EventList__Item:not(:last-child) {
   border-bottom: 1px solid var(--color-gray);
 }
 
-.GroupList__Item h2 {
+.EventList__Item time {
+  font-size: 1.6rem;
+}
+
+.EventList__Item h2 {
   margin: 0;
+  margin-top: var(--space-base);
   font-size: 1.8rem;
 }
 
-.GroupList__Link {
+.EventList__Link {
   width: 100%;
   padding: calc(var(--space-base) * 2);
   text-decoration: none;

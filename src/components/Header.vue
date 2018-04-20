@@ -1,6 +1,6 @@
 <template>
   <header>
-    {{ name }}
+    {{ title || name }}
   </header>
 </template>
 
@@ -8,6 +8,12 @@
 import { mapState } from 'vuex';
 
 export default {
+  props: {
+    title: {
+      type: String,
+      default: ''
+    }
+  },
   computed: mapState({
     name: state => state.name
   })

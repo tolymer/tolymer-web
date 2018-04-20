@@ -1,9 +1,7 @@
 <template>
   <section>
     <Header/>
-    <form
-      class="FormContainer"
-      @submit="onSubmit">
+    <FormContainer @submit="onSubmit">
       <BaseInput
         v-model="title"
         type="text"
@@ -16,24 +14,26 @@
         v-model="date"
         type="date"
         label="日程"/>
-      <ul>
-        <li
+      <CheckboxContainer>
+        メンバー
+        <label
           v-for="(member, index) in members"
-          :key="index">
-          <label>
-            <input
-              :value="member.id"
-              v-model="userIds"
-              type="checkbox"
-              name="members">
-            {{ member.name }}
-          </label>
-        </li>
-      </ul>
+          :key="index"
+          class="CheckboxLabel">
+          <input
+            :value="member.id"
+            :key="index"
+            v-model="memberIds"
+            type="checkbox"
+            class="Checkbox"
+            name="members">
+          {{ member.name }}
+        </label>
+      </CheckboxContainer>
       <BaseButton type="submit">
         イベント作成
       </BaseButton>
-    </form>
+    </FormContainer>
   </section>
 </template>
 
@@ -42,6 +42,8 @@ import { mapState } from 'vuex';
 import { parse } from 'cookie';
 import { format } from 'date-fns';
 import Header from '~/components/Header';
+import FormContainer from '~/components/FormContainer';
+import CheckboxContainer from '~/components/CheckboxContainer';
 import BaseInput from '~/components/BaseInput';
 import BaseButton from '~/components/BaseButton';
 
@@ -49,6 +51,8 @@ export default {
   middleware: ['auth'],
   components: {
     Header,
+    FormContainer,
+    CheckboxContainer,
     BaseInput,
     BaseButton
   },
@@ -58,7 +62,7 @@ export default {
       description: '',
       date: format(Date.now(), 'YYYY-MM-DD'),
       groupId: null,
-      userIds: []
+      memberIds: []
     };
   },
   computed: mapState({
@@ -70,7 +74,7 @@ export default {
 
       const { accessToken } = parse(document.cookie);
 
-      if (this.userIds.length !== 4) {
+      if (this.memberIds.length !== 4) {
         return;
       }
 
@@ -108,3 +112,18 @@ export default {
   }
 };
 </script>
+
+<style>
+.CheckboxLabel {
+  padding: calc(var(--space-base) / 2);
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  width: 100%;
+  max-width: 320px;
+}
+
+.Checkbox {
+  margin-right: var(--space-base);
+}
+</style>
