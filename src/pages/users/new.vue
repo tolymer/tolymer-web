@@ -1,7 +1,5 @@
 <template>
-  <form
-    class="FormContainer"
-    @submit="onSubmit">
+  <FormContainer @submit="onSubmit">
     <BaseInput
       v-model="name"
       type="text"
@@ -13,17 +11,19 @@
     <BaseButton type="submit">
       登録
     </BaseButton>
-  </form>
+  </FormContainer>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import { parse } from 'cookie';
+import FormContainer from '~/components/FormContainer';
 import BaseInput from '~/components/BaseInput';
 import BaseButton from '~/components/BaseButton';
 
 export default {
   components: {
+    FormContainer,
     BaseInput,
     BaseButton
   },

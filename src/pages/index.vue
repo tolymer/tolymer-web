@@ -26,6 +26,11 @@
         </BaseButton>
         <BaseButton
           kind="bordered"
+          @click="onClickUpdateUser">
+          プロフィールを更新する
+        </BaseButton>
+        <BaseButton
+          kind="bordered"
           @click="onClickLogout">
           ログアウト
         </BaseButton>
@@ -60,6 +65,7 @@ export default {
   },
   computed: mapState({
     isLoggedIn: state => state.isLoggedIn,
+    id: state => state.id,
     groups: state => state.groups
   }),
   methods: {
@@ -82,6 +88,9 @@ export default {
     },
     async onClickCreateGroup() {
       this.$router.push('/groups/new');
+    },
+    async onClickUpdateUser() {
+      this.$router.push(`/users/${this.id}/edit`);
     },
     async onClickLogout(e) {
       e.preventDefault();

@@ -33,11 +33,49 @@ module.exports = {
     }
   },
   update: {
-    path: '/users/*',
-    handler: async (req, res) => res.status(403).json({})
+    path: '/users/:userId',
+    handler: async (req, res) => {
+      const { userId } = req.params;
+      const { name, password } = req.body;
+      const { headers } = req;
+
+      try {
+        const users = await axios.patch(
+          `/users/${userId}`,
+          {
+            name,
+            password
+          },
+          {
+            headers
+          }
+        );
+
+        res.status(200).json(users.data);
+      } catch (e) {
+        res.status(404).json({});
+      }
+    }
   },
   delete: {
-    path: '/users/*',
-    handler: async (req, res) => res.status(403).json({})
+    path: '/users/:userId',
+    handler: async (req, res) => {
+      const { userId } = req.params;
+      const { headers } = req;
+
+      try {
+        const user = await axios.delete(
+          `/users/${userId}`,
+          {},
+          {
+            headers
+          }
+        );
+
+        res.status(200).json(user.data);
+      } catch (e) {
+        res.status(404).json({});
+      }
+    }
   }
 };
