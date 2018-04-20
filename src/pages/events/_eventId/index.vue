@@ -57,6 +57,11 @@
         </tr>
       </table>
     </form>
+    <FormContainer>
+      <BaseButton @click="onClickUpdateEvent">
+        イベントを更新する
+      </BaseButton>
+    </FormContainer>
   </section>
 </template>
 
@@ -64,6 +69,8 @@
 import { parse } from 'cookie';
 import { mapState } from 'vuex';
 import Header from '~/components/Header';
+import FormContainer from '~/components/FormContainer';
+import BaseButton from '~/components/BaseButton';
 
 const memberDefault = {
   name: ''
@@ -72,7 +79,9 @@ const memberDefault = {
 export default {
   middleware: ['auth'],
   components: {
-    Header
+    Header,
+    FormContainer,
+    BaseButton
   },
   data() {
     return {
@@ -164,6 +173,9 @@ export default {
         eventId,
         accessToken
       });
+    },
+    async onClickUpdateEvent() {
+      this.$router.push(`/events/${this.eventId}/edit`);
     }
   },
   async asyncData(context) {
