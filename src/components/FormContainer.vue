@@ -13,7 +13,7 @@ export default {
       this.$emit('submit', e);
     }
   }
-}
+};
 </script>
 
 

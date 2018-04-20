@@ -1,9 +1,7 @@
 <template>
   <section>
     <Header/>
-    <form
-      class="FormContainer"
-      @submit="onSubmit">
+    <FormContainer @submit="onSubmit">
       <BaseInput
         v-model="name"
         label="グループ名" />
@@ -13,13 +11,14 @@
       <BaseButton type="submit">
         登録
       </BaseButton>
-    </form>
+    </FormContainer>
   </section>
 </template>
 
 <script>
 import { parse } from 'cookie';
 import Header from '~/components/Header';
+import FormContainer from '~/components/FormContainer';
 import BaseInput from '~/components/BaseInput';
 import BaseButton from '~/components/BaseButton';
 
@@ -27,11 +26,13 @@ export default {
   middleware: ['auth'],
   components: {
     Header,
+    FormContainer,
     BaseInput,
     BaseButton
   },
   data() {
     return {
+      groupId: '',
       name: '',
       description: ''
     };
@@ -40,18 +41,33 @@ export default {
     async onSubmit(e) {
       e.preventDefault();
 
-      const { name, description } = this;
       const { accessToken } = parse(document.cookie);
+      const { groupId, name, description } = this;
 
-      await this.$store.dispatch('group/createGroup', {
+      await this.$store.dispatch('group/updateGroup', {
+        groupId,
         name,
         description,
         accessToken
       });
-
-      this.name = '';
-      this.description = '';
     }
+  },
+  async asyncData(context) {
+    const { accessToken } = context.cookie;
+    const { groupId } = context.params;
+
+    await context.store.dispatch('group/getGroup', {
+      accessToken,
+      groupId
+    });
+
+    const { name, description } = context.store.state.group;
+
+    return {
+      groupId,
+      name,
+      description
+    };
   }
 };
 </script>

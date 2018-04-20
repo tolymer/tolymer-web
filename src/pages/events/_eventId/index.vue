@@ -133,19 +133,24 @@ export default {
     async onClick(e) {
       e.preventDefault();
 
-      const scores = [{
-        user_id: this.userA.id,
-        point: this.inputA
-      }, {
-        user_id: this.userB.id,
-        point: this.inputB
-      }, {
-        user_id: this.userC.id,
-        point: this.inputC
-      }, {
-        user_id: this.userD.id,
-        point: this.inputD
-      }];
+      const scores = [
+        {
+          user_id: this.userA.id,
+          point: this.inputA
+        },
+        {
+          user_id: this.userB.id,
+          point: this.inputB
+        },
+        {
+          user_id: this.userC.id,
+          point: this.inputC
+        },
+        {
+          user_id: this.userD.id,
+          point: this.inputD
+        }
+      ];
       const { accessToken } = parse(document.cookie);
       const { eventId } = this;
 

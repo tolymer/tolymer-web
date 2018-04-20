@@ -8,6 +8,11 @@
         @click="onClickCreateEvent">
         新しいイベントをつくる
       </BaseButton>
+      <BaseButton
+        kind="bordered"
+        @click="onClickUpdateGroup">
+        グループ情報を更新する
+      </BaseButton>
     </FormContainer>
   </section>
 </template>
@@ -44,6 +49,9 @@ export default {
     },
     async onClickCreateEvent() {
       this.$router.push(`/events/new?groupId=${this.groupId}`);
+    },
+    async onClickUpdateGroup() {
+      this.$router.push(`/groups/${this.groupId}/edit`);
     }
   },
   async asyncData(context) {
