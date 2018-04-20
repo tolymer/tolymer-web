@@ -10,11 +10,23 @@ export const state = () => ({
 });
 
 export const mutations = {
-  createGroup() {},
+  createGroup(state, payload) {
+    state.id = payload.id;
+    state.name = payload.name;
+    state.description = payload.description;
+  },
   getGroup(state, payload) {
     state.id = payload.id;
     state.name = payload.name;
     state.description = payload.description;
+  },
+  updateGroup(state, payload) {
+    state.name = payload.name;
+    state.description = payload.description;
+  },
+  deleteGroup(state) {
+    state.name = '';
+    state.description = '';
   },
   getGroupMembers(state, payload) {
     state.members = payload;
@@ -70,6 +82,43 @@ export const actions = {
       console.error(e);
     }
   },
+  async updateGroup({ commit }, { groupId, name, description, accessToken }) {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      };
+
+      const group = await axios.patch(
+        `/groups/${groupId}`,
+        {
+          name,
+          description
+        },
+        config
+      );
+
+      commit('updateGroup', group.data);
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  async deleteGroup({ commit }, { groupId, accessToken }) {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      };
+
+      await axios.delete(`/groups/${groupId}`, {}, config);
+
+      commit('deleteGroup');
+    } catch (e) {
+      console.error(e);
+    }
+  },
   async addGroupMembers({ commit }, { groupId, accessToken }) {
     try {
       const config = {
@@ -92,7 +141,9 @@ export const actions = {
           Authorization: `Bearer ${accessToken}`
         }
       };
+
       const stats = await axios.get(`/groups/${groupId}/stats`, config);
+
       commit('getStats', stats.data);
     } catch (e) {
       console.error(e);

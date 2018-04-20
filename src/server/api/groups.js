@@ -50,7 +50,7 @@ module.exports = {
       const { headers } = req;
 
       try {
-        const group = await axios.post(
+        const group = await axios.patch(
           `/groups/${groupId}`,
           {
             name,
@@ -68,7 +68,24 @@ module.exports = {
     }
   },
   delete: {
-    path: '/groups',
-    handler: async (req, res) => res.status(403).json({})
+    path: '/groups/:groupId',
+    handler: async (req, res) => {
+      const { groupId } = req.params;
+      const { headers } = req;
+
+      try {
+        const group = await axios.delete(
+          `/groups/${groupId}`,
+          {},
+          {
+            headers
+          }
+        );
+
+        res.status(201).json(group.data);
+      } catch (e) {
+        res.status(404).json({});
+      }
+    }
   }
 };
