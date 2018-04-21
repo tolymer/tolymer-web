@@ -126,9 +126,7 @@ export default {
         });
       }
 
-      this.title = '';
-      this.description = '';
-      this.date = '';
+      this.$router.push(`/events/${eventId}`);
     }
   }
 };

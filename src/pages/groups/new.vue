@@ -58,8 +58,9 @@ export default {
         accessToken
       });
 
-      this.name = '';
-      this.description = '';
+      const groupId = this.$store.state.group.id;
+
+      this.$router.push(`/groups/${groupId}`);
     }
   }
 };

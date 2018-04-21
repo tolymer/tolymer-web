@@ -67,6 +67,8 @@ export default {
         description,
         accessToken
       });
+
+      this.$router.push(`/groups/${groupId}`);
     }
   }
 };

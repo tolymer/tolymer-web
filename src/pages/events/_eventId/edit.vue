@@ -79,6 +79,8 @@ export default {
         date,
         accessToken
       });
+
+      this.$router.push(`/events/${eventId}`);
     }
   }
 };

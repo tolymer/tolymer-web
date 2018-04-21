@@ -16,7 +16,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import { parse } from 'cookie';
 import FormContainer from '~/components/FormContainer';
 import BaseInput from '~/components/BaseInput';
 import BaseButton from '~/components/BaseButton';
@@ -55,14 +54,7 @@ export default {
         password
       });
 
-      this.name = '';
-      this.password = '';
-
-      const { accessToken } = parse(document.cookie);
-
-      await this.$store.dispatch('getCurrentUser', {
-        accessToken
-      });
+      this.$router.push(`/`);
     }
   }
 };
