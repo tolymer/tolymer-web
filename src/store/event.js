@@ -2,6 +2,7 @@ import axios from '~/plugins/axios';
 import axiosConfig from '~/plugins/axiosConfig';
 
 export const state = () => ({
+  id: '',
   title: '',
   description: '',
   date: '',
@@ -12,11 +13,13 @@ export const state = () => ({
 
 export const mutations = {
   createEvent(state, payload) {
+    state.id = payload.id;
     state.title = payload.title;
     state.description = payload.description;
     state.date = payload.date;
   },
   getEvent(state, payload) {
+    state.id = payload.id;
     state.title = payload.title;
     state.description = payload.description;
     state.date = payload.date;
@@ -27,6 +30,7 @@ export const mutations = {
     state.date = payload.date;
   },
   deleteEvent(state) {
+    state.id = '';
     state.title = '';
     state.description = '';
     state.date = '';
@@ -105,7 +109,7 @@ export const actions = {
       console.error(e);
     }
   },
-  async createGroupEvent({ commit }, { groupId, title, description, date, userIds, accessToken }) {
+  async createGroupEvent({ commit }, { groupId, title, description, date, accessToken }) {
     try {
       const config = axiosConfig(accessToken);
       const event = await axios.post(
@@ -114,14 +118,6 @@ export const actions = {
           title,
           description,
           date
-        },
-        config
-      );
-
-      await axios.post(
-        `/events/${event.data.id}/members`,
-        {
-          userIds
         },
         config
       );

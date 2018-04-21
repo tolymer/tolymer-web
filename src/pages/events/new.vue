@@ -23,7 +23,7 @@
           <input
             :value="member.id"
             :key="index"
-            v-model="memberIds"
+            v-model="userIds"
             type="checkbox"
             class="Checkbox"
             name="members">
@@ -60,7 +60,7 @@ export default {
       title: '',
       description: '',
       date: format(Date.now(), 'YYYY-MM-DD'),
-      memberIds: []
+      userIds: []
     };
   },
   computed: mapState({
@@ -79,36 +79,52 @@ export default {
     const { accessToken } = context.cookie;
     const { groupId } = context.query;
 
-    if (!groupId) {
-      return;
+    if (groupId) {
+      await context.store.dispatch('event/getGroupMembers', {
+        accessToken,
+        groupId
+      });
     }
-
-    await context.store.dispatch('event/getGroupMembers', {
-      accessToken,
-      groupId
-    });
   },
   methods: {
     async onSubmit(e) {
       e.preventDefault();
 
-      if (this.memberIds.length !== 4) {
-        return;
-      }
-
       const {
         title,
         description,
         date,
-        accessToken
+        accessToken,
+        groupId,
+        userIds
       } = this;
 
-      await this.$store.dispatch('event/createEvent', {
-        title,
-        description,
-        date,
-        accessToken
-      });
+      if (groupId) {
+        await this.$store.dispatch('event/createGroupEvent', {
+          groupId,
+          title,
+          description,
+          date,
+          accessToken
+        });
+      } else {
+        await this.$store.dispatch('event/createEvent', {
+          title,
+          description,
+          date,
+          accessToken
+        });
+      }
+
+      const eventId = this.$store.state.event.id;
+
+      if (userIds.length !== 0) {
+        await this.$store.dispatch('event/addEventMembers', {
+          eventId,
+          userIds,
+          accessToken
+        });
+      }
 
       this.title = '';
       this.description = '';
