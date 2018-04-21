@@ -1,4 +1,5 @@
 import axios from '~/plugins/axios';
+import axiosConfig from '~/plugins/axiosConfig';
 
 export const state = () => ({
   title: '',
@@ -46,12 +47,7 @@ export const mutations = {
 export const actions = {
   async createEvent({ commit }, { title, description, date, accessToken }) {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
+      const config = axiosConfig(accessToken);
       const event = await axios.post(
         `/events`,
         {
@@ -69,12 +65,7 @@ export const actions = {
   },
   async getEvent({ commit }, { eventId, accessToken }) {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
+      const config = axiosConfig(accessToken);
       const event = await axios.get(`/events/${eventId}`, config);
       const eventMembers = await axios.get(`/events/${eventId}/members`, config);
       const eventGames = await axios.get(`/events/${eventId}/games`, config);
@@ -88,12 +79,7 @@ export const actions = {
   },
   async updateEvent({ commit }, { eventId, title, description, date, accessToken }) {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
+      const config = axiosConfig(accessToken);
       const event = await axios.patch(
         `/events/${eventId}`,
         {
@@ -111,17 +97,8 @@ export const actions = {
   },
   async deleteEvent({ commit }, { eventId, accessToken }) {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
-      const event = await axios.delete(
-        `/events/${eventId}`,
-        {},
-        config
-      );
+      const config = axiosConfig(accessToken);
+      const event = await axios.delete(`/events/${eventId}`, {}, config);
 
       commit('deleteEvent', event.data);
     } catch (e) {
@@ -130,12 +107,7 @@ export const actions = {
   },
   async createGroupEvent({ commit }, { groupId, title, description, date, userIds, accessToken }) {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
+      const config = axiosConfig(accessToken);
       const event = await axios.post(
         `/groups/${groupId}/events`,
         {
@@ -161,12 +133,7 @@ export const actions = {
   },
   async getGroupMembers({ commit }, { groupId, accessToken }) {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
+      const config = axiosConfig(accessToken);
       const groupMembers = await axios.get(`/groups/${groupId}/members`, config);
 
       commit('getGroupMembers', groupMembers.data);
@@ -176,12 +143,7 @@ export const actions = {
   },
   async addEventMembers({ commit }, { eventId, userIds, accessToken }) {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
+      const config = axiosConfig(accessToken);
       await axios.post(
         `/events/${eventId}/members`,
         {
@@ -197,12 +159,7 @@ export const actions = {
   },
   async addEventGames({ commit }, { eventId, scores, accessToken }) {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
+      const config = axiosConfig(accessToken);
       await axios.post(
         `/events/${eventId}/games`,
         {

@@ -66,7 +66,6 @@
 </template>
 
 <script>
-import { parse } from 'cookie';
 import { mapState } from 'vuex';
 import Header from '~/components/Header';
 import FormContainer from '~/components/FormContainer';
@@ -85,7 +84,6 @@ export default {
   },
   data() {
     return {
-      eventId: '',
       inputA: 0,
       inputB: 0,
       inputC: 0,
@@ -128,6 +126,43 @@ export default {
       games: state => state.event.games
     })
   },
+  async asyncData(context) {
+    const { accessToken } = context.cookie;
+    const { eventId } = context.params;
+
+    return {
+      eventId,
+      accessToken
+    };
+  },
+  async fetch(context) {
+    try {
+      const { accessToken } = context.cookie;
+      const { eventId } = context.params;
+      const { join } = context.query;
+
+      if (join) {
+        const { id } = context.store.state;
+        const userIds = [id];
+
+        await context.store.dispatch('event/addEventMembers', {
+          userIds,
+          eventId,
+          accessToken
+        });
+      }
+
+      await context.store.dispatch('event/getEvent', {
+        eventId,
+        accessToken
+      });
+    } catch (e) {
+      context.error({
+        message: 'Not found',
+        statusCode: 404
+      });
+    }
+  },
   methods: {
     userLink(id) {
       return `/users/${id}`;
@@ -160,8 +195,7 @@ export default {
           point: this.inputD
         }
       ];
-      const { accessToken } = parse(document.cookie);
-      const { eventId } = this;
+      const { eventId, accessToken } = this;
 
       await this.$store.dispatch('event/addEventGames', {
         eventId,
@@ -176,41 +210,6 @@ export default {
     },
     async onClickUpdateEvent() {
       this.$router.push(`/events/${this.eventId}/edit`);
-    }
-  },
-  async asyncData(context) {
-    const { eventId } = context.params;
-
-    return {
-      eventId
-    };
-  },
-  async fetch(context) {
-    try {
-      const { accessToken } = context.cookie;
-      const { eventId } = context.params;
-      const { join } = context.query;
-
-      if (join) {
-        const { id } = context.store.state;
-        const userIds = [id];
-
-        await context.store.dispatch('event/addEventMembers', {
-          userIds,
-          eventId,
-          accessToken
-        });
-      }
-
-      await context.store.dispatch('event/getEvent', {
-        eventId,
-        accessToken
-      });
-    } catch (e) {
-      context.error({
-        message: 'Not found',
-        statusCode: 404
-      });
     }
   }
 };

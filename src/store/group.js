@@ -1,4 +1,5 @@
 import axios from '~/plugins/axios';
+import axiosConfig from '~/plugins/axiosConfig';
 
 export const state = () => ({
   id: '',
@@ -43,12 +44,7 @@ export const mutations = {
 export const actions = {
   async createGroup({ commit }, { name, description, accessToken }) {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
+      const config = axiosConfig(accessToken);
       const group = await axios.post(
         `/groups`,
         {
@@ -65,12 +61,7 @@ export const actions = {
   },
   async getGroup({ commit }, { groupId, accessToken }) {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
+      const config = axiosConfig(accessToken);
       const group = await axios.get(`/groups/${groupId}`, config);
       const groupMembers = await axios.get(`/groups/${groupId}/members`, config);
       const groupEvents = await axios.get(`/groups/${groupId}/events`, config);
@@ -84,12 +75,7 @@ export const actions = {
   },
   async updateGroup({ commit }, { groupId, name, description, accessToken }) {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
+      const config = axiosConfig(accessToken);
       const group = await axios.patch(
         `/groups/${groupId}`,
         {
@@ -106,12 +92,7 @@ export const actions = {
   },
   async deleteGroup({ commit }, { groupId, accessToken }) {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
+      const config = axiosConfig(accessToken);
       await axios.delete(`/groups/${groupId}`, {}, config);
 
       commit('deleteGroup');
@@ -121,12 +102,7 @@ export const actions = {
   },
   async addGroupMembers({ commit }, { groupId, accessToken }) {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
+      const config = axiosConfig(accessToken);
       await axios.post(`/groups/${groupId}/members`, {}, config);
 
       commit('addGroupMembers');
@@ -136,12 +112,7 @@ export const actions = {
   },
   async getStats({ commit }, { groupId, accessToken }) {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-
+      const config = axiosConfig(accessToken);
       const stats = await axios.get(`/groups/${groupId}/stats`, config);
 
       commit('getStats', stats.data);

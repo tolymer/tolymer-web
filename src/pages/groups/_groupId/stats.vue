@@ -1,5 +1,6 @@
 <template>
   <section>
+    <Header :title="name" />
     <h2>Total</h2>
     <table>
       <thead>
@@ -17,22 +18,20 @@
         </tr>
       </tbody>
     </table>
-    <h2>Chart</h2>
     <line-chart :data="calcChartData()" />
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import Header from '~/components/Header';
 import LineChart from '~/components/LineChart';
 
 export default {
   middleware: ['auth'],
-  components: { LineChart },
-  data() {
-    return {
-      groupId: ''
-    };
+  components: {
+    Header,
+    LineChart
   },
   async asyncData(context) {
     const { groupId } = context.params;
@@ -42,9 +41,7 @@ export default {
     };
   },
   computed: mapState({
-    id: state => state.group.id,
     name: state => state.group.name,
-    description: state => state.group.description,
     members: state => state.group.members,
     events: state => state.group.events,
     stats: state => state.group.stats

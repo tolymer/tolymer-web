@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import { parse } from 'cookie';
 import Header from '~/components/Header';
 import FormContainer from '~/components/FormContainer';
 import BaseInput from '~/components/BaseInput';
@@ -30,19 +29,37 @@ export default {
     BaseInput,
     BaseButton
   },
-  data() {
+  async asyncData(context) {
+    const { accessToken } = context.cookie;
+    const { groupId } = context.params;
+
+    await context.store.dispatch('group/getGroup', {
+      groupId,
+      accessToken
+    });
+
+    const {
+      name,
+      description
+    } = context.store.state.group;
+
     return {
-      groupId: '',
-      name: '',
-      description: ''
+      groupId,
+      name,
+      description,
+      accessToken
     };
   },
   methods: {
     async onSubmit(e) {
       e.preventDefault();
 
-      const { accessToken } = parse(document.cookie);
-      const { groupId, name, description } = this;
+      const {
+        groupId,
+        name,
+        description,
+        accessToken
+      } = this;
 
       await this.$store.dispatch('group/updateGroup', {
         groupId,
@@ -51,23 +68,6 @@ export default {
         accessToken
       });
     }
-  },
-  async asyncData(context) {
-    const { accessToken } = context.cookie;
-    const { groupId } = context.params;
-
-    await context.store.dispatch('group/getGroup', {
-      accessToken,
-      groupId
-    });
-
-    const { name, description } = context.store.state.group;
-
-    return {
-      groupId,
-      name,
-      description
-    };
   }
 };
 </script>
