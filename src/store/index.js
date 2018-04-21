@@ -49,16 +49,18 @@ export const actions = {
     commit('logout');
   },
   async getCurrentUser({ commit }, { accessToken }) {
-    const config = axiosConfig(accessToken);
-    const user = await axios.get('/current_user', config);
-    const userGroups = await axios.get('/current_user/groups', config);
-
-    commit(
-      'getCurrentUser',
-      Object.assign({}, user.data, {
+    try {
+      const config = axiosConfig(accessToken);
+      const user = await axios.get('/current_user', config);
+      const userGroups = await axios.get('/current_user/groups', config);
+      const payload = Object.assign({}, user.data, {
         groups: userGroups.data
-      })
-    );
+      });
+
+      commit('getCurrentUser', payload);
+    } catch (e) {
+      console.error(e);
+    }
   },
   async deleteCurrentUser({ commit }) {
     commit('deleteCurrentUser');
