@@ -22,7 +22,7 @@
         <BaseButton
           kind="bordered"
           @click="onClickCreateGroup">
-          新しいグループをつくる
+          グループをつくる
         </BaseButton>
         <BaseButton
           kind="bordered"

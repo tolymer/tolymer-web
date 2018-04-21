@@ -6,7 +6,7 @@
       <BaseButton
         kind="bordered"
         @click="onClickCreateEvent">
-        新しいイベントをつくる
+        イベントをつくる
       </BaseButton>
       <BaseButton
         kind="bordered"

@@ -58,7 +58,9 @@
       </table>
     </form>
     <FormContainer>
-      <BaseButton @click="onClickUpdateEvent">
+      <BaseButton
+        kind="bordered"
+        @click="onClickUpdateEvent">
         イベントを更新する
       </BaseButton>
     </FormContainer>
