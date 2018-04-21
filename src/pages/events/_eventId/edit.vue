@@ -22,8 +22,6 @@
 </template>
 
 <script>
-import { parse } from 'cookie';
-import { format } from 'date-fns';
 import Header from '~/components/Header';
 import FormContainer from '~/components/FormContainer';
 import BaseInput from '~/components/BaseInput';
@@ -37,31 +35,6 @@ export default {
     BaseInput,
     BaseButton
   },
-  data() {
-    return {
-      title: '',
-      description: '',
-      date: format(Date.now(), 'YYYY-MM-DD'),
-      eventId: null,
-      groupId: null
-    };
-  },
-  methods: {
-    async onSubmit(e) {
-      e.preventDefault();
-
-      const { accessToken } = parse(document.cookie);
-      const { eventId, title, description, date } = this;
-
-      await this.$store.dispatch('event/updateEvent', {
-        eventId,
-        title,
-        description,
-        date,
-        accessToken
-      });
-    }
-  },
   async asyncData(context) {
     const { accessToken } = context.cookie;
     const { eventId } = context.params;
@@ -72,13 +45,41 @@ export default {
       eventId
     });
 
+    const {
+      title,
+      description,
+      date
+    } = context.store.state.event;
+
     return {
-      title: context.store.state.event.title,
-      description: context.store.state.event.description,
-      date: context.store.state.event.date,
+      title,
+      description,
+      date,
       eventId,
-      groupId
+      groupId,
+      accessToken
     };
+  },
+  methods: {
+    async onSubmit(e) {
+      e.preventDefault();
+
+      const {
+        eventId,
+        title,
+        description,
+        date,
+        accessToken
+      } = this;
+
+      await this.$store.dispatch('event/updateEvent', {
+        eventId,
+        title,
+        description,
+        date,
+        accessToken
+      });
+    }
   }
 };
 </script>

@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import { parse } from 'cookie';
 import Header from '~/components/Header';
 import FormContainer from '~/components/FormContainer';
 import BaseInput from '~/components/BaseInput';
@@ -38,26 +37,6 @@ export default {
       password: ''
     };
   },
-  methods: {
-    async onSubmit(e) {
-      e.preventDefault();
-
-      const { accessToken } = parse(document.cookie);
-      const { name, password } = this;
-
-      await this.$store.dispatch('user/updateUser', {
-        name,
-        password
-      });
-
-      this.name = '';
-      this.password = '';
-
-      await this.$store.dispatch('getCurrentUser', {
-        accessToken
-      });
-    }
-  },
   async asyncData(context) {
     const { accessToken } = context.cookie;
     const { userId } = context.params;
@@ -72,8 +51,29 @@ export default {
     return {
       userId,
       name,
-      password
+      password,
+      accessToken
     };
+  },
+  methods: {
+    async onSubmit(e) {
+      e.preventDefault();
+
+      const { name, password, accessToken } = this;
+
+      await this.$store.dispatch('user/updateUser', {
+        name,
+        password,
+        accessToken
+      });
+
+      this.name = '';
+      this.password = '';
+
+      await this.$store.dispatch('getCurrentUser', {
+        accessToken
+      });
+    }
   }
 };
 </script>

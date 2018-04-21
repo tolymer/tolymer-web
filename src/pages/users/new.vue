@@ -40,14 +40,19 @@ export default {
     async onSubmit(e) {
       e.preventDefault();
 
+      const {
+        name,
+        password
+      } = this;
+
       await this.$store.dispatch('user/createUser', {
-        name: this.name,
-        password: this.password
+        name,
+        password
       });
 
       await this.$store.dispatch('login', {
-        name: this.name,
-        password: this.password
+        name,
+        password
       });
 
       this.name = '';

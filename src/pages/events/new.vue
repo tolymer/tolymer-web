@@ -31,7 +31,7 @@
         </label>
       </CheckboxContainer>
       <BaseButton type="submit">
-        イベント作成
+        作成
       </BaseButton>
     </FormContainer>
   </section>
@@ -39,7 +39,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import { parse } from 'cookie';
 import { format } from 'date-fns';
 import Header from '~/components/Header';
 import FormContainer from '~/components/FormContainer';
@@ -61,39 +60,18 @@ export default {
       title: '',
       description: '',
       date: format(Date.now(), 'YYYY-MM-DD'),
-      groupId: null,
       memberIds: []
     };
   },
   computed: mapState({
     members: state => state.event.groupMembers
   }),
-  methods: {
-    async onSubmit(e) {
-      e.preventDefault();
-
-      const { accessToken } = parse(document.cookie);
-
-      if (this.memberIds.length !== 4) {
-        return;
-      }
-
-      await this.$store.dispatch('event/createEvent', {
-        title: this.title,
-        description: this.description,
-        date: this.date,
-        accessToken
-      });
-
-      this.title = '';
-      this.description = '';
-      this.date = '';
-    }
-  },
   async asyncData(context) {
+    const { accessToken } = context.cookie;
     const { groupId } = context.query;
 
     return {
+      accessToken,
       groupId
     };
   },
@@ -109,6 +87,33 @@ export default {
       accessToken,
       groupId
     });
+  },
+  methods: {
+    async onSubmit(e) {
+      e.preventDefault();
+
+      if (this.memberIds.length !== 4) {
+        return;
+      }
+
+      const {
+        title,
+        description,
+        date,
+        accessToken
+      } = this;
+
+      await this.$store.dispatch('event/createEvent', {
+        title,
+        description,
+        date,
+        accessToken
+      });
+
+      this.title = '';
+      this.description = '';
+      this.date = '';
+    }
   }
 };
 </script>

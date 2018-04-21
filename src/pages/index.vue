@@ -41,7 +41,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import { parse } from 'cookie';
 import Header from '~/components/Header';
 import GroupList from '~/components/GroupList';
 import FormContainer from '~/components/FormContainer';
@@ -63,6 +62,13 @@ export default {
       password: ''
     };
   },
+  async asyncData(context) {
+    const { accessToken } = context.cookie;
+
+    return {
+      accessToken
+    };
+  },
   computed: mapState({
     isLoggedIn: state => state.isLoggedIn,
     id: state => state.id,
@@ -72,15 +78,20 @@ export default {
     async onSubmitLogin(e) {
       e.preventDefault();
 
+      const {
+        name,
+        password
+      } = this;
+
       await this.$store.dispatch('login', {
-        name: this.name,
-        password: this.password
+        name,
+        password
       });
 
       this.name = '';
       this.password = '';
 
-      const { accessToken } = parse(document.cookie);
+      const { accessToken } = this;
 
       await this.$store.dispatch('getCurrentUser', {
         accessToken

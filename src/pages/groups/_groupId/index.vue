@@ -11,7 +11,7 @@
       <BaseButton
         kind="bordered"
         @click="onClickUpdateGroup">
-        グループ情報を更新する
+        グループを更新する
       </BaseButton>
     </FormContainer>
   </section>
@@ -32,28 +32,11 @@ export default {
     FormContainer,
     BaseButton
   },
-  data() {
-    return {
-      groupId: ''
-    };
-  },
   computed: mapState({
-    id: state => state.group.id,
     name: state => state.group.name,
     members: state => state.group.members,
     events: state => state.group.events
   }),
-  methods: {
-    userLink(id) {
-      return `/users/${id}`;
-    },
-    async onClickCreateEvent() {
-      this.$router.push(`/events/new?groupId=${this.groupId}`);
-    },
-    async onClickUpdateGroup() {
-      this.$router.push(`/groups/${this.groupId}/edit`);
-    }
-  },
   async asyncData(context) {
     const { groupId } = context.params;
 
@@ -75,14 +58,25 @@ export default {
       }
 
       await context.store.dispatch('group/getGroup', {
-        accessToken,
-        groupId
+        groupId,
+        accessToken
       });
     } catch (e) {
       context.error({
         message: 'Not found',
         statusCode: 404
       });
+    }
+  },
+  methods: {
+    userLink(id) {
+      return `/users/${id}`;
+    },
+    async onClickCreateEvent() {
+      this.$router.push(`/events/new?groupId=${this.groupId}`);
+    },
+    async onClickUpdateGroup() {
+      this.$router.push(`/groups/${this.groupId}/edit`);
     }
   }
 };

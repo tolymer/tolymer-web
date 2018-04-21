@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import { parse } from 'cookie';
 import Header from '~/components/Header';
 import BaseInput from '~/components/BaseInput';
 import BaseButton from '~/components/BaseButton';
@@ -36,12 +35,22 @@ export default {
       description: ''
     };
   },
+  async asyncData(context) {
+    const { accessToken } = context.cookie;
+
+    return {
+      accessToken
+    };
+  },
   methods: {
     async onSubmit(e) {
       e.preventDefault();
 
-      const { name, description } = this;
-      const { accessToken } = parse(document.cookie);
+      const {
+        name,
+        description,
+        accessToken
+      } = this;
 
       await this.$store.dispatch('group/createGroup', {
         name,
