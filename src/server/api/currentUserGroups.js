@@ -3,7 +3,7 @@ const axios = require('../axios');
 module.exports = {
   create: {
     path: '/current_user/groups',
-    handler: async (req, res) => res.status(403).json({})
+    handler: async (req, res) => res.status(404).json({})
   },
   read: {
     path: '/current_user/groups',
@@ -15,13 +15,5 @@ module.exports = {
 
       res.status(200).json(currentUserGroups.data);
     }
-  },
-  update: {
-    path: '/current_user/groups',
-    handler: async (req, res) => res.status(403).json({})
-  },
-  delete: {
-    path: '/current_user/groups',
-    handler: async (req, res) => res.status(403).json({})
   }
 };

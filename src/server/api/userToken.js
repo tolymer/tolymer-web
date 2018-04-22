@@ -19,17 +19,5 @@ module.exports = {
       });
       res.status(200).json({});
     }
-  },
-  read: {
-    path: '/user_token/*',
-    handler: async (req, res) => res.status(403).json({})
-  },
-  update: {
-    path: '/user_token/*',
-    handler: async (req, res) => res.status(403).json({})
-  },
-  delete: {
-    path: '/user_token/*',
-    handler: async (req, res) => res.status(403).json({})
   }
 };

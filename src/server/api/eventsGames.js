@@ -31,13 +31,5 @@ module.exports = {
 
       res.status(200).json(games.data);
     }
-  },
-  update: {
-    path: '/events/:eventId/games',
-    handler: async (req, res) => res.status(403).json({})
-  },
-  delete: {
-    path: '/events/:eventId/games',
-    handler: async (req, res) => res.status(403).json({})
   }
 };

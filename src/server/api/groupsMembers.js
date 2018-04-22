@@ -28,13 +28,5 @@ module.exports = {
 
       res.status(200).json(group.data);
     }
-  },
-  update: {
-    path: '/groups/:groupId/members',
-    handler: async (req, res) => res.status(403).json({})
-  },
-  delete: {
-    path: '/groups/:groupId/members',
-    handler: async (req, res) => res.status(403).json({})
   }
 };
