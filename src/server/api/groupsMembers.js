@@ -6,20 +6,15 @@ module.exports = {
     handler: async (req, res) => {
       const { groupId } = req.params;
       const { headers } = req;
+      const group = await axios.post(
+        `/groups/${groupId}/members`,
+        {},
+        {
+          headers
+        }
+      );
 
-      try {
-        const group = await axios.post(
-          `/groups/${groupId}/members`,
-          {},
-          {
-            headers
-          }
-        );
-
-        res.status(201).json(group.data);
-      } catch (e) {
-        res.status(404).json({});
-      }
+      res.status(201).json(group.data);
     }
   },
   read: {
@@ -27,24 +22,11 @@ module.exports = {
     handler: async (req, res) => {
       const { groupId } = req.params;
       const { headers } = req;
+      const group = await axios.get(`/groups/${groupId}/members`, {
+        headers
+      });
 
-      try {
-        const group = await axios.get(`/groups/${groupId}/members`, {
-          headers
-        });
-
-        res.status(200).json(group.data);
-      } catch (e) {
-        res.status(404).json({});
-      }
+      res.status(200).json(group.data);
     }
-  },
-  update: {
-    path: '/groups/:groupId/members',
-    handler: async (req, res) => res.status(403).json({})
-  },
-  delete: {
-    path: '/groups/:groupId/members',
-    handler: async (req, res) => res.status(403).json({})
   }
 };
