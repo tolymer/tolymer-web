@@ -8,6 +8,7 @@ class Server {
     this.app = express();
     this.setupMiddlewares();
     this.setupRoutes();
+    this.setupErrorHandler();
   }
 
   setupMiddlewares() {
@@ -28,20 +29,38 @@ class Server {
 
   addRoute(crud) {
     if (crud.create) {
-      this.app.post(crud.create.path, crud.create.handler);
+      this.app.post(crud.create.path, this.wrapHandler(crud.create.handler));
     }
 
     if (crud.read) {
-      this.app.get(crud.read.path, crud.read.handler);
+      this.app.get(crud.read.path, this.wrapHandler(crud.read.handler));
     }
 
     if (crud.update) {
-      this.app.patch(crud.update.path, crud.update.handler);
+      this.app.patch(crud.update.path, this.wrapHandler(crud.update.handler));
     }
 
     if (crud.delete) {
-      this.app.delete(crud.delete.path, crud.delete.handler);
+      this.app.delete(crud.delete.path, this.wrapHandler(crud.delete.handler));
     }
+  }
+
+  wrapHandler(handler) {
+    return async (req, res, next) => {
+      try {
+        await handler(req, res, next);
+      } catch (err) {
+        next(err);
+      }
+    };
+  }
+
+  setupErrorHandler() {
+    // eslint-disable-next-line no-unused-vars
+    this.app.use((err, req, res, next) => {
+      console.error(err.stack);
+      res.status(500).json({ message: err.message });
+    });
   }
 }
 

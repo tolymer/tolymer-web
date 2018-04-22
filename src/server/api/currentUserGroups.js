@@ -9,16 +9,11 @@ module.exports = {
     path: '/current_user/groups',
     handler: async (req, res) => {
       const { headers } = req;
+      const currentUserGroups = await axios.get(`/current_user/groups`, {
+        headers
+      });
 
-      try {
-        const currentUserGroups = await axios.get(`/current_user/groups`, {
-          headers
-        });
-
-        res.status(200).json(currentUserGroups.data);
-      } catch (e) {
-        res.status(404).json({});
-      }
+      res.status(200).json(currentUserGroups.data);
     }
   },
   update: {

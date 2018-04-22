@@ -6,23 +6,18 @@ module.exports = {
     handler: async (req, res) => {
       const { name, description } = req.body;
       const { headers } = req;
+      const group = await axios.post(
+        `/groups`,
+        {
+          name,
+          description
+        },
+        {
+          headers
+        }
+      );
 
-      try {
-        const group = await axios.post(
-          `/groups`,
-          {
-            name,
-            description
-          },
-          {
-            headers
-          }
-        );
-
-        res.status(201).json(group.data);
-      } catch (e) {
-        res.status(404).json({});
-      }
+      res.status(201).json(group.data);
     }
   },
   read: {
@@ -30,16 +25,11 @@ module.exports = {
     handler: async (req, res) => {
       const { groupId } = req.params;
       const { headers } = req;
+      const group = await axios.get(`/groups/${groupId}`, {
+        headers
+      });
 
-      try {
-        const group = await axios.get(`/groups/${groupId}`, {
-          headers
-        });
-
-        res.status(200).json(group.data);
-      } catch (e) {
-        res.status(404).json({});
-      }
+      res.status(200).json(group.data);
     }
   },
   update: {
@@ -48,23 +38,18 @@ module.exports = {
       const { groupId } = req.params;
       const { name, description } = req.body;
       const { headers } = req;
+      const group = await axios.patch(
+        `/groups/${groupId}`,
+        {
+          name,
+          description
+        },
+        {
+          headers
+        }
+      );
 
-      try {
-        const group = await axios.patch(
-          `/groups/${groupId}`,
-          {
-            name,
-            description
-          },
-          {
-            headers
-          }
-        );
-
-        res.status(201).json(group.data);
-      } catch (e) {
-        res.status(404).json({});
-      }
+      res.status(201).json(group.data);
     }
   },
   delete: {
@@ -72,20 +57,15 @@ module.exports = {
     handler: async (req, res) => {
       const { groupId } = req.params;
       const { headers } = req;
+      const group = await axios.delete(
+        `/groups/${groupId}`,
+        {},
+        {
+          headers
+        }
+      );
 
-      try {
-        const group = await axios.delete(
-          `/groups/${groupId}`,
-          {},
-          {
-            headers
-          }
-        );
-
-        res.status(201).json(group.data);
-      } catch (e) {
-        res.status(404).json({});
-      }
+      res.status(201).json(group.data);
     }
   }
 };

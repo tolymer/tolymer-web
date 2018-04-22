@@ -6,16 +6,11 @@ module.exports = {
     handler: async (req, res) => {
       const { groupId } = req.params;
       const { headers } = req;
+      const stats = await axios.get(`/groups/${groupId}/stats`, {
+        headers
+      });
 
-      try {
-        const stats = await axios.get(`/groups/${groupId}/stats`, {
-          headers
-        });
-
-        res.status(200).json(stats.data);
-      } catch (e) {
-        res.status(404).json({});
-      }
+      res.status(200).json(stats.data);
     }
   }
 };

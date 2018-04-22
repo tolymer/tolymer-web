@@ -7,24 +7,19 @@ module.exports = {
       const { groupId } = req.params;
       const { title, description, date } = req.body;
       const { headers } = req;
+      const event = await axios.post(
+        `/groups/${groupId}/events`,
+        {
+          title,
+          description,
+          date
+        },
+        {
+          headers
+        }
+      );
 
-      try {
-        const event = await axios.post(
-          `/groups/${groupId}/events`,
-          {
-            title,
-            description,
-            date
-          },
-          {
-            headers
-          }
-        );
-
-        res.status(201).json(event.data);
-      } catch (e) {
-        res.status(404).json({});
-      }
+      res.status(201).json(event.data);
     }
   },
   read: {
@@ -32,16 +27,11 @@ module.exports = {
     handler: async (req, res) => {
       const { groupId } = req.params;
       const { headers } = req;
+      const events = await axios.get(`/groups/${groupId}/events`, {
+        headers
+      });
 
-      try {
-        const events = await axios.get(`/groups/${groupId}/events`, {
-          headers
-        });
-
-        res.status(200).json(events.data);
-      } catch (e) {
-        res.status(404).json({});
-      }
+      res.status(200).json(events.data);
     }
   },
   update: {
