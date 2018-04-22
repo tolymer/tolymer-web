@@ -46,10 +46,7 @@ export default {
       userId
     });
 
-    const {
-      name,
-      password
-    } = context.store.state.user;
+    const { name, password } = context.store.state.user;
 
     return {
       userId,
@@ -62,11 +59,7 @@ export default {
     async onSubmit(e) {
       e.preventDefault();
 
-      const {
-        name,
-        password,
-        accessToken
-      } = this;
+      const { name, password, accessToken } = this;
 
       await this.$store.dispatch('user/updateUser', {
         name,

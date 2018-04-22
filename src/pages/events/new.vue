@@ -90,14 +90,7 @@ export default {
     async onSubmit(e) {
       e.preventDefault();
 
-      const {
-        title,
-        description,
-        date,
-        accessToken,
-        groupId,
-        userIds
-      } = this;
+      const { title, description, date, accessToken, groupId, userIds } = this;
 
       if (groupId) {
         await this.$store.dispatch('event/createGroupEvent', {

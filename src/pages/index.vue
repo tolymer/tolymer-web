@@ -78,10 +78,7 @@ export default {
     async onSubmitLogin(e) {
       e.preventDefault();
 
-      const {
-        name,
-        password
-      } = this;
+      const { name, password } = this;
 
       await this.$store.dispatch('login', {
         name,

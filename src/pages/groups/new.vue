@@ -46,11 +46,7 @@ export default {
     async onSubmit(e) {
       e.preventDefault();
 
-      const {
-        name,
-        description,
-        accessToken
-      } = this;
+      const { name, description, accessToken } = this;
 
       await this.$store.dispatch('group/createGroup', {
         name,

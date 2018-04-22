@@ -45,11 +45,7 @@ export default {
       eventId
     });
 
-    const {
-      title,
-      description,
-      date
-    } = context.store.state.event;
+    const { title, description, date } = context.store.state.event;
 
     return {
       title,
@@ -64,13 +60,7 @@ export default {
     async onSubmit(e) {
       e.preventDefault();
 
-      const {
-        eventId,
-        title,
-        description,
-        date,
-        accessToken
-      } = this;
+      const { eventId, title, description, date, accessToken } = this;
 
       await this.$store.dispatch('event/updateEvent', {
         eventId,

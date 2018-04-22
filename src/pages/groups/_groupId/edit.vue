@@ -38,10 +38,7 @@ export default {
       accessToken
     });
 
-    const {
-      name,
-      description
-    } = context.store.state.group;
+    const { name, description } = context.store.state.group;
 
     return {
       groupId,
@@ -54,12 +51,7 @@ export default {
     async onSubmit(e) {
       e.preventDefault();
 
-      const {
-        groupId,
-        name,
-        description,
-        accessToken
-      } = this;
+      const { groupId, name, description, accessToken } = this;
 
       await this.$store.dispatch('group/updateGroup', {
         groupId,

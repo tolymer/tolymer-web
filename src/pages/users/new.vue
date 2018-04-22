@@ -39,10 +39,7 @@ export default {
     async onSubmit(e) {
       e.preventDefault();
 
-      const {
-        name,
-        password
-      } = this;
+      const { name, password } = this;
 
       await this.$store.dispatch('user/createUser', {
         name,
