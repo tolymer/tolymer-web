@@ -8,6 +8,7 @@
         :to="groupLink(group.id)"
         class="GroupList__Link">
         <h2>{{ group.name }}</h2>
+        <p>{{ group.description }}</p>
       </router-link>
     </li>
   </ul>
@@ -47,10 +48,19 @@ export default {
 
 .GroupList__Item h2 {
   margin: 0;
+  margin-bottom: var(--space-base);
   font-size: 1.8rem;
 }
 
+.GroupList__Item p {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
 .GroupList__Link {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
   width: 100%;
   padding: calc(var(--space-base) * 2);
   text-decoration: none;

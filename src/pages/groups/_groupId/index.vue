@@ -1,6 +1,8 @@
 <template>
   <section>
-    <Header :title="name" />
+    <Header
+      :title="name"
+      :subtitle="description" />
     <EventList :events="events" />
     <FormContainer>
       <BaseButton
@@ -34,6 +36,7 @@ export default {
   },
   computed: mapState({
     name: state => state.group.name,
+    description: state => state.group.description,
     members: state => state.group.members,
     events: state => state.group.events
   }),

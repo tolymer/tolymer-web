@@ -7,8 +7,11 @@
       <router-link
         :to="eventLink(event.id)"
         class="EventList__Link">
-        <time>{{ event.date }}</time>
         <h2>{{ event.title }}</h2>
+        <p>
+          <time>{{ event.date }}</time>
+          {{ event.description }}
+        </p>
       </router-link>
     </li>
   </ul>
@@ -46,14 +49,15 @@ export default {
   border-bottom: 1px solid var(--color-gray);
 }
 
-.EventList__Item time {
-  font-size: 1.6rem;
-}
-
 .EventList__Item h2 {
   margin: 0;
-  margin-top: var(--space-base);
+  margin-bottom: var(--space-base);
   font-size: 1.8rem;
+}
+
+.EventList__Item p {
+  margin: 0;
+  font-size: 1.4rem;
 }
 
 .EventList__Link {

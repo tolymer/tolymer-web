@@ -1,6 +1,6 @@
 <template>
   <header>
-    {{ title || name }}
+    <h1>{{ title || name || "Tolymer" }}</h1>
   </header>
 </template>
 
@@ -27,5 +27,10 @@ header {
   color: var(--color-black);
   background-color: var(--color-gray);
   font-weight: bold;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
 }
 </style>

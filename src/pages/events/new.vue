@@ -127,12 +127,12 @@ export default {
 
 <style>
 .CheckboxLabel {
-  padding: calc(var(--space-base) / 2);
   display: flex;
   flex-direction: row;
   align-items: baseline;
   width: 100%;
   max-width: 320px;
+  padding: calc(var(--space-base) / 2);
 }
 
 .Checkbox {

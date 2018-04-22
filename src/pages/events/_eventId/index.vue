@@ -223,17 +223,18 @@ table {
   border-collapse: collapse;
 }
 
-tr:first-child {
-  border-top: 1px solid var(--color-gray);
-}
-
 tr {
   border-bottom: 1px solid var(--color-gray);
+}
+
+tr:first-child {
+  border-top: 1px solid var(--color-gray);
 }
 
 th,
 td {
   padding: var(--space-base);
+  font-size: 1.6rem;
 }
 
 th {
