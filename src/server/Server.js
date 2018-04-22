@@ -56,6 +56,10 @@ class Server {
   }
 
   setupErrorHandler() {
+    this.app.use((req, res) => {
+      res.status(404).json({ message: 'No route matches' });
+    });
+
     // eslint-disable-next-line no-unused-vars
     this.app.use((err, req, res, next) => {
       console.error(err.stack);
