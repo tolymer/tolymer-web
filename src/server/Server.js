@@ -62,7 +62,6 @@ class Server {
 
     // eslint-disable-next-line no-unused-vars
     this.app.use((err, req, res, next) => {
-      console.error(err.stack);
       console.error(err);
       res.status(500).json({ message: err.message });
     });
