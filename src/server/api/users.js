@@ -1,4 +1,5 @@
 const axios = require('../axios');
+const extractProxyHeader = require('../extractProxyHeader');
 
 module.exports = {
   create: {
@@ -27,7 +28,7 @@ module.exports = {
     handler: async (req, res) => {
       const { userId } = req.params;
       const { name, password } = req.body;
-      const { headers } = req;
+      const headers = extractProxyHeader(req);
       const users = await axios.patch(
         `/users/${userId}`,
         {
@@ -46,7 +47,7 @@ module.exports = {
     path: '/users/:userId',
     handler: async (req, res) => {
       const { userId } = req.params;
-      const { headers } = req;
+      const headers = extractProxyHeader(req);
       const user = await axios.delete(
         `/users/${userId}`,
         {},
