@@ -1,4 +1,5 @@
 const axios = require('../axios');
+const extractProxyHeader = require('../extractProxyHeader');
 
 module.exports = {
   create: {
@@ -8,7 +9,7 @@ module.exports = {
   read: {
     path: '/current_user/groups',
     handler: async (req, res) => {
-      const { headers } = req;
+      const headers = extractProxyHeader(req);
       const currentUserGroups = await axios.get(`/current_user/groups`, {
         headers
       });

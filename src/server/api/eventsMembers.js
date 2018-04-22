@@ -1,4 +1,5 @@
 const axios = require('../axios');
+const extractProxyHeader = require('../extractProxyHeader');
 
 module.exports = {
   create: {
@@ -6,7 +7,7 @@ module.exports = {
     handler: async (req, res) => {
       const { eventId } = req.params;
       const { userIds } = req.body;
-      const { headers } = req;
+      const headers = extractProxyHeader(req);
 
       const members = await axios.post(
         `/events/${eventId}/members`,
@@ -25,7 +26,7 @@ module.exports = {
     path: '/events/:eventId/members',
     handler: async (req, res) => {
       const { eventId } = req.params;
-      const { headers } = req;
+      const headers = extractProxyHeader(req);
       const members = await axios.get(`/events/${eventId}/members`, {
         headers
       });

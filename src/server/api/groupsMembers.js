@@ -1,11 +1,12 @@
 const axios = require('../axios');
+const extractProxyHeader = require('../extractProxyHeader');
 
 module.exports = {
   create: {
     path: '/groups/:groupId/members',
     handler: async (req, res) => {
       const { groupId } = req.params;
-      const { headers } = req;
+      const headers = extractProxyHeader(req);
       const group = await axios.post(
         `/groups/${groupId}/members`,
         {},
@@ -21,7 +22,7 @@ module.exports = {
     path: '/groups/:groupId/members',
     handler: async (req, res) => {
       const { groupId } = req.params;
-      const { headers } = req;
+      const headers = extractProxyHeader(req);
       const group = await axios.get(`/groups/${groupId}/members`, {
         headers
       });
