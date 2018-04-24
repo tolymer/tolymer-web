@@ -3,58 +3,62 @@
     <Header :title="title" />
     <form>
       <table>
-        <tr>
-          <th />
-          <th>{{ userA.name }}</th>
-          <th>{{ userB.name }}</th>
-          <th>{{ userC.name }}</th>
-          <th>{{ userD.name }}</th>
-        </tr>
-        <tr
-          v-for="(game, index) in games"
-          :key="index">
-          <td>{{ index + 1 }}</td>
-          <td>{{ formatPoint(game.scores[0].point) }}</td>
-          <td>{{ formatPoint(game.scores[1].point) }}</td>
-          <td>{{ formatPoint(game.scores[2].point) }}</td>
-          <td>{{ formatPoint(game.scores[3].point) }}</td>
-        </tr>
-        <tr>
-          <td>
-            <button
-              type="submit"
-              @click="onClick">
-              +
-            </button>
-          </td>
-          <td>
-            <input
-              v-model="inputA"
-              type="number">
-          </td>
-          <td>
-            <input
-              v-model="inputB"
-              type="number">
-          </td>
-          <td>
-            <input
-              v-model="inputC"
-              type="number">
-          </td>
-          <td>
-            <input
-              v-model="inputD"
-              type="number">
-          </td>
-        </tr>
-        <tr>
-          <td>計</td>
-          <td>{{ formatPoint(scoreA) }}</td>
-          <td>{{ formatPoint(scoreB) }}</td>
-          <td>{{ formatPoint(scoreC) }}</td>
-          <td>{{ formatPoint(scoreD) }}</td>
-        </tr>
+        <thead>
+          <tr>
+            <th />
+            <th>{{ userA.name }}</th>
+            <th>{{ userB.name }}</th>
+            <th>{{ userC.name }}</th>
+            <th>{{ userD.name }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(game, index) in games"
+            :key="index">
+            <td>{{ index + 1 }}</td>
+            <td>{{ formatPoint(game.scores[0].point) }}</td>
+            <td>{{ formatPoint(game.scores[1].point) }}</td>
+            <td>{{ formatPoint(game.scores[2].point) }}</td>
+            <td>{{ formatPoint(game.scores[3].point) }}</td>
+          </tr>
+          <tr>
+            <td>
+              <button
+                type="submit"
+                @click="onClick">
+                +
+              </button>
+            </td>
+            <td>
+              <input
+                v-model="inputA"
+                type="number">
+            </td>
+            <td>
+              <input
+                v-model="inputB"
+                type="number">
+            </td>
+            <td>
+              <input
+                v-model="inputC"
+                type="number">
+            </td>
+            <td>
+              <input
+                v-model="inputD"
+                type="number">
+            </td>
+          </tr>
+          <tr>
+            <td>計</td>
+            <td>{{ formatPoint(scoreA) }}</td>
+            <td>{{ formatPoint(scoreB) }}</td>
+            <td>{{ formatPoint(scoreC) }}</td>
+            <td>{{ formatPoint(scoreD) }}</td>
+          </tr>
+        </tbody>
       </table>
     </form>
     <FormContainer>
