@@ -93,6 +93,8 @@ export default {
       await this.$store.dispatch('getCurrentUser', {
         accessToken
       });
+
+      this.$router.push('/');
     },
     async onClickCreateGroup() {
       this.$router.push('/groups/new');
