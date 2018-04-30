@@ -32,5 +32,17 @@ module.exports = {
 
       res.status(200).json(games.data);
     }
+  },
+  delete: {
+    path: '/events/:eventId/games/:gameId',
+    handler: async (req, res) => {
+      const { eventId, gameId } = req.params;
+      const headers = extractProxyHeader(req);
+      const games = await axios.delete(`/events/${eventId}/games/${gameId}`, {
+        headers
+      });
+
+      res.status(200).json(games.data);
+    }
   }
 };

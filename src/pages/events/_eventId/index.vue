@@ -203,7 +203,7 @@ export default {
       ];
       const { eventId, accessToken } = this;
 
-      await this.$store.dispatch('event/addEventGames', {
+      await this.$store.dispatch('event/addEventGame', {
         eventId,
         scores,
         accessToken

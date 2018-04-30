@@ -45,7 +45,8 @@ export const mutations = {
     state.groupMembers = payload;
   },
   addEventMembers() {},
-  addEventGames() {}
+  addEventGame() {},
+  deleteEventGame() {}
 };
 
 export const actions = {
@@ -153,7 +154,7 @@ export const actions = {
       console.error(e);
     }
   },
-  async addEventGames({ commit }, { eventId, scores, accessToken }) {
+  async addEventGame({ commit }, { eventId, scores, accessToken }) {
     try {
       const config = axiosConfig(accessToken);
       await axios.post(
@@ -164,7 +165,17 @@ export const actions = {
         config
       );
 
-      commit('addEventMembers');
+      commit('addEventGame');
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  async deleteEventGame({ commit }, { eventId, gameId, accessToken }) {
+    try {
+      const config = axiosConfig(accessToken);
+      await axios.post(`/events/${eventId}/games/${gameId}`, config);
+
+      commit('deleteEventGame');
     } catch (e) {
       console.error(e);
     }
