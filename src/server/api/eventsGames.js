@@ -8,15 +8,10 @@ module.exports = {
       const { eventId } = req.params;
       const { scores } = req.body;
       const headers = extractProxyHeader(req);
-      const games = await axios.post(
-        `/events/${eventId}/games`,
-        {
-          scores
-        },
-        {
-          headers
-        }
-      );
+
+      const data = { scores };
+      const config = { headers };
+      const games = await axios.post(`/events/${eventId}/games`, data, config);
 
       res.status(201).json(games.data);
     }
@@ -26,9 +21,9 @@ module.exports = {
     handler: async (req, res) => {
       const { eventId } = req.params;
       const headers = extractProxyHeader(req);
-      const games = await axios.get(`/events/${eventId}/games`, {
-        headers
-      });
+
+      const config = { headers };
+      const games = await axios.get(`/events/${eventId}/games`, config);
 
       res.status(200).json(games.data);
     }
@@ -38,9 +33,9 @@ module.exports = {
     handler: async (req, res) => {
       const { eventId, gameId } = req.params;
       const headers = extractProxyHeader(req);
-      const games = await axios.delete(`/events/${eventId}/games/${gameId}`, {
-        headers
-      });
+
+      const config = { headers };
+      const games = await axios.delete(`/events/${eventId}/games/${gameId}`, config);
 
       res.status(200).json(games.data);
     }

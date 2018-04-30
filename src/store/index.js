@@ -33,12 +33,9 @@ export const actions = {
   },
   async login({ commit }, { name, password }) {
     try {
-      await axios.post('/user_token', {
-        auth: {
-          name,
-          password
-        }
-      });
+      const auth = { name, password };
+      const data = { auth };
+      await axios.post('/user_token', data);
 
       commit('login');
     } catch (e) {

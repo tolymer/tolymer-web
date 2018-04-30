@@ -52,16 +52,9 @@ export const mutations = {
 export const actions = {
   async createEvent({ commit }, { title, description, date, accessToken }) {
     try {
+      const data = { title, description, date };
       const config = axiosConfig(accessToken);
-      const event = await axios.post(
-        `/events`,
-        {
-          title,
-          description,
-          date
-        },
-        config
-      );
+      const event = await axios.post(`/events`, data, config);
 
       commit('createEvent', event.data);
     } catch (e) {
@@ -84,16 +77,9 @@ export const actions = {
   },
   async updateEvent({ commit }, { eventId, title, description, date, accessToken }) {
     try {
+      const data = { title, description, date };
       const config = axiosConfig(accessToken);
-      const event = await axios.patch(
-        `/events/${eventId}`,
-        {
-          title,
-          description,
-          date
-        },
-        config
-      );
+      const event = await axios.patch(`/events/${eventId}`, data, config);
 
       commit('updateEvent', event.data);
     } catch (e) {
@@ -112,16 +98,9 @@ export const actions = {
   },
   async createGroupEvent({ commit }, { groupId, title, description, date, accessToken }) {
     try {
+      const data = { title, description, date };
       const config = axiosConfig(accessToken);
-      const event = await axios.post(
-        `/groups/${groupId}/events`,
-        {
-          title,
-          description,
-          date
-        },
-        config
-      );
+      const event = await axios.post(`/groups/${groupId}/events`, data, config);
 
       commit('createEvent', event.data);
     } catch (e) {
@@ -140,14 +119,9 @@ export const actions = {
   },
   async addEventMembers({ commit }, { eventId, userIds, accessToken }) {
     try {
+      const data = { userIds };
       const config = axiosConfig(accessToken);
-      await axios.post(
-        `/events/${eventId}/members`,
-        {
-          userIds
-        },
-        config
-      );
+      await axios.post(`/events/${eventId}/members`, data, config);
 
       commit('addEventMembers');
     } catch (e) {
@@ -156,14 +130,9 @@ export const actions = {
   },
   async addEventGame({ commit }, { eventId, scores, accessToken }) {
     try {
+      const data = { scores };
       const config = axiosConfig(accessToken);
-      await axios.post(
-        `/events/${eventId}/games`,
-        {
-          scores
-        },
-        config
-      );
+      await axios.post(`/events/${eventId}/games`, data, config);
 
       commit('addEventGame');
     } catch (e) {
