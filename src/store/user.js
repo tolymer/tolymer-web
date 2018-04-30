@@ -16,10 +16,8 @@ export const mutations = {
 export const actions = {
   async createUser({ commit }, { name, password }) {
     try {
-      const user = await axios.post('/users', {
-        name,
-        password
-      });
+      const data = { name, password };
+      const user = await axios.post('/users', data);
 
       commit('createUser', user.data);
     } catch (e) {

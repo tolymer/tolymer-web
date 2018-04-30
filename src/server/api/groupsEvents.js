@@ -8,17 +8,10 @@ module.exports = {
       const { groupId } = req.params;
       const { title, description, date } = req.body;
       const headers = extractProxyHeader(req);
-      const event = await axios.post(
-        `/groups/${groupId}/events`,
-        {
-          title,
-          description,
-          date
-        },
-        {
-          headers
-        }
-      );
+
+      const data = { title, description, date };
+      const config = { headers };
+      const event = await axios.post(`/groups/${groupId}/events`, data, config);
 
       res.status(201).json(event.data);
     }
@@ -28,9 +21,9 @@ module.exports = {
     handler: async (req, res) => {
       const { groupId } = req.params;
       const headers = extractProxyHeader(req);
-      const events = await axios.get(`/groups/${groupId}/events`, {
-        headers
-      });
+
+      const config = { headers };
+      const events = await axios.get(`/groups/${groupId}/events`, config);
 
       res.status(200).json(events.data);
     }

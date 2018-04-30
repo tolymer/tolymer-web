@@ -5,12 +5,10 @@ module.exports = {
     path: '/user_token',
     handler: async (req, res) => {
       const { name, password } = req.body.auth;
-      const userToken = await axios.post(`/user_token`, {
-        auth: {
-          name,
-          password
-        }
-      });
+      const auth = { name, password };
+
+      const data = { auth };
+      const userToken = await axios.post(`/user_token`, data);
 
       res.cookie('accessToken', userToken.data.jwt, {
         axiosOnly: false,

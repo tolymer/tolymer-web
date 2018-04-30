@@ -7,13 +7,10 @@ module.exports = {
     handler: async (req, res) => {
       const { groupId } = req.params;
       const headers = extractProxyHeader(req);
-      const group = await axios.post(
-        `/groups/${groupId}/members`,
-        {},
-        {
-          headers
-        }
-      );
+
+      const data = {};
+      const config = { headers };
+      const group = await axios.post(`/groups/${groupId}/members`, data, config);
 
       res.status(201).json(group.data);
     }
@@ -23,9 +20,9 @@ module.exports = {
     handler: async (req, res) => {
       const { groupId } = req.params;
       const headers = extractProxyHeader(req);
-      const group = await axios.get(`/groups/${groupId}/members`, {
-        headers
-      });
+
+      const config = { headers };
+      const group = await axios.get(`/groups/${groupId}/members`, config);
 
       res.status(200).json(group.data);
     }

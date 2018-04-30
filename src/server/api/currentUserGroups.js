@@ -10,9 +10,9 @@ module.exports = {
     path: '/current_user/groups',
     handler: async (req, res) => {
       const headers = extractProxyHeader(req);
-      const currentUserGroups = await axios.get(`/current_user/groups`, {
-        headers
-      });
+
+      const config = { headers };
+      const currentUserGroups = await axios.get(`/current_user/groups`, config);
 
       res.status(200).json(currentUserGroups.data);
     }

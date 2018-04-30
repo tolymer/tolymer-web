@@ -7,9 +7,9 @@ module.exports = {
     handler: async (req, res) => {
       const { groupId } = req.params;
       const headers = extractProxyHeader(req);
-      const stats = await axios.get(`/groups/${groupId}/stats`, {
-        headers
-      });
+
+      const config = { headers };
+      const stats = await axios.get(`/groups/${groupId}/stats`, config);
 
       res.status(200).json(stats.data);
     }

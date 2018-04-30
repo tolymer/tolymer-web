@@ -44,15 +44,9 @@ export const mutations = {
 export const actions = {
   async createGroup({ commit }, { name, description, accessToken }) {
     try {
+      const data = { name, description };
       const config = axiosConfig(accessToken);
-      const group = await axios.post(
-        `/groups`,
-        {
-          name,
-          description
-        },
-        config
-      );
+      const group = await axios.post(`/groups`, data, config);
 
       commit('createGroup', group.data);
     } catch (e) {
@@ -75,15 +69,9 @@ export const actions = {
   },
   async updateGroup({ commit }, { groupId, name, description, accessToken }) {
     try {
+      const data = { name, description };
       const config = axiosConfig(accessToken);
-      const group = await axios.patch(
-        `/groups/${groupId}`,
-        {
-          name,
-          description
-        },
-        config
-      );
+      const group = await axios.patch(`/groups/${groupId}`, data, config);
 
       commit('updateGroup', group.data);
     } catch (e) {

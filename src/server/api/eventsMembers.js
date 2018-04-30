@@ -9,15 +9,9 @@ module.exports = {
       const { userIds } = req.body;
       const headers = extractProxyHeader(req);
 
-      const members = await axios.post(
-        `/events/${eventId}/members`,
-        {
-          user_ids: userIds
-        },
-        {
-          headers
-        }
-      );
+      const data = { user_ids: userIds };
+      const config = { headers };
+      const members = await axios.post(`/events/${eventId}/members`, data, config);
 
       res.status(201).json(members.data);
     }
@@ -27,9 +21,9 @@ module.exports = {
     handler: async (req, res) => {
       const { eventId } = req.params;
       const headers = extractProxyHeader(req);
-      const members = await axios.get(`/events/${eventId}/members`, {
-        headers
-      });
+
+      const config = { headers };
+      const members = await axios.get(`/events/${eventId}/members`, config);
 
       res.status(200).json(members.data);
     }

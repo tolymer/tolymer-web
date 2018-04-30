@@ -7,16 +7,10 @@ module.exports = {
     handler: async (req, res) => {
       const { name, description } = req.body;
       const headers = extractProxyHeader(req);
-      const group = await axios.post(
-        `/groups`,
-        {
-          name,
-          description
-        },
-        {
-          headers
-        }
-      );
+
+      const data = { name, description };
+      const config = { headers };
+      const group = await axios.post(`/groups`, data, config);
 
       res.status(201).json(group.data);
     }
@@ -26,9 +20,9 @@ module.exports = {
     handler: async (req, res) => {
       const { groupId } = req.params;
       const headers = extractProxyHeader(req);
-      const group = await axios.get(`/groups/${groupId}`, {
-        headers
-      });
+
+      const config = { headers };
+      const group = await axios.get(`/groups/${groupId}`, config);
 
       res.status(200).json(group.data);
     }
@@ -39,16 +33,10 @@ module.exports = {
       const { groupId } = req.params;
       const { name, description } = req.body;
       const headers = extractProxyHeader(req);
-      const group = await axios.patch(
-        `/groups/${groupId}`,
-        {
-          name,
-          description
-        },
-        {
-          headers
-        }
-      );
+
+      const data = { name, description };
+      const config = { headers };
+      const group = await axios.patch(`/groups/${groupId}`, data, config);
 
       res.status(201).json(group.data);
     }
@@ -58,13 +46,9 @@ module.exports = {
     handler: async (req, res) => {
       const { groupId } = req.params;
       const headers = extractProxyHeader(req);
-      const group = await axios.delete(
-        `/groups/${groupId}`,
-        {},
-        {
-          headers
-        }
-      );
+
+      const config = { headers };
+      const group = await axios.delete(`/groups/${groupId}`, config);
 
       res.status(201).json(group.data);
     }
