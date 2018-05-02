@@ -3,14 +3,14 @@ const extractProxyHeader = require('../extractProxyHeader');
 
 module.exports = {
   read: {
-    path: '/current_user',
+    path: '/auth/google',
     handler: async (req, res) => {
       const headers = extractProxyHeader(req);
 
       const config = { headers };
-      const currentUser = await axios.get('/current_user', config);
+      const googleAuth = await axios.get('/auth/google', config);
 
-      res.status(200).json(currentUser.data);
+      res.status(301).redirect(googleAuth.data);
     }
   }
 };

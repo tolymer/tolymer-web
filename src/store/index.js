@@ -9,7 +9,8 @@ export const state = () => ({
 });
 
 export const mutations = {
-  login(state) {
+  login() {},
+  loginCallback(state) {
     state.isLoggedIn = true;
   },
   logout(state) {
@@ -31,13 +32,22 @@ export const actions = {
   async loggedIn({ commit }) {
     commit('login');
   },
-  async login({ commit }, { name, password }) {
+  async login({ commit }) {
     try {
-      const auth = { name, password };
-      const data = { auth };
-      await axios.post('/user_token', data);
+      await axios.get('/auth/google');
 
       commit('login');
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  async loginCallback({ commit }, { code }) {
+    try {
+      const params = { code };
+      const config = { params };
+      await axios.get('/auth/google/callback', config);
+
+      commit('loginCallback');
     } catch (e) {
       console.error(e);
     }
