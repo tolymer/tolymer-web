@@ -5,8 +5,8 @@ module.exports = {
   read: {
     path: '/auth/google/callback',
     handler: async (req, res) => {
-      const { code } = req.query;
-      const params = { code };
+      const { code, state } = req.query;
+      const params = { code, state };
       const headers = extractProxyHeader(req);
 
       const config = { headers, params };

@@ -47,10 +47,11 @@ export const actions = {
       console.error(e);
     }
   },
-  async loginCallback({ commit }, { code }) {
+  async loginCallback({ commit }, { code, state, cookie }) {
     try {
-      const params = { code };
-      const config = { params };
+      const params = { code, state };
+      const headers = { cookie };
+      const config = { headers, params };
       await axios.get('/auth/google/callback', config);
 
       commit('loginCallback');

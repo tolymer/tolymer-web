@@ -6,8 +6,9 @@
 export default {
   async fetch(context) {
     try {
-      const { code } = context.query;
-      const payload = { code };
+      const { code, state } = context.query;
+      const { cookie } = context.req.headers;
+      const payload = { code, state, cookie };
 
       await context.store.dispatch('loginCallback', payload);
     } catch (e) {
