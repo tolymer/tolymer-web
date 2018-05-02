@@ -1,3 +1,4 @@
+const { parse } = require('cookie');
 const axios = require('../axios');
 const extractProxyHeader = require('../extractProxyHeader');
 
@@ -11,9 +12,16 @@ module.exports = {
 
       const config = { headers, maxRedirects, validateStatus };
       const googleAuth = await axios.get('/auth/google', config);
-      const { location } = googleAuth.headers;
 
-      res.status(200).json({ location });
+      const { location } = googleAuth.headers;
+      const cookie = parse(googleAuth.headers['set-cookie'][0]);
+      const key = '_interslice_session';
+      const value = cookie[key];
+
+      res
+        .status(200)
+        .cookie(key, value)
+        .json({ location });
     }
   }
 };
