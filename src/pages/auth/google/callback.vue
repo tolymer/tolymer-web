@@ -1,3 +1,7 @@
+<template>
+  <p>Authorizing Google...</p>
+</template>
+
 <script>
 export default {
   async fetch(context) {

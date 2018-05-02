@@ -1,3 +1,7 @@
+<template>
+  <p>Redirecting to Google...</p>
+</template>
+
 <script>
 export default {
   async fetch(context) {
