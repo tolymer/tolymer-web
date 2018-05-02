@@ -13,7 +13,7 @@ module.exports = {
       const googleAuth = await axios.get('/auth/google', config);
       const { location } = googleAuth.headers;
 
-      res.status(301).redirect(location);
+      res.status(200).json({ location });
     }
   }
 };

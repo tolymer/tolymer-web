@@ -63,7 +63,7 @@ export default {
     async onSubmitLogin(e) {
       e.preventDefault();
 
-      await this.$store.dispatch('login');
+      this.$router.push('/auth/google');
     },
     async onClickCreateGroup() {
       this.$router.push('/groups/new');
