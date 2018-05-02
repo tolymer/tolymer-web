@@ -6,11 +6,14 @@ module.exports = {
     path: '/auth/google',
     handler: async (req, res) => {
       const headers = extractProxyHeader(req);
+      const maxRedirects = 0;
+      const validateStatus = status => status >= 200 && status < 400;
 
-      const config = { headers };
+      const config = { headers, maxRedirects, validateStatus };
       const googleAuth = await axios.get('/auth/google', config);
+      const { location } = googleAuth.headers;
 
-      res.status(301).redirect(googleAuth.data);
+      res.status(301).redirect(location);
     }
   }
 };
