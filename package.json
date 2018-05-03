@@ -25,8 +25,7 @@
     "lint:css": "stylelint '**/*.vue' '**/*.css'",
     "precommit": "npm run lint",
     "heroku-postbuild": "npm run build",
-    "storybook": "start-storybook -p 6006",
-    "static-storybook": "start-storybook -p 6006 -s src/assets",
+    "storybook": "start-storybook -p 6006 -s src/assets",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
