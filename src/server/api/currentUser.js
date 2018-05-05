@@ -7,7 +7,7 @@ module.exports = {
     handler: async (req, res) => {
       const headers = extractProxyHeader(req);
 
-      const config = { header };
+      const config = { headers };
       const currentUser = await axios.get('/current_user', config);
 
       res.status(200).json(currentUser.data);
