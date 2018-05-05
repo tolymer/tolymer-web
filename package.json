@@ -26,7 +26,7 @@
     "precommit": "npm run lint",
     "heroku-postbuild": "npm run build",
     "storybook": "start-storybook -p 6006 -s src/assets",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook -s src/assets"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.1.1",
