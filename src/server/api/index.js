@@ -1,25 +1,27 @@
-const users = require('./users');
-const userToken = require('./userToken');
+const authGoogle = require('./authGoogle');
+const authGoogleCallback = require('./authGoogleCallback');
 const currentUser = require('./currentUser');
 const currentUserGroups = require('./currentUserGroups');
-const groups = require('./groups');
-const groupsMembers = require('./groupsMembers');
-const groupsEvents = require('./groupsEvents');
-const groupsStats = require('./groupsStats');
 const events = require('./events');
-const eventsMembers = require('./eventsMembers');
 const eventsGames = require('./eventsGames');
+const eventsMembers = require('./eventsMembers');
+const groups = require('./groups');
+const groupsEvents = require('./groupsEvents');
+const groupsMembers = require('./groupsMembers');
+const groupsStats = require('./groupsStats');
+const users = require('./users');
 
 module.exports = {
-  users,
-  userToken,
+  authGoogle,
+  authGoogleCallback,
   currentUser,
   currentUserGroups,
-  groups,
-  groupsMembers,
-  groupsEvents,
-  groupsStats,
   events,
+  eventsGames,
   eventsMembers,
-  eventsGames
+  groups,
+  groupsEvents,
+  groupsMembers,
+  groupsStats,
+  users
 };

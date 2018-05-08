@@ -2,6 +2,7 @@ import axios from '~/plugins/axios';
 import axiosConfig from '~/plugins/axiosConfig';
 
 export const state = () => ({
+  location: '',
   isLoggedIn: false,
   id: '',
   name: '',
@@ -9,7 +10,13 @@ export const state = () => ({
 });
 
 export const mutations = {
-  login(state) {
+  loggedIn(state) {
+    state.isLoggedIn = true;
+  },
+  login(state, payload) {
+    state.location = payload.location;
+  },
+  loginCallback(state) {
     state.isLoggedIn = true;
   },
   logout(state) {
@@ -29,15 +36,24 @@ export const mutations = {
 
 export const actions = {
   async loggedIn({ commit }) {
-    commit('login');
+    commit('loggedIn');
   },
-  async login({ commit }, { name, password }) {
+  async login({ commit }) {
     try {
-      const auth = { name, password };
-      const data = { auth };
-      await axios.post('/user_token', data);
+      const authGoogle = await axios.get('/auth/google');
 
-      commit('login');
+      commit('login', authGoogle.data);
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  async loginCallback({ commit }, { code, state }) {
+    try {
+      const params = { code, state };
+      const config = { params };
+      await axios.get('/auth/google/callback', config);
+
+      commit('loginCallback');
     } catch (e) {
       console.error(e);
     }
