@@ -10,7 +10,6 @@ const groupsEvents = require('./groupsEvents');
 const groupsMembers = require('./groupsMembers');
 const groupsStats = require('./groupsStats');
 const users = require('./users');
-const userToken = require('./userToken');
 
 module.exports = {
   authGoogle,
@@ -24,6 +23,5 @@ module.exports = {
   groupsEvents,
   groupsMembers,
   groupsStats,
-  users,
-  userToken
+  users
 };

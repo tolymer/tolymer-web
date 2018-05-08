@@ -4,19 +4,18 @@
 
 <script>
 export default {
-  async fetch(context) {
-    try {
-      const { code, state } = context.query;
-      const { cookie } = context.req.headers;
-      const payload = { code, state, cookie };
+  async asyncData(context) {
+    const { code, state } = context.query;
 
-      await context.store.dispatch('loginCallback', payload);
-    } catch (e) {
-      context.error({
-        message: 'Not found',
-        statusCode: 404
-      });
-    }
+    return { code, state };
+  },
+  async mounted() {
+    const { code, state } = this;
+    const payload = { code, state };
+
+    await this.$store.dispatch('loginCallback', payload);
+
+    this.$router.push('/');
   }
 };
 </script>

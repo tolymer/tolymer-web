@@ -12,7 +12,14 @@ module.exports = {
       const config = { headers, params };
       const googleAuthCallback = await axios.get('/auth/google/callback', config);
 
-      res.status(200).json(googleAuthCallback.data);
+      res
+        .status(200)
+        .cookie('accessToken', googleAuthCallback.data.jwt, {
+          axiosOnly: false,
+          maxAge: 1000 * 60 * 60 * 24,
+          secure: false
+        })
+        .json(googleAuthCallback.data);
     }
   }
 };
