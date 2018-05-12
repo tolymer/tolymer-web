@@ -27,6 +27,7 @@
   --font-size-md: 1rem; /* 16px */
   --font-size-lg: 1.25rem; /* 20px */
   --font-size-xl: 1.5rem; /* 24px */
+  --gradient-cover: linear-gradient(-180deg, rgba(47, 66, 49, 1) 0%, rgba(48, 52, 59, 0.95) 100%);
 }
 
 html {

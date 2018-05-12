@@ -1,6 +1,6 @@
 <template>
-  <header>
-    <h1>{{ title || name || "Tolymer" }}</h1>
+  <header class="Header">
+    <h1 class="Header-title">{{ title || name || "Tolymer" }}</h1>
   </header>
 </template>
 
@@ -20,17 +20,19 @@ export default {
 };
 </script>
 
-<style>
-header {
-  padding: calc(var(--space-base) * 2);
-  text-align: center;
-  color: var(--color-black);
-  background-color: var(--color-gray);
-  font-weight: bold;
+<style scoped>
+.Header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  background-image: var(--gradient-cover);
 }
 
-header h1 {
-  margin: 0;
-  font-size: 2rem;
+.Header-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: var(--font-size-lg);
+  color: var(--color-pale-white);
 }
 </style>
