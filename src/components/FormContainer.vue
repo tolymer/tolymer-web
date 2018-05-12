@@ -2,7 +2,10 @@
   <form
     class="FormContainer"
     @submit="onSubmit">
-    <slot />
+    <slot/>
+    <div class="FormContainer-action">
+      <slot name="action"/>
+    </div>
   </form>
 </template>
 
@@ -16,16 +19,16 @@ export default {
 };
 </script>
 
-
 <style>
 .FormContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: calc(var(--space-base) * 2);
+  padding: var(--space-4x);
 }
 
 .FormContainer > * {
-  margin: calc(var(--space-base) * 2) auto;
+  margin-bottom: var(--space-4x);
+}
+
+.FormContainer-action {
+  margin-top: var(--space-8x);
 }
 </style>

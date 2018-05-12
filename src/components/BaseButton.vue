@@ -83,6 +83,7 @@ export default {
   border: 1px solid var(--color-green);
   background-color: var(--color-green);
   color: var(--color-pale-white);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
   font-weight: bold;
 }
 

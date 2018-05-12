@@ -6,14 +6,14 @@
     <EventList :events="events" />
     <FormContainer>
       <BaseButton
-        kind="bordered"
+        kind="normal"
         @click="onClickCreateEvent">
         イベントをつくる
       </BaseButton>
       <BaseButton
-        kind="bordered"
+        kind="normal"
         @click="onClickUpdateGroup">
-        グループを更新する
+        グループを編集する
       </BaseButton>
     </FormContainer>
   </section>

@@ -16,7 +16,7 @@
   --space-12x: 48px;
   --space-16x: 64px;
   --radius-base: 4px;
-  --color-green: #3e783b; /* rgb(47, 66, 49), hsl(117,34.1%,35.1%) */
+  --color-green: #3e783b; /* rgb(47, 66, 49), hsl(117, 34.1%, 35.1%) */
   --color-black: #30323d;
   --color-yellow: #e8c547;
   --color-pale-white: #f7f7f6; /* rgb(247, 247, 246), hsl(60,5.9%,96.7%) */
@@ -54,6 +54,11 @@ body {
 h1,
 h2,
 h3,
-h4 {
+h4,
+p {
   margin: 0;
+}
+
+p {
+  margin-bottom: 1em;
 }

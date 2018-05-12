@@ -1,12 +1,17 @@
 <template>
   <div class="CheckboxContainer">
-    <slot />
+    <p class="CheckboxContainer-label">
+      <slot name="label"/>
+    </p>
+    <slot/>
   </div>
 </template>
 
-<style>
+<style scoped>
 .CheckboxContainer {
-  width: 100%;
-  max-width: 320px;
+}
+
+.CheckboxContainer-label {
+  margin-bottom: var(--space-2x);
 }
 </style>

@@ -63,7 +63,7 @@
     </form>
     <FormContainer>
       <BaseButton
-        kind="bordered"
+        kind="primary"
         @click="onClickUpdateEvent">
         イベントを更新する
       </BaseButton>
