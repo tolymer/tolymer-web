@@ -1,8 +1,8 @@
 <template>
   <section>
     <div v-if="!isLoggedIn">
-      <div class="Index">
-        <h1 class="Index-title">
+      <Cover>
+        <h1 class="AppName">
           Tolymer
         </h1>
         <FormContainer @submit="onSubmitLogin">
@@ -11,7 +11,7 @@
             Googleアカウントでサインイン
           </BaseButton>
         </FormContainer>
-      </div>
+      </Cover>
     </div>
     <div v-if="isLoggedIn">
       <Header />
@@ -39,6 +39,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import Cover from '~/components/Cover';
 import Header from '~/components/Header';
 import GroupList from '~/components/GroupList';
 import FormContainer from '~/components/FormContainer';
@@ -48,6 +49,7 @@ import GoogleIcon from '~/components/GoogleIcon';
 export default {
   middleware: ['auth'],
   components: {
+    Cover,
     Header,
     GroupList,
     FormContainer,
@@ -91,26 +93,12 @@ export default {
 </script>
 
 <style>
-  .Index {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    min-height: 100vh;
-    background-image:
-      linear-gradient(-180deg, rgba(47,66,49,1) 0%, rgba(48,52,59,0.95) 100%),
-      url('~assets/images/sticks.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 0 0, center bottom;
-  }
-
-  .Index-title {
-    margin-bottom: var(--space-md);
-    letter-spacing: 0.1em;
-    font-family: 'Varela Round', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-pale-white);
-  }
+.AppName {
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.1em;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-pale-white);
+}
 </style>

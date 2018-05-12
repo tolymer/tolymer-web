@@ -41,4 +41,3 @@ storiesOf('Header', module).add('Inventory', () => ({
     </div>
     `
 }));
-

@@ -1,9 +1,16 @@
 <template>
-  <p>Authorizing Google...</p>
+  <Cover>
+    <p class="LoginCallback">Authorizing Google...</p>
+  </Cover>
 </template>
 
 <script>
+import Cover from '~/components/Cover';
+
 export default {
+  components: {
+    Cover
+  },
   async asyncData(context) {
     const { code, state } = context.query;
 
@@ -19,3 +26,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.LoginCallback {
+  text-align: center;
+  color: var(--color-pale-white);
+}
+</style>

@@ -51,9 +51,7 @@ export default {
   padding: var(--space-4x);
   border-radius: var(--radius-base);
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
-  transition:
-    background-color 300ms ease-in-out,
-    box-shadow 300ms ease-in-out;
+  transition: background-color 300ms ease-in-out, box-shadow 300ms ease-in-out;
   will-change: background-color, box-shadow;
 }
 
@@ -70,15 +68,13 @@ export default {
 
 .Button.-normal:active {
   background-color: var(--color-light-gray);
-  box-shadow: 0 0 0 transparent
+  box-shadow: 0 0 0 transparent;
 }
 
 .Button.-normal:focus {
   outline: 0;
   background-color: var(--color-light-gray);
-  box-shadow:
-    1px 1px 0 rgba(0, 0, 0, 0.1),
-    0px 0px 0px 2px var(--color-green);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1), 0px 0px 0px 2px var(--color-green);
 }
 
 .Button.-primary {
