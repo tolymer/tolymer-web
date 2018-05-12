@@ -16,11 +16,11 @@
   --space-12x: 48px;
   --space-16x: 64px;
   --radius-base: 4px;
-  --color-green: #3e783b;
+  --color-green: #3e783b; /* rgb(47, 66, 49), hsl(117,34.1%,35.1%) */
   --color-black: #30323d;
   --color-yellow: #e8c547;
-  --color-pale-white: #F7F7F6;
-  --color-light-gray: #dAd7cd;
+  --color-pale-white: #f7f7f6; /* rgb(247, 247, 246), hsl(60,5.9%,96.7%) */
+  --color-light-gray: #dad7cd; /* rgb(218, 215, 205) */
   --color-red: #ff715b;
   --font-size-xs: 0.75rem; /* 12px */
   --font-size-sm: 0.825rem; /* 14px */

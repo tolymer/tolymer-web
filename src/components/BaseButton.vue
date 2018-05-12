@@ -26,7 +26,7 @@ export default {
     },
     kind: {
       type: String,
-      default: 'normal',
+      default: '',
       validator: k => kinds.indexOf(k) !== -1
     }
   },
@@ -45,12 +45,14 @@ export default {
 
 <style scoped>
 .Button {
-  display: inline-flex;
+  display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid transparent;
+  width: 100%;
   padding: var(--space-4x);
   border-radius: var(--radius-base);
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+  background-color: transparent;
   transition: background-color 300ms ease-in-out, box-shadow 300ms ease-in-out;
   will-change: background-color, box-shadow;
 }
@@ -62,25 +64,41 @@ export default {
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
-.Button.-normal:hover {
-  background-color: var(--color-light-gray);
+.Button:hover {
+  background-color: hsl(60, 5.9%, 91.7%);
 }
 
-.Button.-normal:active {
-  background-color: var(--color-light-gray);
+.Button:active {
+  background-color: hsl(60, 5.9%, 91.7%);
   box-shadow: 0 0 0 transparent;
 }
 
-.Button.-normal:focus {
+.Button:focus {
   outline: 0;
-  background-color: var(--color-light-gray);
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1), 0px 0px 0px 2px var(--color-green);
+  background-color: hsl(60, 5.9%, 91.7%);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1), 0px 0px 0px 2px rgba(62, 120, 59, 0.2);
 }
 
 .Button.-primary {
   border: 1px solid var(--color-green);
   background-color: var(--color-green);
-  color: var(--color-black);
+  color: var(--color-pale-white);
+  font-weight: bold;
+}
+
+.Button.-primary:hover {
+  background-color: hsl(117, 34.1%, 30.1%);
+}
+
+.Button.-primary:active {
+  background-color: hsl(117, 34.1%, 30.1%);
+  box-shadow: 0 0 0 transparent;
+}
+
+.Button.-primary:focus {
+  outline: 0;
+  background-color: hsl(117, 34.1%, 30.1%);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1), 0px 0px 0px 2px rgba(62, 120, 59, 0.2);
 }
 
 .Button.-bordered {

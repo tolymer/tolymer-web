@@ -6,7 +6,9 @@
           Tolymer
         </h1>
         <FormContainer @submit="onSubmitLogin">
-          <BaseButton type="submit">
+          <BaseButton
+            kind="normal"
+            type="submit">
             <GoogleIcon slot="icon"/>
             Googleアカウントでサインイン
           </BaseButton>
@@ -18,17 +20,16 @@
       <GroupList :groups="groups"/>
       <FormContainer>
         <BaseButton
-          kind="bordered"
+          kind="normal"
           @click="onClickCreateGroup">
           グループをつくる
         </BaseButton>
         <BaseButton
-          kind="bordered"
+          kind="normal"
           @click="onClickUpdateUser">
           プロフィールを更新する
         </BaseButton>
         <BaseButton
-          kind="bordered"
           @click="onClickLogout">
           ログアウト
         </BaseButton>
