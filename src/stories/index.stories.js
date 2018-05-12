@@ -7,6 +7,7 @@ import { action } from '@storybook/addon-actions';
 import BaseButton from '../components/BaseButton.vue';
 import BaseInput from '../components/BaseInput.vue';
 import Header from '../components/Header.vue';
+import IconMahjong from '../components/IconMahjong.vue';
 
 storiesOf('BaseButton', module).add('Inventory', () => ({
   components: { BaseButton },
@@ -40,3 +41,4 @@ storiesOf('Header', module).add('Inventory', () => ({
     </div>
     `
 }));
+

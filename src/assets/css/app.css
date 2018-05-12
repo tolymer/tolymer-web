@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico|Roboto:400,700|Varela+Round');
+
 :root {
   --space-base: 8px;
   /*--color-black: #000;*/
@@ -17,6 +19,7 @@
   --color-green: #3e783b;
   --color-black: #30323d;
   --color-yellow: #e8c547;
+  --color-pale-white: #F7F7F6;
   --color-light-gray: #dAd7cd;
   --color-red: #ff715b;
   --font-size-xs: 0.75rem; /* 12px */
@@ -42,8 +45,8 @@ body {
   margin: 0;
   padding: 0;
   color: var(--color-black);
-  background-color: var(--color-light-gray);
-  font-family: sans-serif;
+  background-color: var(--color-pale-white);
+  font-family: 'Roboto', sans-serif;
   font-size: 1rem;
 }
 
