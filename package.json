@@ -20,6 +20,7 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "fix": "prettier '**/*.{vue,js}' --write",
+    "fix:css": "stylelint --fix '**/*.vue' '**/*.css'",
     "lint": "npm run lint:js && prettier '**/*.{vue,js}' --list-different && npm run lint:css",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint:css": "stylelint '**/*.vue' '**/*.css'",

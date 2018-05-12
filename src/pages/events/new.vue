@@ -136,13 +136,12 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  /*padding: calc(var(--space-base) / 2);*/
 }
 
 .Checkbox-input {
-  margin-right: var(--space-2x);
   width: 1.25em;
   height: 1.25em;
+  margin-right: var(--space-2x);
 }
 
 .Checkbox-label {

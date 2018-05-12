@@ -97,9 +97,9 @@ export default {
 .AppName {
   margin-bottom: var(--space-md);
   letter-spacing: 0.1em;
+  color: var(--color-pale-white);
   font-family: 'Varela Round', sans-serif;
   font-size: 2rem;
   font-weight: 700;
-  color: var(--color-pale-white);
 }
 </style>

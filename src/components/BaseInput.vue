@@ -68,7 +68,6 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  /*max-width: 320px;*/
 }
 
 .Input-label {
@@ -76,19 +75,19 @@ export default {
 }
 
 .Input-field {
-  padding: calc(var(--space-base) * 2);
+  padding: var(--space-4x);
+  transition: background-color 300ms ease-in-out, border-color 300ms ease-in-out;
   color: var(--color-black);
   border-width: 0 0 1px 0;
   border-top: 1px solid var(--color-gray);
   border-left: 1px solid var(--color-gray);
   background-color: white;
-  transition: background-color 300ms ease-in-out, border-color 300ms ease-in-out;
   will-change: background-color, border-color;
 }
 
 .Input-field:focus {
-  outline: 0;
   border-top-color: hsl(117, 34.1%, 40.1%);
   border-left-color: hsl(117, 34.1%, 40.1%);
+  outline: 0;
 }
 </style>

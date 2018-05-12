@@ -8,9 +8,6 @@
 </template>
 
 <style scoped>
-.CheckboxContainer {
-}
-
 .CheckboxContainer-label {
   margin-bottom: var(--space-2x);
 }

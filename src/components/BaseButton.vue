@@ -46,21 +46,21 @@ export default {
 <style scoped>
 .Button {
   display: flex;
-  justify-content: center;
   align-items: center;
-  border: 1px solid transparent;
+  justify-content: center;
   width: 100%;
   padding: var(--space-4x);
+  transition: background-color 300ms ease-in-out, box-shadow 300ms ease-in-out;
+  border: 1px solid transparent;
   border-radius: var(--radius-base);
   background-color: transparent;
-  transition: background-color 300ms ease-in-out, box-shadow 300ms ease-in-out;
   will-change: background-color, box-shadow;
 }
 
 .Button.-normal {
+  color: var(--color-black);
   border: 1px solid white;
   background-color: white;
-  color: var(--color-black);
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -76,13 +76,13 @@ export default {
 .Button:focus {
   outline: 0;
   background-color: hsl(60, 5.9%, 91.7%);
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1), 0px 0px 0px 2px rgba(62, 120, 59, 0.2);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(62, 120, 59, 0.2);
 }
 
 .Button.-primary {
+  color: var(--color-pale-white);
   border: 1px solid var(--color-green);
   background-color: var(--color-green);
-  color: var(--color-pale-white);
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
   font-weight: bold;
 }
@@ -99,13 +99,13 @@ export default {
 .Button.-primary:focus {
   outline: 0;
   background-color: hsl(117, 34.1%, 30.1%);
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1), 0px 0px 0px 2px rgba(62, 120, 59, 0.2);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(62, 120, 59, 0.2);
 }
 
 .Button.-bordered {
+  color: var(--color-black);
   border: 1px solid currentColor;
   background-color: transparent;
-  color: var(--color-black);
 }
 
 .Button-icon {
