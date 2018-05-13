@@ -5,7 +5,14 @@ module.exports = {
   head: {
     title: 'Tolymer',
     meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        type: 'stylesheet',
+        href: '//fonts.googleapis.com/css?family=Pacifico|Roboto:400,700|Varela+Round'
+      }
+    ]
   },
   /*
   ** Customize the progress bar color

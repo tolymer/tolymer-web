@@ -6,13 +6,19 @@
         v-model="name"
         type="text"
         label="名前"/>
+      <!--
       <BaseInput
         v-model="password"
         type="password"
         label="パスワード"/>
-      <BaseButton type="submit">
-        更新
-      </BaseButton>
+      -->
+      <div slot="action">
+        <BaseButton
+          type="submit"
+          kind="primary">
+          更新
+        </BaseButton>
+      </div>
     </FormContainer>
   </section>
 </template>

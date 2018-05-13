@@ -14,9 +14,13 @@
         v-model="date"
         type="date"
         label="日程"/>
-      <BaseButton type="submit">
-        更新
-      </BaseButton>
+      <div slot="action">
+        <BaseButton
+          type="submit"
+          kind="primary">
+          更新
+        </BaseButton>
+      </div>
     </FormContainer>
   </section>
 </template>

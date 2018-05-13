@@ -9,10 +9,14 @@
         label="グループ名" />
       <BaseInput
         v-model="description"
-        label="グループ" />
-      <BaseButton type="submit">
-        登録
-      </BaseButton>
+        label="グループ概要" />
+      <div slot="action">
+        <BaseButton
+          type="submit"
+          kind="primary">
+          登録
+        </BaseButton>
+      </div>
     </form>
   </section>
 </template>

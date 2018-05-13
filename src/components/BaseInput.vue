@@ -1,8 +1,8 @@
 <template>
-  <label class="Label">
-    <div>
+  <label class="Input">
+    <p class="Input-label">
       {{ label }}
-    </div>
+    </p>
     <input
       :type="type"
       :value="value"
@@ -11,7 +11,7 @@
       :maxlength="maxlength"
       :disabled="disabled"
       :readonly="readonly"
-      class="Input"
+      class="Input-field"
       @input="onInput">
   </label>
 </template>
@@ -64,17 +64,30 @@ export default {
 </script>
 
 <style>
-.Label {
+.Input {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 320px;
 }
 
-.Input {
-  padding: calc(var(--space-base) * 2);
+.Input-label {
+  margin-bottom: var(--space-2x);
+}
+
+.Input-field {
+  padding: var(--space-4x);
+  transition: background-color 300ms ease-in-out, border-color 300ms ease-in-out;
   color: var(--color-black);
-  border: solid 1px var(--color-white);
-  background-color: var(--color-white);
+  border-width: 0 0 1px 0;
+  border-top: 1px solid var(--color-gray);
+  border-left: 1px solid var(--color-gray);
+  background-color: white;
+  will-change: background-color, border-color;
+}
+
+.Input-field:focus {
+  border-top-color: hsl(117, 34.1%, 40.1%);
+  border-left-color: hsl(117, 34.1%, 40.1%);
+  outline: 0;
 }
 </style>

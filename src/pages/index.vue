@@ -1,29 +1,35 @@
 <template>
   <section>
     <div v-if="!isLoggedIn">
-      <Header title="tolymer" />
-      <FormContainer @submit="onSubmitLogin">
-        <BaseButton type="submit">
-          Google でログイン
-        </BaseButton>
-      </FormContainer>
+      <Cover>
+        <h1 class="AppName">
+          Tolymer
+        </h1>
+        <FormContainer @submit="onSubmitLogin">
+          <BaseButton
+            kind="normal"
+            type="submit">
+            <GoogleIcon slot="icon"/>
+            Googleアカウントでサインイン
+          </BaseButton>
+        </FormContainer>
+      </Cover>
     </div>
     <div v-if="isLoggedIn">
       <Header />
       <GroupList :groups="groups"/>
       <FormContainer>
         <BaseButton
-          kind="bordered"
+          kind="normal"
           @click="onClickCreateGroup">
           グループをつくる
         </BaseButton>
         <BaseButton
-          kind="bordered"
+          kind="normal"
           @click="onClickUpdateUser">
           プロフィールを更新する
         </BaseButton>
         <BaseButton
-          kind="bordered"
           @click="onClickLogout">
           ログアウト
         </BaseButton>
@@ -34,18 +40,22 @@
 
 <script>
 import { mapState } from 'vuex';
+import Cover from '~/components/Cover';
 import Header from '~/components/Header';
 import GroupList from '~/components/GroupList';
 import FormContainer from '~/components/FormContainer';
 import BaseButton from '~/components/BaseButton';
+import GoogleIcon from '~/components/GoogleIcon';
 
 export default {
   middleware: ['auth'],
   components: {
+    Cover,
     Header,
     GroupList,
     FormContainer,
-    BaseButton
+    BaseButton,
+    GoogleIcon
   },
   async asyncData(context) {
     const { accessToken } = context.cookie;
@@ -82,3 +92,14 @@ export default {
   }
 };
 </script>
+
+<style>
+.AppName {
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.1em;
+  color: var(--color-pale-white);
+  font-family: 'Varela Round', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+}
+</style>

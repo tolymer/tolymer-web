@@ -1,13 +1,3 @@
 <template>
-  <main>
-    <nuxt />
-  </main>
+  <nuxt />
 </template>
-
-<style>
-main {
-  min-width: 320px;
-  max-width: 640px;
-  margin: 0 auto;
-}
-</style>

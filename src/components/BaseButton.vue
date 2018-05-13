@@ -5,13 +5,17 @@
     :class="[k]"
     class="Button"
     @click="onClick">
+    <span
+      class="Button-icon">
+      <slot name="icon"/>
+    </span>
     <slot />
   </button>
 </template>
 
 <script>
 const types = ['button', 'submit'];
-const kinds = ['normal', 'bordered'];
+const kinds = ['normal', 'primary', 'bordered'];
 
 export default {
   props: {
@@ -22,7 +26,7 @@ export default {
     },
     kind: {
       type: String,
-      default: 'normal',
+      default: '',
       validator: k => kinds.indexOf(k) !== -1
     }
   },
@@ -39,23 +43,72 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .Button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  max-width: 320px;
-  padding: calc(var(--space-base) * 2);
+  padding: var(--space-4x);
+  transition: background-color 300ms ease-in-out, box-shadow 300ms ease-in-out;
+  border: 1px solid transparent;
   border-radius: var(--radius-base);
+  background-color: transparent;
+  will-change: background-color, box-shadow;
 }
 
 .Button.-normal {
   color: var(--color-black);
-  border: solid 1px var(--color-gray);
-  background-color: var(--color-gray);
+  border: 1px solid white;
+  background-color: white;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.Button:hover {
+  background-color: hsl(60, 5.9%, 91.7%);
+}
+
+.Button:active {
+  background-color: hsl(60, 5.9%, 91.7%);
+  box-shadow: 0 0 0 transparent;
+}
+
+.Button:focus {
+  outline: 0;
+  background-color: hsl(60, 5.9%, 91.7%);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(62, 120, 59, 0.2);
+}
+
+.Button.-primary {
+  color: var(--color-pale-white);
+  border: 1px solid var(--color-green);
+  background-color: var(--color-green);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+
+.Button.-primary:hover {
+  background-color: hsl(117, 34.1%, 30.1%);
+}
+
+.Button.-primary:active {
+  background-color: hsl(117, 34.1%, 30.1%);
+  box-shadow: 0 0 0 transparent;
+}
+
+.Button.-primary:focus {
+  outline: 0;
+  background-color: hsl(117, 34.1%, 30.1%);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(62, 120, 59, 0.2);
 }
 
 .Button.-bordered {
   color: var(--color-black);
-  border: solid 1px currentColor;
-  background-color: var(--color-light-gray);
+  border: 1px solid currentColor;
+  background-color: transparent;
+}
+
+.Button-icon {
+  margin-right: var(--space-2x);
 }
 </style>

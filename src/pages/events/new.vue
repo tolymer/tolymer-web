@@ -15,24 +15,30 @@
         type="date"
         label="日程"/>
       <CheckboxContainer>
-        メンバー
+        <template slot="label">メンバー</template>
         <label
           v-for="(member, index) in members"
           :key="index"
-          class="CheckboxLabel">
+          class="Checkbox">
           <input
             :value="member.id"
             :key="index"
             v-model="userIds"
             type="checkbox"
-            class="Checkbox"
+            class="Checkbox-input"
             name="members">
-          {{ member.name }}
+          <span class="Checkbox-label">
+            {{ member.name }}
+          </span>
         </label>
       </CheckboxContainer>
-      <BaseButton type="submit">
-        作成
-      </BaseButton>
+      <div slot="action">
+        <BaseButton
+          type="submit"
+          kind="primary">
+          作成
+        </BaseButton>
+      </div>
     </FormContainer>
   </section>
 </template>
@@ -125,17 +131,20 @@ export default {
 };
 </script>
 
-<style>
-.CheckboxLabel {
+<style scoped>
+.Checkbox {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
-  width: 100%;
-  max-width: 320px;
-  padding: calc(var(--space-base) / 2);
+  align-items: center;
 }
 
-.Checkbox {
-  margin-right: var(--space-base);
+.Checkbox-input {
+  width: 1.25em;
+  height: 1.25em;
+  margin-right: var(--space-2x);
+}
+
+.Checkbox-label {
+  margin-right: var(--space-2x);
 }
 </style>

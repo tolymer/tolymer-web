@@ -13,8 +13,8 @@ storiesOf('BaseButton', module).add('Inventory', () => ({
   template: `
     <div>
       <BaseButton @click="action">ボタン</BaseButton>
-      <BaseButton 
-        kind="bordered" 
+      <BaseButton
+        kind="bordered"
         @click="action">ボタン</BaseButton>
     </div>
     `,
