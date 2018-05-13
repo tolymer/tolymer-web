@@ -66,13 +66,6 @@ export default {
   box-shadow: 0 0 0 transparent;
 }
 
-.Button.-text {
-  color: var(--color-black);
-  border: 1px solid white;
-  background-color: white;
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
-}
-
 .Button.-normal {
   color: var(--color-black);
   border: 1px solid white;
