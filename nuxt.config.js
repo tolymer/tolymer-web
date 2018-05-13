@@ -7,7 +7,11 @@ module.exports = {
     meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', type: 'stylesheet', href: '//fonts.googleapis.com/css?family=Pacifico|Roboto:400,700|Varela+Round' }
+      {
+        rel: 'stylesheet',
+        type: 'stylesheet',
+        href: '//fonts.googleapis.com/css?family=Pacifico|Roboto:400,700|Varela+Round'
+      }
     ]
   },
   /*
