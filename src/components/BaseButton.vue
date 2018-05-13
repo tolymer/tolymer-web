@@ -26,7 +26,7 @@ export default {
     },
     kind: {
       type: String,
-      default: '',
+      default: 'normal',
       validator: k => kinds.indexOf(k) !== -1
     }
   },
@@ -57,13 +57,6 @@ export default {
   will-change: background-color, box-shadow;
 }
 
-.Button.-normal {
-  color: var(--color-black);
-  border: 1px solid white;
-  background-color: white;
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
-}
-
 .Button:hover {
   background-color: hsl(60, 5.9%, 91.7%);
 }
@@ -71,6 +64,20 @@ export default {
 .Button:active {
   background-color: hsl(60, 5.9%, 91.7%);
   box-shadow: 0 0 0 transparent;
+}
+
+.Button.-text {
+  color: var(--color-black);
+  border: 1px solid white;
+  background-color: white;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.Button.-normal {
+  color: var(--color-black);
+  border: 1px solid white;
+  background-color: white;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .Button.-primary {
