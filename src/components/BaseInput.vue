@@ -84,10 +84,4 @@ export default {
   background-color: white;
   will-change: background-color, border-color;
 }
-
-.Input-field:focus {
-  border-top-color: hsl(117, 34.1%, 40.1%);
-  border-left-color: hsl(117, 34.1%, 40.1%);
-  outline: 0;
-}
 </style>
