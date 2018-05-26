@@ -6,10 +6,11 @@
         <thead>
           <tr>
             <th />
-            <th>{{ userA.name }}</th>
-            <th>{{ userB.name }}</th>
-            <th>{{ userC.name }}</th>
-            <th>{{ userD.name }}</th>
+            <th
+              v-for="(userName, i) in userNames"
+              :key="i">
+              {{ userName }}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -21,35 +22,6 @@
             <td>{{ formatPoint(game.scores[1].point) }}</td>
             <td>{{ formatPoint(game.scores[2].point) }}</td>
             <td>{{ formatPoint(game.scores[3].point) }}</td>
-          </tr>
-          <tr>
-            <td>
-              <button
-                type="submit"
-                @click="onClick">
-                +
-              </button>
-            </td>
-            <td>
-              <input
-                v-model="inputA"
-                type="number">
-            </td>
-            <td>
-              <input
-                v-model="inputB"
-                type="number">
-            </td>
-            <td>
-              <input
-                v-model="inputC"
-                type="number">
-            </td>
-            <td>
-              <input
-                v-model="inputD"
-                type="number">
-            </td>
           </tr>
           <tr>
             <td>計</td>
@@ -64,6 +36,11 @@
     <FormContainer>
       <BaseButton
         kind="primary"
+        @click="onClickAddScore">
+        スコアを追加する
+      </BaseButton>
+      <BaseButton
+        kind="primary"
         @click="onClickUpdateEvent">
         イベントを更新する
       </BaseButton>
@@ -76,10 +53,6 @@ import { mapState } from 'vuex';
 import Header from '~/components/Header';
 import FormContainer from '~/components/FormContainer';
 import BaseButton from '~/components/BaseButton';
-
-const memberDefault = {
-  name: ''
-};
 
 export default {
   middleware: ['auth'],
@@ -97,17 +70,8 @@ export default {
     };
   },
   computed: {
-    userA: function() {
-      return this.members[0] || memberDefault;
-    },
-    userB: function() {
-      return this.members[1] || memberDefault;
-    },
-    userC: function() {
-      return this.members[2] || memberDefault;
-    },
-    userD: function() {
-      return this.members[3] || memberDefault;
+    userNames: function() {
+      return this.members.map(member => member.name || '');
     },
     scoreA: function() {
       const points = this.games.map(game => game.scores[0].point);
@@ -180,39 +144,8 @@ export default {
 
       return point;
     },
-    async onClick(e) {
-      e.preventDefault();
-
-      const scores = [
-        {
-          user_id: this.userA.id,
-          point: this.inputA
-        },
-        {
-          user_id: this.userB.id,
-          point: this.inputB
-        },
-        {
-          user_id: this.userC.id,
-          point: this.inputC
-        },
-        {
-          user_id: this.userD.id,
-          point: this.inputD
-        }
-      ];
-      const { eventId, accessToken } = this;
-
-      await this.$store.dispatch('event/addEventGame', {
-        eventId,
-        scores,
-        accessToken
-      });
-
-      await this.$store.dispatch('event/getEvent', {
-        eventId,
-        accessToken
-      });
+    async onClickAddScore() {
+      this.$router.push(`/events/${this.eventId}/add`);
     },
     async onClickUpdateEvent() {
       this.$router.push(`/events/${this.eventId}/edit`);
