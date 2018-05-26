@@ -27,10 +27,10 @@ module.exports = {
     path: '/users/:userId',
     handler: async (req, res) => {
       const { userId } = req.params;
-      const { name, password } = req.body;
+      const { name } = req.body;
       const headers = extractProxyHeader(req);
 
-      const data = { name, password };
+      const data = { name };
       const config = { headers };
       const users = await axios.patch(`/users/${userId}`, data, config);
 
