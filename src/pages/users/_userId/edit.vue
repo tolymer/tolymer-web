@@ -6,12 +6,6 @@
         v-model="name"
         type="text"
         label="名前"/>
-      <!--
-      <BaseInput
-        v-model="password"
-        type="password"
-        label="パスワード"/>
-      -->
       <div slot="action">
         <BaseButton
           type="submit"
@@ -39,8 +33,7 @@ export default {
   data() {
     return {
       userId: '',
-      name: '',
-      password: ''
+      name: ''
     };
   },
   async asyncData(context) {
@@ -52,12 +45,11 @@ export default {
       userId
     });
 
-    const { name, password } = context.store.state.user;
+    const { name } = context.store.state.user;
 
     return {
       userId,
       name,
-      password,
       accessToken
     };
   },
@@ -65,11 +57,11 @@ export default {
     async onSubmit(e) {
       e.preventDefault();
 
-      const { name, password, accessToken } = this;
+      const { userId, name, accessToken } = this;
 
       await this.$store.dispatch('user/updateUser', {
+        userId,
         name,
-        password,
         accessToken
       });
 

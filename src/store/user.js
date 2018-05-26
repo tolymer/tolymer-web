@@ -8,15 +8,17 @@ export const state = () => ({
 export const mutations = {
   createUser() {},
   getUser(state, payload) {
-    state.id = payload.id;
+    state.name = payload.name;
+  },
+  updateUser(state, payload) {
     state.name = payload.name;
   }
 };
 
 export const actions = {
-  async createUser({ commit }, { name, password }) {
+  async createUser({ commit }, { name }) {
     try {
-      const data = { name, password };
+      const data = { name };
       const user = await axios.post('/users', data);
 
       commit('createUser', user.data);
@@ -29,6 +31,16 @@ export const actions = {
       const user = await axios.get(`/users/${userId}`);
 
       commit('getUser', user.data);
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  async updateUser({ commit }, { userId, name }) {
+    try {
+      const data = { name };
+      const user = await axios.patch(`/users/${userId}`, data);
+
+      commit('updateUser', user.data);
     } catch (e) {
       console.error(e);
     }
