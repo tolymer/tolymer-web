@@ -2,8 +2,10 @@
   <p>Redirecting to Google...</p>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
   async fetch(context) {
     try {
       await context.store.dispatch('login');
@@ -16,5 +18,5 @@ export default {
       });
     }
   }
-};
+});
 </script>

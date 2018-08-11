@@ -1,7 +1,7 @@
 <template>
   <section>
     <Header/>
-    <FormContainer @submit="onSubmit">
+    <FormContainer @submit.prevent="onSubmit">
       <BaseInput
         v-model="name"
         type="text"
@@ -17,13 +17,14 @@
   </section>
 </template>
 
-<script>
-import Header from '~/components/Header';
-import FormContainer from '~/components/FormContainer';
-import BaseInput from '~/components/BaseInput';
-import BaseButton from '~/components/BaseButton';
+<script lang="ts">
+import Vue from 'vue';
+import Header from '~/components/Header.vue';
+import FormContainer from '~/components/FormContainer.vue';
+import BaseInput from '~/components/BaseInput.vue';
+import BaseButton from '~/components/BaseButton.vue';
 
-export default {
+export default Vue.extend({
   components: {
     Header,
     FormContainer,
@@ -32,8 +33,9 @@ export default {
   },
   data() {
     return {
-      userId: '',
-      name: ''
+      userId: null,
+      name: null,
+      accessToken: null
     };
   },
   async asyncData(context) {
@@ -54,9 +56,7 @@ export default {
     };
   },
   methods: {
-    async onSubmit(e) {
-      e.preventDefault();
-
+    async onSubmit() {
       const { userId, name, accessToken } = this;
 
       await this.$store.dispatch('user/updateUser', {
@@ -68,5 +68,5 @@ export default {
       this.$router.push('/');
     }
   }
-};
+});
 </script>

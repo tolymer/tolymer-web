@@ -1,9 +1,9 @@
 <template>
   <section>
     <Header
-      :title="name"
-      :subtitle="description" />
-    <EventList :events="events" />
+      :title="$store.state.group.name"
+      :subtitle="$store.state.group.description" />
+    <EventList :events="$store.state.group.events" />
     <FormContainer>
       <BaseButton
         kind="normal"
@@ -19,14 +19,14 @@
   </section>
 </template>
 
-<script>
-import { mapState } from 'vuex';
-import Header from '~/components/Header';
-import EventList from '~/components/EventList';
-import FormContainer from '~/components/FormContainer';
-import BaseButton from '~/components/BaseButton';
+<script lang="ts">
+import Vue from 'vue';
+import Header from '~/components/Header.vue';
+import EventList from '~/components/EventList.vue';
+import FormContainer from '~/components/FormContainer.vue';
+import BaseButton from '~/components/BaseButton.vue';
 
-export default {
+export default Vue.extend({
   middleware: ['auth'],
   components: {
     Header,
@@ -34,12 +34,11 @@ export default {
     FormContainer,
     BaseButton
   },
-  computed: mapState({
-    name: state => state.group.name,
-    description: state => state.group.description,
-    members: state => state.group.members,
-    events: state => state.group.events
-  }),
+  data() {
+    return {
+      groupId: null
+    };
+  },
   async asyncData(context) {
     const { groupId } = context.params;
 
@@ -82,5 +81,5 @@ export default {
       this.$router.push(`/groups/${this.groupId}/edit`);
     }
   }
-};
+});
 </script>

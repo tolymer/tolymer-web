@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Header :title="title" />
+    <Header :title="$store.state.event.title" />
     <form>
       <table>
         <thead>
@@ -37,21 +37,21 @@
     <FormContainer>
       <BaseButton
         kind="primary"
-        @click="onClick">
+        @click.prevent="onClick">
         保存
       </BaseButton>
     </FormContainer>
   </section>
 </template>
 
-<script>
-import { mapState } from 'vuex';
-import Header from '~/components/Header';
-import FormContainer from '~/components/FormContainer';
-import BaseButton from '~/components/BaseButton';
-import BaseInput from '~/components/BaseInput';
+<script lang="ts">
+import Vue from 'vue';
+import Header from '~/components/Header.vue';
+import FormContainer from '~/components/FormContainer.vue';
+import BaseButton from '~/components/BaseButton.vue';
+import BaseInput from '~/components/BaseInput.vue';
 
-export default {
+export default Vue.extend({
   middleware: ['auth'],
   components: {
     Header,
@@ -61,21 +61,21 @@ export default {
   },
   data() {
     return {
+      eventId: null,
+      accessToken: null,
       inputScores: [null, null, null, null]
     };
   },
   computed: {
     userNames: function() {
-      return this.members.map(member => member.name || '');
+      const { members } = this.$store.state.event;
+
+      return members.map(member => member.name || '');
     },
     topScore: function() {
       const amount = this.inputScores.map(s => Number(s) || 0).reduce((acc, v) => acc + v, 0);
       return amount < 0 ? -amount : null;
-    },
-    ...mapState({
-      title: state => state.event.title,
-      members: state => state.event.members
-    })
+    }
   },
   async asyncData(context) {
     const { accessToken } = context.cookie;
@@ -120,15 +120,14 @@ export default {
         this.inputScores = this.inputScores.map(s => (s === 0 || s ? s : 'top'));
       }
     },
-    async onClick(e) {
-      e.preventDefault();
-
+    async onClick() {
       const scores = [];
       const { eventId, accessToken } = this;
+      const { members } = this.$store.state.event;
 
       for (let i = 0; i < this.inputScores.length; i++) {
         scores.push({
-          user_id: this.members[i].id,
+          user_id: members[i].id,
           point: this.inputScores[i]
         });
       }
@@ -145,7 +144,7 @@ export default {
       });
     }
   }
-};
+});
 </script>
 
 <style scoped>

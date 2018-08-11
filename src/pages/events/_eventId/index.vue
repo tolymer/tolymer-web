@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Header :title="title" />
+    <Header :title="$store.state.event.title" />
     <form>
       <table>
         <thead>
@@ -15,7 +15,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="(game, index) in games"
+            v-for="(game, index) in $store.state.event.games"
             :key="index">
             <td>{{ index + 1 }}</td>
             <td>{{ formatPoint(game.scores[0].point) }}</td>
@@ -48,13 +48,13 @@
   </section>
 </template>
 
-<script>
-import { mapState } from 'vuex';
-import Header from '~/components/Header';
-import FormContainer from '~/components/FormContainer';
-import BaseButton from '~/components/BaseButton';
+<script lang="ts">
+import Vue from 'vue';
+import Header from '~/components/Header.vue';
+import FormContainer from '~/components/FormContainer.vue';
+import BaseButton from '~/components/BaseButton.vue';
 
-export default {
+export default Vue.extend({
   middleware: ['auth'],
   components: {
     Header,
@@ -63,6 +63,8 @@ export default {
   },
   data() {
     return {
+      eventId: null,
+      accessToken: null,
       inputA: 0,
       inputB: 0,
       inputC: 0,
@@ -71,30 +73,34 @@ export default {
   },
   computed: {
     userNames: function() {
-      return this.members.map(member => member.name || '');
+      const { members } = this.$store.state.event;
+
+      return members.map(member => member.name || '');
     },
     scoreA: function() {
-      const points = this.games.map(game => game.scores[0].point);
+      const { games } = this.$store.state.event;
+      const points = games.map(game => game.scores[0].point);
+
       return points.length === 0 ? 0 : points.reduce((p1, p2) => p1 + p2);
     },
     scoreB: function() {
-      const points = this.games.map(game => game.scores[1].point);
+      const { games } = this.$store.state.event;
+      const points = games.map(game => game.scores[1].point);
+
       return points.length === 0 ? 0 : points.reduce((p1, p2) => p1 + p2);
     },
     scoreC: function() {
-      const points = this.games.map(game => game.scores[2].point);
+      const { games } = this.$store.state.event;
+      const points = games.map(game => game.scores[2].point);
+
       return points.length === 0 ? 0 : points.reduce((p1, p2) => p1 + p2);
     },
     scoreD: function() {
-      const points = this.games.map(game => game.scores[3].point);
+      const { games } = this.$store.state.event;
+      const points = games.map(game => game.scores[3].point);
+
       return points.length === 0 ? 0 : points.reduce((p1, p2) => p1 + p2);
-    },
-    ...mapState({
-      title: state => state.event.title,
-      date: state => state.event.date,
-      members: state => state.event.members,
-      games: state => state.event.games
-    })
+    }
   },
   async asyncData(context) {
     const { accessToken } = context.cookie;
@@ -151,7 +157,7 @@ export default {
       this.$router.push(`/events/${this.eventId}/edit`);
     }
   }
-};
+});
 </script>
 
 <style scoped>

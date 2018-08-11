@@ -1,7 +1,7 @@
 <template>
   <section>
     <Header/>
-    <FormContainer @submit="onSubmit">
+    <FormContainer @submit.prevent="onSubmit">
       <BaseInput
         v-model="title"
         type="text"
@@ -17,7 +17,7 @@
       <CheckboxContainer>
         <template slot="label">メンバー</template>
         <label
-          v-for="(member, index) in members"
+          v-for="(member, index) in $store.state.event.groupMembers"
           :key="index"
           class="Checkbox">
           <input
@@ -43,16 +43,16 @@
   </section>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script lang="ts">
+import Vue from 'vue';
 import { format } from 'date-fns';
-import Header from '~/components/Header';
-import FormContainer from '~/components/FormContainer';
-import CheckboxContainer from '~/components/CheckboxContainer';
-import BaseInput from '~/components/BaseInput';
-import BaseButton from '~/components/BaseButton';
+import Header from '~/components/Header.vue';
+import FormContainer from '~/components/FormContainer.vue';
+import CheckboxContainer from '~/components/CheckboxContainer.vue';
+import BaseInput from '~/components/BaseInput.vue';
+import BaseButton from '~/components/BaseButton.vue';
 
-export default {
+export default Vue.extend({
   middleware: ['auth'],
   components: {
     Header,
@@ -69,9 +69,6 @@ export default {
       userIds: []
     };
   },
-  computed: mapState({
-    members: state => state.event.groupMembers
-  }),
   async asyncData(context) {
     const { accessToken } = context.cookie;
     const { groupId } = context.query;
@@ -93,9 +90,7 @@ export default {
     }
   },
   methods: {
-    async onSubmit(e) {
-      e.preventDefault();
-
+    async onSubmit() {
       const { title, description, date, accessToken, groupId, userIds } = this;
 
       if (groupId) {
@@ -128,7 +123,7 @@ export default {
       this.$router.push(`/events/${eventId}`);
     }
   }
-};
+});
 </script>
 
 <style scoped>

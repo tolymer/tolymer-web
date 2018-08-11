@@ -16,10 +16,12 @@
   </label>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+
 const types = ['text', 'number', 'search', 'email', 'date', 'password'];
 
-export default {
+export default Vue.extend({
   props: {
     type: {
       type: String,
@@ -60,7 +62,7 @@ export default {
       this.$emit('input', e.target.value);
     }
   }
-};
+});
 </script>
 
 <style scoped>

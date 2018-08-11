@@ -1,11 +1,11 @@
 <template>
   <section>
-    <div v-if="!isLoggedIn">
+    <div v-if="!$store.state.isLoggedIn">
       <Cover>
         <h1 class="AppName">
           Tolymer
         </h1>
-        <FormContainer @submit="onSubmitLogin">
+        <FormContainer @submit.prevent="onSubmitLogin">
           <BaseButton
             kind="normal"
             type="submit">
@@ -15,9 +15,9 @@
         </FormContainer>
       </Cover>
     </div>
-    <div v-if="isLoggedIn">
+    <div v-if="$store.state.isLoggedIn">
       <Header />
-      <GroupList :groups="groups"/>
+      <GroupList :groups="$store.state.groups"/>
       <FormContainer>
         <BaseButton
           kind="normal"
@@ -30,7 +30,7 @@
           プロフィールを更新する
         </BaseButton>
         <BaseButton
-          @click="onClickLogout">
+          @click.prevent="onClickLogout">
           ログアウト
         </BaseButton>
       </FormContainer>
@@ -38,16 +38,16 @@
   </section>
 </template>
 
-<script>
-import { mapState } from 'vuex';
-import Cover from '~/components/Cover';
-import Header from '~/components/Header';
-import GroupList from '~/components/GroupList';
-import FormContainer from '~/components/FormContainer';
-import BaseButton from '~/components/BaseButton';
-import GoogleIcon from '~/components/GoogleIcon';
+<script lang="ts">
+import Vue from 'vue';
+import Cover from '~/components/Cover.vue';
+import Header from '~/components/Header.vue';
+import GroupList from '~/components/GroupList.vue';
+import FormContainer from '~/components/FormContainer.vue';
+import BaseButton from '~/components/BaseButton.vue';
+import GoogleIcon from '~/components/GoogleIcon.vue';
 
-export default {
+export default Vue.extend({
   middleware: ['auth'],
   components: {
     Cover,
@@ -64,33 +64,24 @@ export default {
       accessToken
     };
   },
-  computed: mapState({
-    isLoggedIn: state => state.isLoggedIn,
-    id: state => state.id,
-    groups: state => state.groups
-  }),
   methods: {
-    async onSubmitLogin(e) {
-      e.preventDefault();
-
+    async onSubmitLogin() {
       this.$router.push('/auth/google');
     },
     async onClickCreateGroup() {
       this.$router.push('/groups/new');
     },
     async onClickUpdateUser() {
-      this.$router.push(`/users/${this.id}/edit`);
+      this.$router.push(`/users/${this.$store.state.id}/edit`);
     },
-    async onClickLogout(e) {
-      e.preventDefault();
-
+    async onClickLogout() {
       document.cookie = 'accessToken=; max-age=0';
 
       await this.$store.dispatch('logout');
       await this.$store.dispatch('deleteCurrentUser');
     }
   }
-};
+});
 </script>
 
 <style scoped>

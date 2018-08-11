@@ -1,23 +1,20 @@
 <template>
   <header class="Header">
-    <h1 class="Header-title">{{ title || name || "Tolymer" }}</h1>
+    <h1 class="Header-title">{{ title || $store.state.name || "Tolymer" }}</h1>
   </header>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script lang="ts">
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
   props: {
     title: {
       type: String,
       default: ''
     }
-  },
-  computed: mapState({
-    name: state => state.name
-  })
-};
+  }
+});
 </script>
 
 <style scoped>

@@ -9,14 +9,16 @@
   </form>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
   methods: {
     onSubmit(e) {
       this.$emit('submit', e);
     }
   }
-};
+});
 </script>
 
 <style scoped>

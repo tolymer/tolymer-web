@@ -3,7 +3,7 @@
     <Header/>
     <form
       class="FormContainer"
-      @submit="onSubmit">
+      @submit.prevent="onSubmit">
       <BaseInput
         v-model="name"
         label="グループ名" />
@@ -21,12 +21,13 @@
   </section>
 </template>
 
-<script>
-import Header from '~/components/Header';
-import BaseInput from '~/components/BaseInput';
-import BaseButton from '~/components/BaseButton';
+<script lang="ts">
+import Vue from 'vue';
+import Header from '~/components/Header.vue';
+import BaseInput from '~/components/BaseInput.vue';
+import BaseButton from '~/components/BaseButton.vue';
 
-export default {
+export default Vue.extend({
   middleware: ['auth'],
   components: {
     Header,
@@ -35,6 +36,7 @@ export default {
   },
   data() {
     return {
+      accessToken: null,
       name: '',
       description: ''
     };
@@ -47,9 +49,7 @@ export default {
     };
   },
   methods: {
-    async onSubmit(e) {
-      e.preventDefault();
-
+    async onSubmit() {
       const { name, description, accessToken } = this;
 
       await this.$store.dispatch('group/createGroup', {
@@ -63,5 +63,5 @@ export default {
       this.$router.push(`/groups/${groupId}`);
     }
   }
-};
+});
 </script>

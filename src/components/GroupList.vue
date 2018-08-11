@@ -14,8 +14,10 @@
   </ul>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
   props: {
     groups: {
       type: Array,
@@ -27,7 +29,7 @@ export default {
       return `/groups/${id}`;
     }
   }
-};
+});
 </script>
 
 <style scoped>
