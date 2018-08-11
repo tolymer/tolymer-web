@@ -89,7 +89,7 @@ export const actions = {
   async deleteEvent({ commit }, { eventId, accessToken }) {
     try {
       const config = axiosConfig(accessToken);
-      const event = await axios.delete(`/events/${eventId}`, {}, config);
+      const event = await axios.delete(`/events/${eventId}`, config);
 
       commit('deleteEvent', event.data);
     } catch (e) {
