@@ -19,7 +19,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .FormContainer {
   padding: var(--space-4x);
 }

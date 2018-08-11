@@ -8,7 +8,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 .Cover {
   display: flex;
   flex-direction: column;

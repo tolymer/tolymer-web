@@ -93,7 +93,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .AppName {
   margin-bottom: var(--space-md);
   letter-spacing: 0.1em;

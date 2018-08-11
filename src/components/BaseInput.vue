@@ -17,7 +17,7 @@
 </template>
 
 <script>
-const types = ['text', 'search', 'email', 'date', 'password'];
+const types = ['text', 'number', 'search', 'email', 'date', 'password'];
 
 export default {
   props: {
@@ -31,7 +31,7 @@ export default {
       default: ''
     },
     value: {
-      type: String,
+      type: [String, Number],
       default: ''
     },
     placeholder: {
@@ -63,7 +63,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .Input {
   display: flex;
   flex-direction: column;
@@ -83,5 +83,9 @@ export default {
   border-left: 1px solid var(--color-gray);
   background-color: white;
   will-change: background-color, border-color;
+}
+
+input[readonly] {
+  background-color: beige;
 }
 </style>

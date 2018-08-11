@@ -33,7 +33,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .EventList {
   margin: 0;
   padding: 0;

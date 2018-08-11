@@ -18,16 +18,16 @@
               v-for="(inputScore, i) in inputScores"
               :key="i">
               <label v-if="inputScore === 'top'">
-                <input
+                <BaseInput
                   :value="topScore"
                   type="number"
-                  disabled>
+                  readonly />
               </label>
               <label v-if="inputScore !== 'top'">
-                <input
+                <BaseInput
                   v-model="inputScores[i]"
                   type="number"
-                  @input="onInput">
+                  @input="onInput" />
               </label>
             </td>
           </tr>
@@ -49,13 +49,15 @@ import { mapState } from 'vuex';
 import Header from '~/components/Header';
 import FormContainer from '~/components/FormContainer';
 import BaseButton from '~/components/BaseButton';
+import BaseInput from '~/components/BaseInput';
 
 export default {
   middleware: ['auth'],
   components: {
     Header,
     FormContainer,
-    BaseButton
+    BaseButton,
+    BaseInput
   },
   data() {
     return {
@@ -145,3 +147,38 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: var(--space-base);
+  font-size: 1.6rem;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  text-align: right;
+}
+
+th.Score__Time {
+  width: 24px;
+}
+
+th:not(.Score__Time) {
+  width: calc((100% - 24px) / 4);
+  word-break: break-word;
+}
+
+td input {
+  width: 100%;
+}
+</style>

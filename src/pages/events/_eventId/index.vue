@@ -5,7 +5,7 @@
       <table>
         <thead>
           <tr>
-            <th />
+            <th class="Score__Time" />
             <th
               v-for="(userName, i) in userNames"
               :key="i">
@@ -154,8 +154,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 table {
+  width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
 }
@@ -182,11 +183,11 @@ td {
   text-align: right;
 }
 
-th:first-child {
+th.Score__Time {
   width: 24px;
 }
 
-th:not(:first-child) {
+th:not(.Score__Time) {
   width: calc((100% - 24px) / 4);
   word-break: break-word;
 }
