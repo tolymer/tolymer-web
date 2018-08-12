@@ -7,7 +7,8 @@
           <tr>
             <th
               v-for="(userName, i) in userNames"
-              :key="i">
+              :key="i"
+            >
               {{ userName }}
             </th>
           </tr>
@@ -16,18 +17,21 @@
           <tr>
             <td
               v-for="(inputScore, i) in inputScores"
-              :key="i">
+              :key="i"
+            >
               <label v-if="inputScore === 'top'">
                 <BaseInput
                   :value="topScore"
                   type="number"
-                  readonly />
+                  readonly
+                />
               </label>
               <label v-if="inputScore !== 'top'">
                 <BaseInput
                   v-model="inputScores[i]"
                   type="number"
-                  @input="onInput" />
+                  @input="onInput"
+                />
               </label>
             </td>
           </tr>
@@ -37,7 +41,8 @@
     <FormContainer>
       <BaseButton
         kind="primary"
-        @click.prevent="onClick">
+        @click.prevent="onClick"
+      >
         保存
       </BaseButton>
     </FormContainer>

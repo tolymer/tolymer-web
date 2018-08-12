@@ -8,7 +8,8 @@
             <th class="Score__Time" />
             <th
               v-for="(userName, i) in userNames"
-              :key="i">
+              :key="i"
+            >
               {{ userName }}
             </th>
           </tr>
@@ -16,7 +17,8 @@
         <tbody>
           <tr
             v-for="(game, index) in $store.state.event.games"
-            :key="index">
+            :key="index"
+          >
             <td>{{ index + 1 }}</td>
             <td>{{ formatPoint(game.scores[0].point) }}</td>
             <td>{{ formatPoint(game.scores[1].point) }}</td>
@@ -36,12 +38,14 @@
     <FormContainer>
       <BaseButton
         kind="primary"
-        @click="onClickAddScore">
+        @click="onClickAddScore"
+      >
         スコアを追加する
       </BaseButton>
       <BaseButton
         kind="primary"
-        @click="onClickUpdateEvent">
+        @click="onClickUpdateEvent"
+      >
         イベントを更新する
       </BaseButton>
     </FormContainer>

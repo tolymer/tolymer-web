@@ -2,17 +2,20 @@
   <section>
     <Header
       :title="$store.state.group.name"
-      :subtitle="$store.state.group.description" />
+      :subtitle="$store.state.group.description"
+    />
     <EventList :events="$store.state.group.events" />
     <FormContainer>
       <BaseButton
         kind="normal"
-        @click="onClickCreateEvent">
+        @click="onClickCreateEvent"
+      >
         イベントをつくる
       </BaseButton>
       <BaseButton
         kind="normal"
-        @click="onClickUpdateGroup">
+        @click="onClickUpdateGroup"
+      >
         グループを編集する
       </BaseButton>
     </FormContainer>

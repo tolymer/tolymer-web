@@ -1,10 +1,11 @@
 <template>
   <form
     class="FormContainer"
-    @submit="onSubmit">
-    <slot/>
+    @submit="onSubmit"
+  >
+    <slot />
     <div class="FormContainer-action">
-      <slot name="action"/>
+      <slot name="action" />
     </div>
   </form>
 </template>

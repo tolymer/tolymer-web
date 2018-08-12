@@ -3,10 +3,12 @@
     <li
       v-for="(event, index) in events"
       :key="index"
-      class="EventList__Item">
+      class="EventList__Item"
+    >
       <router-link
         :to="eventLink(event.id)"
-        class="EventList__Link">
+        class="EventList__Link"
+      >
         <h2>{{ event.title }}</h2>
         <p>
           <time>{{ event.date }}</time>

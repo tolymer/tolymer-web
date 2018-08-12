@@ -12,7 +12,8 @@
       :disabled="disabled"
       :readonly="readonly"
       class="Input-field"
-      @input="onInput">
+      @input="onInput"
+    >
   </label>
 </template>
 

@@ -12,7 +12,8 @@
       <tbody>
         <tr
           v-for="(v, id) in calcTotalScore()"
-          :key="id">
+          :key="id"
+        >
           <td>{{ v.name }}</td>
           <td>{{ v.score }}</td>
         </tr>

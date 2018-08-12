@@ -1,15 +1,17 @@
 <template>
   <section>
-    <Header/>
+    <Header />
     <FormContainer @submit.prevent="onSubmit">
       <BaseInput
         v-model="name"
         type="text"
-        label="名前"/>
+        label="名前"
+      />
       <div slot="action">
         <BaseButton
           type="submit"
-          kind="primary">
+          kind="primary"
+        >
           更新
         </BaseButton>
       </div>

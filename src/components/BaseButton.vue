@@ -4,10 +4,12 @@
     :kind="kind"
     :class="[k]"
     class="Button"
-    @click="onClick">
+    @click="onClick"
+  >
     <span
-      class="Button-icon">
-      <slot name="icon"/>
+      class="Button-icon"
+    >
+      <slot name="icon" />
     </span>
     <slot />
   </button>

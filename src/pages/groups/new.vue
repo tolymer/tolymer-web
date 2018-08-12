@@ -1,19 +1,23 @@
 <template>
   <section>
-    <Header/>
+    <Header />
     <form
       class="FormContainer"
-      @submit.prevent="onSubmit">
+      @submit.prevent="onSubmit"
+    >
       <BaseInput
         v-model="name"
-        label="グループ名" />
+        label="グループ名"
+      />
       <BaseInput
         v-model="description"
-        label="グループ概要" />
+        label="グループ概要"
+      />
       <div slot="action">
         <BaseButton
           type="submit"
-          kind="primary">
+          kind="primary"
+        >
           登録
         </BaseButton>
       </div>

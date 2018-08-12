@@ -8,8 +8,9 @@
         <FormContainer @submit.prevent="onSubmitLogin">
           <BaseButton
             kind="normal"
-            type="submit">
-            <GoogleIcon slot="icon"/>
+            type="submit"
+          >
+            <GoogleIcon slot="icon" />
             Googleアカウントでサインイン
           </BaseButton>
         </FormContainer>
@@ -17,20 +18,23 @@
     </div>
     <div v-if="$store.state.isLoggedIn">
       <Header />
-      <GroupList :groups="$store.state.groups"/>
+      <GroupList :groups="$store.state.groups" />
       <FormContainer>
         <BaseButton
           kind="normal"
-          @click="onClickCreateGroup">
+          @click="onClickCreateGroup"
+        >
           グループをつくる
         </BaseButton>
         <BaseButton
           kind="normal"
-          @click="onClickUpdateUser">
+          @click="onClickUpdateUser"
+        >
           プロフィールを更新する
         </BaseButton>
         <BaseButton
-          @click.prevent="onClickLogout">
+          @click.prevent="onClickLogout"
+        >
           ログアウト
         </BaseButton>
       </FormContainer>

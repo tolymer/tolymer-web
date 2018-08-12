@@ -1,32 +1,37 @@
 <template>
   <section>
-    <Header/>
+    <Header />
     <FormContainer @submit.prevent="onSubmit">
       <BaseInput
         v-model="title"
         type="text"
-        label="イベント名"/>
+        label="イベント名"
+      />
       <BaseInput
         v-model="description"
         type="text"
-        label="イベントメモ"/>
+        label="イベントメモ"
+      />
       <BaseInput
         v-model="date"
         type="date"
-        label="日程"/>
+        label="日程"
+      />
       <CheckboxContainer>
         <template slot="label">メンバー</template>
         <label
           v-for="(member, index) in $store.state.event.groupMembers"
           :key="index"
-          class="Checkbox">
+          class="Checkbox"
+        >
           <input
-            :value="member.id"
             :key="index"
             v-model="userIds"
+            :value="member.id"
             type="checkbox"
             class="Checkbox-input"
-            name="members">
+            name="members"
+          >
           <span class="Checkbox-label">
             {{ member.name }}
           </span>
@@ -35,7 +40,8 @@
       <div slot="action">
         <BaseButton
           type="submit"
-          kind="primary">
+          kind="primary"
+        >
           作成
         </BaseButton>
       </div>

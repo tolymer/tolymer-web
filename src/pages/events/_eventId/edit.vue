@@ -1,23 +1,27 @@
 <template>
   <section>
-    <Header/>
+    <Header />
     <FormContainer @submit.prevent="onSubmit">
       <BaseInput
         v-model="title"
         type="text"
-        label="イベント名"/>
+        label="イベント名"
+      />
       <BaseInput
         v-model="description"
         type="text"
-        label="イベントメモ"/>
+        label="イベントメモ"
+      />
       <BaseInput
         v-model="date"
         type="date"
-        label="日程"/>
+        label="日程"
+      />
       <div slot="action">
         <BaseButton
           type="submit"
-          kind="primary">
+          kind="primary"
+        >
           更新
         </BaseButton>
       </div>

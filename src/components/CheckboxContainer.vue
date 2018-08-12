@@ -1,9 +1,9 @@
 <template>
   <div class="CheckboxContainer">
     <p class="CheckboxContainer-label">
-      <slot name="label"/>
+      <slot name="label" />
     </p>
-    <slot/>
+    <slot />
   </div>
 </template>
 
