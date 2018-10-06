@@ -1,23 +1,27 @@
 <template>
   <section>
-    <Header/>
-    <FormContainer @submit="onSubmit">
+    <Header />
+    <FormContainer @submit.prevent="onSubmit">
       <BaseInput
         v-model="title"
         type="text"
-        label="イベント名"/>
+        label="イベント名"
+      />
       <BaseInput
         v-model="description"
         type="text"
-        label="イベントメモ"/>
+        label="イベントメモ"
+      />
       <BaseInput
         v-model="date"
         type="date"
-        label="日程"/>
+        label="日程"
+      />
       <div slot="action">
         <BaseButton
           type="submit"
-          kind="primary">
+          kind="primary"
+        >
           更新
         </BaseButton>
       </div>
@@ -25,19 +29,30 @@
   </section>
 </template>
 
-<script>
-import Header from '~/components/Header';
-import FormContainer from '~/components/FormContainer';
-import BaseInput from '~/components/BaseInput';
-import BaseButton from '~/components/BaseButton';
+<script lang="ts">
+import Vue from 'vue';
+import Header from '~/components/Header.vue';
+import FormContainer from '~/components/FormContainer.vue';
+import BaseInput from '~/components/BaseInput.vue';
+import BaseButton from '~/components/BaseButton.vue';
 
-export default {
+export default Vue.extend({
   middleware: ['auth'],
   components: {
     Header,
     FormContainer,
     BaseInput,
     BaseButton
+  },
+  data() {
+    return {
+      title: null,
+      description: null,
+      date: null,
+      eventId: null,
+      groupId: null,
+      accessToken: null
+    };
   },
   async asyncData(context) {
     const { accessToken } = context.cookie;
@@ -61,9 +76,7 @@ export default {
     };
   },
   methods: {
-    async onSubmit(e) {
-      e.preventDefault();
-
+    async onSubmit() {
       const { eventId, title, description, date, accessToken } = this;
 
       await this.$store.dispatch('event/updateEvent', {
@@ -77,5 +90,5 @@ export default {
       this.$router.push(`/events/${eventId}`);
     }
   }
-};
+});
 </script>

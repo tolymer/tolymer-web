@@ -1,12 +1,12 @@
 {
   "name": "tolymer-web",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Tolymer Web",
   "author": "1000ch <shogo.sensui@gmail.com>",
   "private": true,
   "engines": {
-    "node": "8.11.1",
-    "npm": "5.8.0"
+    "node": "^10.0.0",
+    "npm": "^6.0.0"
   },
   "config": {
     "nuxt": {
@@ -37,27 +37,23 @@
     "cookie-parser": "^1.4.3",
     "date-fns": "^1.29.0",
     "normalize.css": "^8.0.0",
-    "nuxt": "^1.0.0",
+    "nuxt": "^2.1.0",
     "vue-chartjs": "^3.3.1"
   },
   "devDependencies": {
     "@mapbox/stylelint-processor-arbitrary-tags": "^0.2.0",
     "babel-eslint": "^8.2.1",
-    "eslint": "^4.15.0",
+    "eslint": "^5.0.0",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-friendly-formatter": "^3.0.0",
-    "eslint-loader": "^1.7.1",
-    "eslint-plugin-vue": "^4.0.0",
+    "eslint-friendly-formatter": "^4.0.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-vue": "^4.7.1",
     "prettier": "^1.11.1",
-    "stylelint": "^9.2.0",
+    "stylelint": "^9.4.0",
     "stylelint-config-fresh": "^2.3.0",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-order": "^0.8.1",
-    "@storybook/vue": "^3.4.3",
-    "@storybook/addon-actions": "^3.4.3",
-    "@storybook/addon-links": "^3.4.3",
-    "@storybook/addons": "^3.4.3",
-    "babel-core": "^6.26.3",
-    "babel-preset-vue": "^2.0.2"
+    "ts-loader": "^5.2.1",
+    "typescript": "^3.0.1"
   }
 }

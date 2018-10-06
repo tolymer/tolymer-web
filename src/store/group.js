@@ -81,7 +81,7 @@ export const actions = {
   async deleteGroup({ commit }, { groupId, accessToken }) {
     try {
       const config = axiosConfig(accessToken);
-      await axios.delete(`/groups/${groupId}`, {}, config);
+      await axios.delete(`/groups/${groupId}`, config);
 
       commit('deleteGroup');
     } catch (e) {

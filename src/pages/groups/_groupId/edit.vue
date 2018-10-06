@@ -1,17 +1,20 @@
 <template>
   <section>
-    <Header/>
-    <FormContainer @submit="onSubmit">
+    <Header />
+    <FormContainer @submit.prevent="onSubmit">
       <BaseInput
         v-model="name"
-        label="グループ名" />
+        label="グループ名"
+      />
       <BaseInput
         v-model="description"
-        label="グループ概要" />
+        label="グループ概要"
+      />
       <div slot="action">
         <BaseButton
           type="submit"
-          kind="primary">
+          kind="primary"
+        >
           登録
         </BaseButton>
       </div>
@@ -19,19 +22,28 @@
   </section>
 </template>
 
-<script>
-import Header from '~/components/Header';
-import FormContainer from '~/components/FormContainer';
-import BaseInput from '~/components/BaseInput';
-import BaseButton from '~/components/BaseButton';
+<script lang="ts">
+import Vue from 'vue';
+import Header from '~/components/Header.vue';
+import FormContainer from '~/components/FormContainer.vue';
+import BaseInput from '~/components/BaseInput.vue';
+import BaseButton from '~/components/BaseButton.vue';
 
-export default {
+export default Vue.extend({
   middleware: ['auth'],
   components: {
     Header,
     FormContainer,
     BaseInput,
     BaseButton
+  },
+  data() {
+    return {
+      groupId: '',
+      name: '',
+      description: '',
+      accessToken: ''
+    };
   },
   async asyncData(context) {
     const { accessToken } = context.cookie;
@@ -52,9 +64,7 @@ export default {
     };
   },
   methods: {
-    async onSubmit(e) {
-      e.preventDefault();
-
+    async onSubmit() {
       const { groupId, name, description, accessToken } = this;
 
       await this.$store.dispatch('group/updateGroup', {
@@ -67,5 +77,5 @@ export default {
       this.$router.push(`/groups/${groupId}`);
     }
   }
-};
+});
 </script>

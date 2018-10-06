@@ -4,17 +4,22 @@
   </Cover>
 </template>
 
-<script>
-import Cover from '~/components/Cover';
+<script lang="ts">
+import Vue from 'vue';
+import Cover from '~/components/Cover.vue';
 
-export default {
+export default Vue.extend({
   components: {
     Cover
   },
+  data() {
+    return {
+      code: null,
+      state: null
+    };
+  },
   async asyncData(context) {
-    const { code, state } = context.query;
-
-    return { code, state };
+    return context.query;
   },
   async mounted() {
     const { code, state } = this;
@@ -24,7 +29,7 @@ export default {
 
     this.$router.push('/');
   }
-};
+});
 </script>
 
 <style scoped>

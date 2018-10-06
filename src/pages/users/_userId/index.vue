@@ -1,19 +1,15 @@
 <template>
   <section>
-    <h2>{{ name }}</h2>
-    <p>id: {{ id }}</p>
+    <h2>{{ $store.state.user.name }}</h2>
+    <p>id: {{ $store.state.user.id }}</p>
   </section>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script lang="ts">
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
   middleware: ['auth'],
-  computed: mapState({
-    id: state => state.user.id,
-    name: state => state.user.name
-  }),
   async fetch(context) {
     try {
       const { userId } = context.params;
@@ -28,5 +24,5 @@ export default {
       });
     }
   }
-};
+});
 </script>

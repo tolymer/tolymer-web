@@ -1,12 +1,8 @@
 <template>
   <div class="Cover">
-    <slot/>
+    <slot />
   </div>
 </template>
-
-<script>
-export default {};
-</script>
 
 <style scoped>
 .Cover {

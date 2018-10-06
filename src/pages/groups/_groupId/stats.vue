@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Header :title="name" />
+    <Header :title="$store.state.group.name" />
     <h2>Total</h2>
     <table>
       <thead>
@@ -12,7 +12,8 @@
       <tbody>
         <tr
           v-for="(v, id) in calcTotalScore()"
-          :key="id">
+          :key="id"
+        >
           <td>{{ v.name }}</td>
           <td>{{ v.score }}</td>
         </tr>
@@ -22,16 +23,21 @@
   </section>
 </template>
 
-<script>
-import { mapState } from 'vuex';
-import Header from '~/components/Header';
-import LineChart from '~/components/LineChart';
+<script lang="ts">
+import Vue from 'vue';
+import Header from '~/components/Header.vue';
+import LineChart from '~/components/LineChart.js';
 
-export default {
+export default Vue.extend({
   middleware: ['auth'],
   components: {
     Header,
     LineChart
+  },
+  data() {
+    return {
+      groupId: null
+    };
   },
   async asyncData(context) {
     const { groupId } = context.params;
@@ -40,35 +46,39 @@ export default {
       groupId
     };
   },
-  computed: mapState({
-    name: state => state.group.name,
-    members: state => state.group.members,
-    events: state => state.group.events,
-    stats: state => state.group.stats
-  }),
   methods: {
     calcTotalScore() {
+      const { members, stats } = this.$store.state.group;
       const totalScore = {};
-      this.members.forEach(member => {
-        totalScore[member.id] = { name: member.name, score: 0 };
+
+      members.forEach(member => {
+        totalScore[member.id] = {
+          name: member.name,
+          score: 0
+        };
       });
-      this.stats.forEach(stat => {
+
+      stats.forEach(stat => {
         stat.scores.forEach(score => {
           score.forEach(s => {
             totalScore[s.user_id].score += s.point;
           });
         });
+
         stat.tips.forEach(t => {
           totalScore[t.user_id].score += t.point;
         });
       });
+
       return totalScore;
     },
     calcChartData() {
+      const { members, stats } = this.$store.state.group;
       const labels = [];
       const datasets = {};
       const colors = ['red', 'blue', 'green', 'yellow'];
-      this.members.forEach((member, i) => {
+
+      members.forEach((member, i) => {
         datasets[member.id] = {
           label: member.name,
           fill: false,
@@ -77,25 +87,37 @@ export default {
           data: []
         };
       });
-      this.stats.forEach(stat => {
+
+      stats.forEach(stat => {
         labels.push(stat.date);
         const scoreByUserId = {};
-        this.members.forEach(m => (scoreByUserId[m.id] = 0));
+
+        members.forEach(m => {
+          scoreByUserId[m.id] = 0;
+        });
+
         stat.scores.forEach(score => {
           score.forEach(s => {
             scoreByUserId[s.user_id] += s.point;
           });
         });
+
         stat.tips.forEach(t => {
           scoreByUserId[t.user_id] += t.point;
         });
-        this.members.forEach(member => {
+
+        members.forEach(member => {
           const data = datasets[member.id].data;
           const beforeValue = data[data.length - 1] || 0;
+
           datasets[member.id].data.push(scoreByUserId[member.id] + beforeValue);
         });
       });
-      return { labels, datasets: Object.values(datasets) };
+
+      return {
+        labels,
+        datasets: Object.values(datasets)
+      };
     }
   },
   async fetch(context) {
@@ -119,5 +141,5 @@ export default {
       });
     }
   }
-};
+});
 </script>

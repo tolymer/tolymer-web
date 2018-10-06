@@ -1,22 +1,25 @@
 <template>
   <form
     class="FormContainer"
-    @submit="onSubmit">
-    <slot/>
+    @submit="onSubmit"
+  >
+    <slot />
     <div class="FormContainer-action">
-      <slot name="action"/>
+      <slot name="action" />
     </div>
   </form>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
   methods: {
     onSubmit(e) {
       this.$emit('submit', e);
     }
   }
-};
+});
 </script>
 
 <style scoped>

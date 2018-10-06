@@ -4,20 +4,24 @@
     :kind="kind"
     :class="[k]"
     class="Button"
-    @click="onClick">
+    @click="onClick"
+  >
     <span
-      class="Button-icon">
-      <slot name="icon"/>
+      class="Button-icon"
+    >
+      <slot name="icon" />
     </span>
     <slot />
   </button>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+
 const types = ['button', 'submit'];
 const kinds = ['normal', 'primary', 'bordered'];
 
-export default {
+export default Vue.extend({
   props: {
     type: {
       type: String,
@@ -40,7 +44,7 @@ export default {
       this.$emit('click', e);
     }
   }
-};
+});
 </script>
 
 <style scoped>
