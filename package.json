@@ -1,6 +1,6 @@
 {
   "name": "tolymer-web",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Tolymer Web",
   "author": "1000ch <shogo.sensui@gmail.com>",
   "private": true,
@@ -37,7 +37,7 @@
     "cookie-parser": "^1.4.3",
     "date-fns": "^1.29.0",
     "normalize.css": "^8.0.0",
-    "nuxt-edge": "^2.0.0-25565730.1ec5cf7",
+    "nuxt": "^2.1.0",
     "vue-chartjs": "^3.3.1"
   },
   "devDependencies": {
@@ -47,14 +47,13 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-friendly-formatter": "^4.0.0",
     "eslint-loader": "^2.1.0",
-    "eslint-plugin-vue": "^5.0.0-beta.2",
+    "eslint-plugin-vue": "^4.7.1",
     "prettier": "^1.11.1",
     "stylelint": "^9.4.0",
     "stylelint-config-fresh": "^2.3.0",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-order": "^0.8.1",
-    "ts-loader": "^4.4.2",
-    "typescript": "^3.0.1",
-    "webpack": "^4.16.5"
+    "ts-loader": "^5.2.1",
+    "typescript": "^3.0.1"
   }
 }
