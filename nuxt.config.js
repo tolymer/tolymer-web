@@ -1,3 +1,5 @@
+const webpackConfig = require('./webpack.config');
+
 module.exports = {
   /*
   ** Headers of the page
@@ -26,15 +28,8 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-    extend(config, { isDev, isClient }) {
-      if (isDev && isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        });
-      }
+    extend(config, options) {
+      webpackConfig(config, options);
     },
     extractCSS: {
       allChunks: true
