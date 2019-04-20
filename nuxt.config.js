@@ -23,21 +23,10 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    /*
-    ** Run ESLint on save
-    */
-    extend(config, { isDev, isClient }) {
-      if (isDev && isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        });
+    postcss: {
+      plugins: {
+        'postcss-import': true
       }
-    },
-    extractCSS: {
-      allChunks: true
     },
     watch: ['~/api/*.js']
   },
