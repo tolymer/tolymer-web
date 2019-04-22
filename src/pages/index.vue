@@ -44,6 +44,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/vue-app/types';
 import Cover from '~/components/Cover.vue';
 import Header from '~/components/Header.vue';
 import GroupList from '~/components/GroupList.vue';
@@ -61,8 +62,8 @@ export default Vue.extend({
     BaseButton,
     GoogleIcon
   },
-  async asyncData(context) {
-    const { accessToken } = context.cookie;
+  async asyncData(context: Context) {
+    const accessToken = context.app.$cookies.get('accessToken');
 
     return {
       accessToken

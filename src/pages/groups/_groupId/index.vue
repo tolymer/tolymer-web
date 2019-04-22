@@ -24,6 +24,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/vue-app/types';
 import Header from '~/components/Header.vue';
 import EventList from '~/components/EventList.vue';
 import FormContainer from '~/components/FormContainer.vue';
@@ -42,16 +43,16 @@ export default Vue.extend({
       groupId: null
     };
   },
-  async asyncData(context) {
+  async asyncData(context: Context) {
     const { groupId } = context.params;
 
     return {
       groupId
     };
   },
-  async fetch(context) {
+  async fetch(context: Context) {
     try {
-      const { accessToken } = context.cookie;
+      const accessToken = context.app.$cookies.get('accessToken');
       const { groupId } = context.params;
       const { join } = context.query;
 

@@ -31,6 +31,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/vue-app/types';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import BaseInput from '~/components/BaseInput.vue';
@@ -54,8 +55,8 @@ export default Vue.extend({
       accessToken: null
     };
   },
-  async asyncData(context) {
-    const { accessToken } = context.cookie;
+  async asyncData(context: Context) {
+    const accessToken = context.app.$cookies.get('accessToken');
     const { eventId } = context.params;
     const { groupId } = context.query;
 

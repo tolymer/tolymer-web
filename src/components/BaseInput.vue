@@ -27,7 +27,7 @@ export default Vue.extend({
     type: {
       type: String,
       default: 'text',
-      validator: t => types.indexOf(t) !== -1
+      validator: (t: string) => types.indexOf(t) !== -1
     },
     label: {
       type: String,

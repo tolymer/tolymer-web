@@ -54,6 +54,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/vue-app/types';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import BaseButton from '~/components/BaseButton.vue';
@@ -65,10 +66,13 @@ export default Vue.extend({
     FormContainer,
     BaseButton
   },
-  data() {
+  data(): {
+    inputA: number,
+    inputB: number,
+    inputC: number,
+    inputD: number
+  } {
     return {
-      eventId: null,
-      accessToken: null,
       inputA: 0,
       inputB: 0,
       inputC: 0,
@@ -106,18 +110,9 @@ export default Vue.extend({
       return points.length === 0 ? 0 : points.reduce((p1, p2) => p1 + p2);
     }
   },
-  async asyncData(context) {
-    const { accessToken } = context.cookie;
-    const { eventId } = context.params;
-
-    return {
-      eventId,
-      accessToken
-    };
-  },
-  async fetch(context) {
+  async fetch(context: Context) {
     try {
-      const { accessToken } = context.cookie;
+      const accessToken = context.app.$cookies.get('accessToken');
       const { eventId } = context.params;
       const { join } = context.query;
 
@@ -155,10 +150,10 @@ export default Vue.extend({
       return point;
     },
     async onClickAddScore() {
-      this.$router.push(`/events/${this.eventId}/add`);
+      this.$router.push(`/events/${this.$route.params.eventId}/add`);
     },
     async onClickUpdateEvent() {
-      this.$router.push(`/events/${this.eventId}/edit`);
+      this.$router.push(`/events/${this.$route.params.eventId}/edit`);
     }
   }
 });

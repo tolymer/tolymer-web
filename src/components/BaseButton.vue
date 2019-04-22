@@ -26,16 +26,16 @@ export default Vue.extend({
     type: {
       type: String,
       default: 'button',
-      validator: t => types.indexOf(t) !== -1
+      validator: (t: string) => types.indexOf(t) !== -1
     },
     kind: {
       type: String,
       default: 'normal',
-      validator: k => kinds.indexOf(k) !== -1
+      validator: (k: string) => kinds.indexOf(k) !== -1
     }
   },
   computed: {
-    k() {
+    k(): string {
       return `-${this.kind}`;
     }
   },

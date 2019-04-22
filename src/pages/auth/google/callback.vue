@@ -6,6 +6,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/vue-app/types';
 import Cover from '~/components/Cover.vue';
 
 export default Vue.extend({
@@ -18,7 +19,7 @@ export default Vue.extend({
       state: null
     };
   },
-  async asyncData(context) {
+  async asyncData(context: Context) {
     return context.query;
   },
   async mounted() {

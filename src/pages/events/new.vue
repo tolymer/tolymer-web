@@ -51,6 +51,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/vue-app/types';
 import { format } from 'date-fns';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
@@ -72,11 +73,13 @@ export default Vue.extend({
       title: '',
       description: '',
       date: format(Date.now(), 'YYYY-MM-DD'),
-      userIds: []
+      userIds: [],
+      accessToken: null,
+      groupId: null
     };
   },
-  async asyncData(context) {
-    const { accessToken } = context.cookie;
+  async asyncData(context: Context) {
+    const accessToken = context.app.$cookies.get('accessToken');
     const { groupId } = context.query;
 
     return {
@@ -85,7 +88,7 @@ export default Vue.extend({
     };
   },
   async fetch(context) {
-    const { accessToken } = context.cookie;
+    const accessToken = context.app.$cookies.get('accessToken');
     const { groupId } = context.query;
 
     if (groupId) {

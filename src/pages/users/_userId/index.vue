@@ -7,10 +7,11 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/vue-app/types';
 
 export default Vue.extend({
   middleware: ['auth'],
-  async fetch(context) {
+  async fetch(context: Context) {
     try {
       const { userId } = context.params;
 

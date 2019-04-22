@@ -25,6 +25,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/vue-app/types';
 import Header from '~/components/Header.vue';
 import LineChart from '~/components/LineChart.js';
 
@@ -39,7 +40,7 @@ export default Vue.extend({
       groupId: null
     };
   },
-  async asyncData(context) {
+  async asyncData(context: Context) {
     const { groupId } = context.params;
 
     return {
@@ -122,7 +123,7 @@ export default Vue.extend({
   },
   async fetch(context) {
     try {
-      const { accessToken } = context.cookie;
+      const accessToken = context.app.$cookies.get('accessToken');
       const { groupId } = context.params;
 
       await context.store.dispatch('group/getGroup', {

@@ -51,6 +51,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/vue-app/types';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import BaseButton from '~/components/BaseButton.vue';
@@ -66,8 +67,6 @@ export default Vue.extend({
   },
   data() {
     return {
-      eventId: null,
-      accessToken: null,
       inputScores: [null, null, null, null]
     };
   },
@@ -78,22 +77,14 @@ export default Vue.extend({
       return members.map(member => member.name || '');
     },
     topScore: function() {
-      const amount = this.inputScores.map(s => Number(s) || 0).reduce((acc, v) => acc + v, 0);
+      // TODO: ugly workaround, this.inputScores should be referred
+      const amount = (this as any).inputScores.map(s => Number(s) || 0).reduce((acc, v) => acc + v, 0);
       return amount < 0 ? -amount : null;
     }
   },
-  async asyncData(context) {
-    const { accessToken } = context.cookie;
-    const { eventId } = context.params;
-
-    return {
-      eventId,
-      accessToken
-    };
-  },
-  async fetch(context) {
+  async fetch(context: Context) {
     try {
-      const { accessToken } = context.cookie;
+      const accessToken = context.app.$cookies.get('accessToken');
       const { eventId } = context.params;
 
       await context.store.dispatch('event/getEvent', {
@@ -114,26 +105,31 @@ export default Vue.extend({
       const exist = score => score === 0 || (score && score !== 'top');
 
       // 入力されているフィールドの値だけを抽出
-      const scores = this.inputScores.filter(exist);
+      // TODO: ugly workaround, this.inputScores should be referred
+      const scores = (this as any).inputScores.filter(exist);
 
       if (scores.length < 3) {
         // 入力が3未満の場合はまだ不完全
         // 全部入力済みの状態でどこかが消された場合は'top'がある状態でここにくるので'top'をnullに戻す
-        this.inputScores = this.inputScores.map(s => (exist(s) ? s : null));
+        // TODO: ugly workaround, this.inputScores should be referred
+        (this as any).inputScores = (this as any).inputScores.map(s => (exist(s) ? s : null));
       } else if (scores.length === 3) {
         // 入力が3以上の場合はトップ以外入力済み
-        this.inputScores = this.inputScores.map(s => (s === 0 || s ? s : 'top'));
+        // TODO: ugly workaround, this.inputScores should be referred
+        (this as any).inputScores = (this as any).inputScores.map((s: any) => (s === 0 || s ? s : 'top'));
       }
     },
     async onClick() {
       const scores = [];
-      const { eventId, accessToken } = this;
+      const eventId = this.$route.params.eventId;
+      const accessToken = this.$cookies.get('accessToken');
       const { members } = this.$store.state.event;
 
-      for (let i = 0; i < this.inputScores.length; i++) {
+      // TODO: ugly workaround, this.inputScores should be referred
+      for (let i = 0; i < (this as any).inputScores.length; i++) {
         scores.push({
           user_id: members[i].id,
-          point: this.inputScores[i]
+          point: (this as any).inputScores[i]
         });
       }
 

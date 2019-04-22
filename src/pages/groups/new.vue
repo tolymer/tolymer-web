@@ -27,6 +27,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/vue-app/types';
 import Header from '~/components/Header.vue';
 import BaseInput from '~/components/BaseInput.vue';
 import BaseButton from '~/components/BaseButton.vue';
@@ -45,8 +46,8 @@ export default Vue.extend({
       description: ''
     };
   },
-  async asyncData(context) {
-    const { accessToken } = context.cookie;
+  async asyncData(context: Context) {
+    const accessToken = context.app.$cookies.get('accessToken');
 
     return {
       accessToken

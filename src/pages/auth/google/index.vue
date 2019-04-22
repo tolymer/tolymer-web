@@ -4,9 +4,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/vue-app/types';
 
 export default Vue.extend({
-  async fetch(context) {
+  async fetch(context: Context) {
     try {
       await context.store.dispatch('login');
 
