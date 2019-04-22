@@ -1,4 +1,6 @@
-module.exports = {
+import NuxtConfiguration from '@nuxt/config';
+
+const nuxtConfig: NuxtConfiguration = {
   /*
   ** Headers of the page
   */
@@ -35,8 +37,10 @@ module.exports = {
     appBaseUrl: process.env.APP_BASE_URL || 'http://localhost:7700'
   },
   css: ['~assets/css/lib.css', '~assets/css/app.css'],
-  router: {
-    middleware: ['cookie']
-  },
-  serverMiddleware: [{ path: '/api', handler: '~/server/index.js' }]
+  serverMiddleware: [{ path: '/api', handler: '~/server/index.js' }],
+  modules: [
+    'cookie-universal-nuxt'
+  ]
 };
+
+export default nuxtConfig;

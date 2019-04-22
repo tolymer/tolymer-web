@@ -1,5 +1,7 @@
-export default async context => {
-  const { accessToken } = context.cookie;
+import { Context } from '@nuxt/vue-app/types'
+
+export default async (context: Context) => {
+  const accessToken = context.app.$cookies.get('accessToken');
 
   if (accessToken) {
     if (!context.store.state.id) {

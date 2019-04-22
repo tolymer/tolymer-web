@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "es2015"],
+    "lib": ["dom", "es2018"],
     "module": "es2015",
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "strict": false,
+    "strict": true,
     "noImplicitAny": false,
     "noImplicitThis": true,
     "strictNullChecks": false,
@@ -18,6 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
+    "types": ["@nuxt/vue-app", "@types/node"]
   }
 }
