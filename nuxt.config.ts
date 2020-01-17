@@ -1,7 +1,6 @@
-module.exports = {
-  /*
-  ** Headers of the page
-  */
+import { Configuration } from '@nuxt/types';
+
+const config: Configuration = {
   head: {
     title: 'Tolymer',
     meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }],
@@ -14,28 +13,9 @@ module.exports = {
       }
     ]
   },
-  /*
-  ** Customize the progress bar color
-  */
   loading: false,
   srcDir: 'src',
-  /*
-  ** Build configuration
-  */
   build: {
-    /*
-    ** Run ESLint on save
-    */
-    extend(config, { isDev, isClient }) {
-      if (isDev && isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        });
-      }
-    },
     extractCSS: {
       allChunks: true
     },
@@ -51,3 +31,5 @@ module.exports = {
   },
   serverMiddleware: [{ path: '/api', handler: '~/server/index.js' }]
 };
+
+export default config;
