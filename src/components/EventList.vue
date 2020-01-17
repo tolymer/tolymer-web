@@ -67,7 +67,7 @@ export default Vue.extend({
 .EventList__Link {
   width: 100%;
   padding: calc(var(--space-base) * 2);
-  text-decoration: none;
   color: var(--color-black);
+  text-decoration: none;
 }
 </style>

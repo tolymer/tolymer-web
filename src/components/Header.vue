@@ -1,6 +1,8 @@
 <template>
   <header class="Header">
-    <h1 class="Header-title">{{ title || $store.state.name || "Tolymer" }}</h1>
+    <h1 class="Header-title">
+      {{ title || $store.state.name || "Tolymer" }}
+    </h1>
   </header>
 </template>
 
@@ -27,9 +29,9 @@ export default Vue.extend({
 }
 
 .Header-title {
-  text-align: center;
   color: var(--color-pale-white);
   font-size: var(--font-size-lg);
   font-weight: bold;
+  text-align: center;
 }
 </style>
