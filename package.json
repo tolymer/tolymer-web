@@ -25,9 +25,7 @@
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint:css": "stylelint '**/*.vue' '**/*.css'",
     "precommit": "npm run lint",
-    "heroku-postbuild": "npm run build",
-    "storybook": "start-storybook -p 6006 -s src/assets",
-    "build-storybook": "build-storybook -s src/assets"
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.3.8",
