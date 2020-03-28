@@ -24,6 +24,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/types';
 import Header from '~/components/Header.vue';
 import EventList from '~/components/EventList.vue';
 import FormContainer from '~/components/FormContainer.vue';
@@ -37,37 +38,19 @@ export default Vue.extend({
     FormContainer,
     BaseButton
   },
-  data() {
-    return {
-      groupId: null
-    };
-  },
-  async asyncData(context) {
-    const { groupId } = context.params;
-
-    return {
-      groupId
-    };
-  },
-  async fetch(context) {
+  async fetch({ params, query, store, error }: Context) {
     try {
-      const { accessToken } = context.cookie;
-      const { groupId } = context.params;
-      const { join } = context.query;
-
-      if (join) {
-        await context.store.dispatch('group/addGroupMembers', {
-          groupId,
-          accessToken
+      if (query.join) {
+        await store.dispatch('group/addGroupMembers', {
+          groupId: params.groupId
         });
       }
 
-      await context.store.dispatch('group/getGroup', {
-        groupId,
-        accessToken
+      await store.dispatch('group/getGroup', {
+        groupId: params.groupId
       });
     } catch (e) {
-      context.error({
+      error({
         message: 'Not found',
         statusCode: 404
       });
@@ -78,10 +61,10 @@ export default Vue.extend({
       return `/users/${id}`;
     },
     async onClickCreateEvent() {
-      this.$router.push(`/events/new?groupId=${this.groupId}`);
+      this.$router.push(`/events/new?groupId=${this.$route.params.groupId}`);
     },
     async onClickUpdateGroup() {
-      this.$router.push(`/groups/${this.groupId}/edit`);
+      this.$router.push(`/groups/${this.$route.params.groupId}/edit`);
     }
   }
 });

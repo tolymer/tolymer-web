@@ -21,6 +21,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/types';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import BaseInput from '~/components/BaseInput.vue';
@@ -35,36 +36,28 @@ export default Vue.extend({
   },
   data() {
     return {
-      userId: null,
-      name: null,
-      accessToken: null
+      name: null
     };
   },
-  async asyncData(context) {
-    const { accessToken } = context.cookie;
-    const { userId } = context.params;
-
-    await context.store.dispatch('user/getUser', {
-      accessToken,
-      userId
+  async asyncData({ params, store }: Context) {
+    await store.dispatch('user/getUser', {
+      userId: params.userId
     });
 
-    const { name } = context.store.state.user;
+    const { name } = store.state.user;
 
     return {
-      userId,
-      name,
-      accessToken
+      name
     };
   },
   methods: {
     async onSubmit() {
-      const { userId, name, accessToken } = this;
+      const { name } = this;
+      const { userId } = this.$route.params;
 
       await this.$store.dispatch('user/updateUser', {
         userId,
-        name,
-        accessToken
+        name
       });
 
       this.$router.push('/');

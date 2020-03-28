@@ -24,6 +24,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/types';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import BaseInput from '~/components/BaseInput.vue';
@@ -39,39 +40,31 @@ export default Vue.extend({
   },
   data() {
     return {
-      groupId: '',
       name: '',
-      description: '',
-      accessToken: ''
+      description: ''
     };
   },
-  async asyncData(context) {
-    const { accessToken } = context.cookie;
-    const { groupId } = context.params;
-
-    await context.store.dispatch('group/getGroup', {
-      groupId,
-      accessToken
+  async asyncData({ params, store }: Context) {
+    await store.dispatch('group/getGroup', {
+      groupId: params.groupId
     });
 
-    const { name, description } = context.store.state.group;
+    const { name, description } = store.state.group;
 
     return {
-      groupId,
       name,
-      description,
-      accessToken
+      description
     };
   },
   methods: {
     async onSubmit() {
-      const { groupId, name, description, accessToken } = this;
+      const { groupId } = this.$route.params;
+      const { name, description } = this;
 
       await this.$store.dispatch('group/updateGroup', {
         groupId,
         name,
-        description,
-        accessToken
+        description
       });
 
       this.$router.push(`/groups/${groupId}`);
