@@ -1,6 +1,8 @@
 <template>
   <Cover>
-    <p class="LoginCallback">Authorizing Google...</p>
+    <p class="LoginCallback">
+      Authorizing Google...
+    </p>
   </Cover>
 </template>
 
@@ -34,7 +36,7 @@ export default Vue.extend({
 
 <style scoped>
 .LoginCallback {
-  text-align: center;
   color: var(--color-pale-white);
+  text-align: center;
 }
 </style>

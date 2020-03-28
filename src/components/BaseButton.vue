@@ -71,17 +71,17 @@ export default Vue.extend({
 }
 
 .Button.-normal {
-  color: var(--color-black);
   border: 1px solid white;
   background-color: white;
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+  color: var(--color-black);
 }
 
 .Button.-primary {
-  color: var(--color-pale-white);
   border: 1px solid var(--color-green);
   background-color: var(--color-green);
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+  color: var(--color-pale-white);
   font-weight: bold;
 }
 
@@ -95,9 +95,9 @@ export default Vue.extend({
 }
 
 .Button.-bordered {
-  color: var(--color-black);
   border: 1px solid currentColor;
   background-color: transparent;
+  color: var(--color-black);
 }
 
 .Button-icon {

@@ -80,11 +80,11 @@ export default Vue.extend({
 .Input-field {
   padding: var(--space-4x);
   transition: background-color 300ms ease-in-out, border-color 300ms ease-in-out;
-  color: var(--color-black);
-  border-width: 0 0 1px 0;
   border-top: 1px solid var(--color-gray);
   border-left: 1px solid var(--color-gray);
+  border-width: 0 0 1px 0;
   background-color: white;
+  color: var(--color-black);
   will-change: background-color, border-color;
 }
 

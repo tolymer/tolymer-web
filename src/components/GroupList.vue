@@ -63,11 +63,11 @@ export default Vue.extend({
 
 .GroupList__Link {
   display: flex;
-  overflow: hidden;
   flex-direction: column;
   width: 100%;
   padding: calc(var(--space-base) * 2);
-  text-decoration: none;
+  overflow: hidden;
   color: var(--color-black);
+  text-decoration: none;
 }
 </style>

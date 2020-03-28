@@ -18,7 +18,9 @@
         label="日程"
       />
       <CheckboxContainer>
-        <template slot="label">メンバー</template>
+        <template slot="label">
+          メンバー
+        </template>
         <label
           v-for="(member, index) in $store.state.event.groupMembers"
           :key="index"
