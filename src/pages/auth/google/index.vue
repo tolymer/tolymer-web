@@ -4,15 +4,16 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/types'
 
 export default Vue.extend({
-  async fetch(context) {
+  async fetch({ store, redirect, error }: Context) {
     try {
-      await context.store.dispatch('login');
+      await store.dispatch('login');
 
-      context.redirect(301, context.store.state.location);
+      redirect(301, store.state.location);
     } catch (e) {
-      context.error({
+      error({
         message: 'Not found',
         statusCode: 404
       });
