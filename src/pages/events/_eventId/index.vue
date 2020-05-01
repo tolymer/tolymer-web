@@ -55,6 +55,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Context } from '@nuxt/types';
+import { eventModule } from '~/store/modules/event';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import BaseButton from '~/components/BaseButton.vue';
@@ -107,14 +108,16 @@ export default Vue.extend({
   },
   async fetch({ params, query, store, error }: Context) {
     try {
+      const eventState = eventModule.context(store);
+
       if (query.join) {
-        await store.dispatch('event/addEventMembers', {
+        await eventState.actions.addEventMembers({
           userIds: [store.state.id],
           eventId: params.eventId
         });
       }
 
-      await store.dispatch('event/getEvent', {
+      await eventState.actions.getEvent({
         eventId: params.eventId
       });
     } catch (e) {

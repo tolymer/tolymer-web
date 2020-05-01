@@ -1,17 +1,19 @@
 import { Middleware, Context } from '@nuxt/types';
+import { authModule } from '~/store/modules/auth';
 
-const auth: Middleware = async function({ store }: Context) {
+const auth: Middleware = async function ({ store }: Context) {
+  const authState = authModule.context(store);
   const accessToken = store.$cookies.get('accessToken');
 
   if (accessToken) {
     if (!store.state.id) {
-      await store.dispatch('loggedIn');
-      await store.dispatch('getCurrentUser', {
+      await authState.actions.login();
+      await authState.actions.getCurrentUser({
         accessToken
       });
     }
   } else {
-    await store.dispatch('logout');
+    await authState.actions.logout();
   }
 };
 

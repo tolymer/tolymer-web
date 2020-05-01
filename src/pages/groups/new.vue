@@ -27,6 +27,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { groupModule } from '~/store/modules/group';
 import Header from '~/components/Header.vue';
 import BaseInput from '~/components/BaseInput.vue';
 import BaseButton from '~/components/BaseButton.vue';
@@ -46,11 +47,11 @@ export default Vue.extend({
   },
   methods: {
     async onSubmit() {
-      const { name, description } = this;
+      const groupState = groupModule.context(this.$store);
 
-      await this.$store.dispatch('group/createGroup', {
-        name,
-        description
+      await groupState.actions.createGroup({
+        name: this.name,
+        description: this.description
       });
 
       const groupId = this.$store.state.group.id;

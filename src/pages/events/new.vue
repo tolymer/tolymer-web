@@ -55,6 +55,7 @@
 import Vue from 'vue';
 import { Context } from '@nuxt/types';
 import { format } from 'date-fns';
+import { eventModule } from '~/store/modules/event';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import CheckboxContainer from '~/components/CheckboxContainer.vue';
@@ -80,37 +81,39 @@ export default Vue.extend({
   },
   async fetch({ query, store }: Context) {
     if (query.groupId) {
-      await store.dispatch('event/getGroupMembers', {
+      const eventState = eventModule.context(store);
+
+      await eventState.actions.getGroupMembers({
         groupId: query.groupId
       });
     }
   },
   methods: {
     async onSubmit() {
-      const { title, description, date, userIds } = this;
+      const eventState = eventModule.context(this.$store);
       const { groupId } = this.$route.query;
 
       if (groupId) {
-        await this.$store.dispatch('event/createGroupEvent', {
+        await eventState.actions.createGroupEvent({
           groupId,
-          title,
-          description,
-          date
+          title: this.title,
+          description: this.description,
+          date: this.date
         });
       } else {
-        await this.$store.dispatch('event/createEvent', {
-          title,
-          description,
-          date
+        await eventState.actions.createEvent({
+          title: this.title,
+          description: this.description,
+          date: this.date
         });
       }
 
-      const eventId = this.$store.state.event.id;
+      const eventId = eventState.getters.id;
 
-      if (userIds.length !== 0) {
-        await this.$store.dispatch('event/addEventMembers', {
+      if (this.userIds.length !== 0) {
+        await eventState.actions.addEventMembers({
           eventId,
-          userIds
+          userIds: this.userIds
         });
       }
 

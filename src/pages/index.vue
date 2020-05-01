@@ -44,6 +44,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { authModule } from '~/store/modules/auth';
 import Cover from '~/components/Cover.vue';
 import Header from '~/components/Header.vue';
 import GroupList from '~/components/GroupList.vue';
@@ -74,8 +75,8 @@ export default Vue.extend({
     async onClickLogout() {
       document.cookie = 'accessToken=; max-age=0';
 
-      await this.$store.dispatch('logout');
-      await this.$store.dispatch('deleteCurrentUser');
+      const authState = authModule.context(this.$store);
+      authState.actions.logout();
     }
   }
 });

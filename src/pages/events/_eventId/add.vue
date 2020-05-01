@@ -52,6 +52,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Context } from '@nuxt/types';
+import { Score } from '~/types/game';
+import { eventModule } from '~/store/modules/event';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import BaseButton from '~/components/BaseButton.vue';
@@ -79,7 +81,9 @@ export default Vue.extend({
   },
   async fetch({ params, store, error }: Context) {
     try {
-      await store.dispatch('event/getEvent', {
+      const eventState = eventModule.context(store);
+
+      await eventState.actions.getEvent({
         eventId: params.eventId
       });
     } catch (e) {
@@ -112,7 +116,7 @@ export default Vue.extend({
       }
     },
     async onClick() {
-      const scores = [];
+      const scores: Score[] = [];
       const { eventId } = this.$route.query;
       const { members } = this.$store.state.event;
 
@@ -123,12 +127,14 @@ export default Vue.extend({
         });
       }
 
-      await this.$store.dispatch('event/addEventGame', {
+      const eventState = eventModule.context(this.$store);
+
+      await eventState.actions.addEventGame({
         eventId,
         scores
       });
 
-      await this.$store.dispatch('event/getEvent', {
+      await eventState.actions.getEvent({
         eventId
       });
     }
