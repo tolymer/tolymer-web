@@ -40,26 +40,17 @@ export default Vue.extend({
   },
   data() {
     return {
-      accessToken: null,
       name: '',
       description: ''
     };
   },
-  async asyncData(context) {
-    const { accessToken } = context.cookie;
-
-    return {
-      accessToken
-    };
-  },
   methods: {
     async onSubmit() {
-      const { name, description, accessToken } = this;
+      const { name, description } = this;
 
       await this.$store.dispatch('group/createGroup', {
         name,
-        description,
-        accessToken
+        description
       });
 
       const groupId = this.$store.state.group.id;

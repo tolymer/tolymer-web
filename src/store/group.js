@@ -1,6 +1,3 @@
-import axios from '~/plugins/axios';
-import axiosConfig from '~/plugins/axiosConfig';
-
 export const state = () => ({
   id: '',
   name: '',
@@ -42,23 +39,21 @@ export const mutations = {
 };
 
 export const actions = {
-  async createGroup({ commit }, { name, description, accessToken }) {
+  async createGroup({ commit }, { name, description }) {
     try {
       const data = { name, description };
-      const config = axiosConfig(accessToken);
-      const group = await axios.post(`/groups`, data, config);
+      const group = await this.$axios.post(`/groups`, data, {});
 
       commit('createGroup', group.data);
     } catch (e) {
       console.error(e);
     }
   },
-  async getGroup({ commit }, { groupId, accessToken }) {
+  async getGroup({ commit }, { groupId }) {
     try {
-      const config = axiosConfig(accessToken);
-      const group = await axios.get(`/groups/${groupId}`, config);
-      const groupMembers = await axios.get(`/groups/${groupId}/members`, config);
-      const groupEvents = await axios.get(`/groups/${groupId}/events`, config);
+      const group = await this.$axios.get(`/groups/${groupId}`);
+      const groupMembers = await this.$axios.get(`/groups/${groupId}/members`);
+      const groupEvents = await this.$axios.get(`/groups/${groupId}/events`);
 
       commit('getGroup', group.data);
       commit('getGroupMembers', groupMembers.data);
@@ -67,41 +62,37 @@ export const actions = {
       console.error(e);
     }
   },
-  async updateGroup({ commit }, { groupId, name, description, accessToken }) {
+  async updateGroup({ commit }, { groupId, name, description }) {
     try {
       const data = { name, description };
-      const config = axiosConfig(accessToken);
-      const group = await axios.patch(`/groups/${groupId}`, data, config);
+      const group = await this.$axios.patch(`/groups/${groupId}`, data);
 
       commit('updateGroup', group.data);
     } catch (e) {
       console.error(e);
     }
   },
-  async deleteGroup({ commit }, { groupId, accessToken }) {
+  async deleteGroup({ commit }, { groupId }) {
     try {
-      const config = axiosConfig(accessToken);
-      await axios.delete(`/groups/${groupId}`, config);
+      await this.$axios.delete(`/groups/${groupId}`);
 
       commit('deleteGroup');
     } catch (e) {
       console.error(e);
     }
   },
-  async addGroupMembers({ commit }, { groupId, accessToken }) {
+  async addGroupMembers({ commit }, { groupId }) {
     try {
-      const config = axiosConfig(accessToken);
-      await axios.post(`/groups/${groupId}/members`, {}, config);
+      await this.$axios.post(`/groups/${groupId}/members`, {});
 
       commit('addGroupMembers');
     } catch (e) {
       console.error(e);
     }
   },
-  async getStats({ commit }, { groupId, accessToken }) {
+  async getStats({ commit }, { groupId }) {
     try {
-      const config = axiosConfig(accessToken);
-      const stats = await axios.get(`/groups/${groupId}/stats`, config);
+      const stats = await this.$axios.get(`/groups/${groupId}/stats`);
 
       commit('getStats', stats.data);
     } catch (e) {

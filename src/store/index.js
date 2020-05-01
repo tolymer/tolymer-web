@@ -1,6 +1,3 @@
-import axios from '~/plugins/axios';
-import axiosConfig from '~/plugins/axiosConfig';
-
 export const state = () => ({
   location: '',
   isLoggedIn: false,
@@ -40,7 +37,7 @@ export const actions = {
   },
   async login({ commit }) {
     try {
-      const authGoogle = await axios.get('/auth/google');
+      const authGoogle = await this.$axios.get('/auth/google');
 
       commit('login', authGoogle.data);
     } catch (e) {
@@ -51,7 +48,7 @@ export const actions = {
     try {
       const params = { code, state };
       const config = { params };
-      await axios.get('/auth/google/callback', config);
+      await this.$axios.get('/auth/google/callback', config);
 
       commit('loginCallback');
     } catch (e) {
@@ -61,11 +58,10 @@ export const actions = {
   async logout({ commit }) {
     commit('logout');
   },
-  async getCurrentUser({ commit }, { accessToken }) {
+  async getCurrentUser({ commit }) {
     try {
-      const config = axiosConfig(accessToken);
-      const user = await axios.get('/current_user', config);
-      const userGroups = await axios.get('/current_user/groups', config);
+      const user = await this.$axios.get('/current_user');
+      const userGroups = await this.$axios.get('/current_user/groups');
       const payload = Object.assign({}, user.data, {
         groups: userGroups.data
       });

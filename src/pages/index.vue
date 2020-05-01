@@ -61,13 +61,6 @@ export default Vue.extend({
     BaseButton,
     GoogleIcon
   },
-  async asyncData(context) {
-    const { accessToken } = context.cookie;
-
-    return {
-      accessToken
-    };
-  },
   methods: {
     async onSubmitLogin() {
       this.$router.push('/auth/google');

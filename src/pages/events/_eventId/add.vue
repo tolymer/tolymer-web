@@ -21,7 +21,7 @@
             >
               <label v-if="inputScore === 'top'">
                 <BaseInput
-                  :value="topScore"
+                  :value="topScore()"
                   type="number"
                   readonly
                 />
@@ -51,6 +51,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/types';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import BaseButton from '~/components/BaseButton.vue';
@@ -64,50 +65,35 @@ export default Vue.extend({
     BaseButton,
     BaseInput
   },
-  data() {
+  data(): { inputScores: (number | 'top' | null)[] } {
     return {
-      eventId: null,
-      accessToken: null,
       inputScores: [null, null, null, null]
     };
   },
   computed: {
-    userNames: function() {
+    userNames() {
       const { members } = this.$store.state.event;
 
       return members.map(member => member.name || '');
-    },
-    topScore: function() {
-      const amount = this.inputScores.map(s => Number(s) || 0).reduce((acc, v) => acc + v, 0);
-      return amount < 0 ? -amount : null;
     }
   },
-  async asyncData(context) {
-    const { accessToken } = context.cookie;
-    const { eventId } = context.params;
-
-    return {
-      eventId,
-      accessToken
-    };
-  },
-  async fetch(context) {
+  async fetch({ params, store, error }: Context) {
     try {
-      const { accessToken } = context.cookie;
-      const { eventId } = context.params;
-
-      await context.store.dispatch('event/getEvent', {
-        eventId,
-        accessToken
+      await store.dispatch('event/getEvent', {
+        eventId: params.eventId
       });
     } catch (e) {
-      context.error({
+      error({
         message: 'Not found',
         statusCode: 404
       });
     }
   },
   methods: {
+    topScore() {
+      const amount = this.inputScores.map(s => Number(s) || 0).reduce((acc, v) => acc + v, 0);
+      return amount < 0 ? -amount : null;
+    },
     async onInput() {
       // 'top'という値は入力されていないとみなす
       // 0 は入力されているとみなす
@@ -127,7 +113,7 @@ export default Vue.extend({
     },
     async onClick() {
       const scores = [];
-      const { eventId, accessToken } = this;
+      const { eventId } = this.$route.query;
       const { members } = this.$store.state.event;
 
       for (let i = 0; i < this.inputScores.length; i++) {
@@ -139,13 +125,11 @@ export default Vue.extend({
 
       await this.$store.dispatch('event/addEventGame', {
         eventId,
-        scores,
-        accessToken
+        scores
       });
 
       await this.$store.dispatch('event/getEvent', {
-        eventId,
-        accessToken
+        eventId
       });
     }
   }

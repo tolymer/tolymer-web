@@ -1,6 +1,3 @@
-import axios from '~/plugins/axios';
-import axiosConfig from '~/plugins/axiosConfig';
-
 export const state = () => ({
   id: '',
   title: '',
@@ -50,23 +47,21 @@ export const mutations = {
 };
 
 export const actions = {
-  async createEvent({ commit }, { title, description, date, accessToken }) {
+  async createEvent({ commit }, { title, description, date }) {
     try {
       const data = { title, description, date };
-      const config = axiosConfig(accessToken);
-      const event = await axios.post(`/events`, data, config);
+      const event = await this.$axios.post(`/events`, data);
 
       commit('createEvent', event.data);
     } catch (e) {
       console.error(e);
     }
   },
-  async getEvent({ commit }, { eventId, accessToken }) {
+  async getEvent({ commit }, { eventId }) {
     try {
-      const config = axiosConfig(accessToken);
-      const event = await axios.get(`/events/${eventId}`, config);
-      const eventMembers = await axios.get(`/events/${eventId}/members`, config);
-      const eventGames = await axios.get(`/events/${eventId}/games`, config);
+      const event = await this.$axios.get(`/events/${eventId}`);
+      const eventMembers = await this.$axios.get(`/events/${eventId}/members`);
+      const eventGames = await this.$axios.get(`/events/${eventId}/games`);
 
       commit('getEvent', event.data);
       commit('getEventMembers', eventMembers.data);
@@ -75,32 +70,29 @@ export const actions = {
       console.error(e);
     }
   },
-  async updateEvent({ commit }, { eventId, title, description, date, accessToken }) {
+  async updateEvent({ commit }, { eventId, title, description, date }) {
     try {
       const data = { title, description, date };
-      const config = axiosConfig(accessToken);
-      const event = await axios.patch(`/events/${eventId}`, data, config);
+      const event = await this.$axios.patch(`/events/${eventId}`, data);
 
       commit('updateEvent', event.data);
     } catch (e) {
       console.error(e);
     }
   },
-  async deleteEvent({ commit }, { eventId, accessToken }) {
+  async deleteEvent({ commit }, { eventId }) {
     try {
-      const config = axiosConfig(accessToken);
-      const event = await axios.delete(`/events/${eventId}`, config);
+      const event = await this.$axios.delete(`/events/${eventId}`);
 
       commit('deleteEvent', event.data);
     } catch (e) {
       console.error(e);
     }
   },
-  async createGroupEvent({ commit }, { groupId, title, description, date, accessToken }) {
+  async createGroupEvent({ commit }, { groupId, title, description, date }) {
     try {
       const data = { title, description, date };
-      const config = axiosConfig(accessToken);
-      const event = await axios.post(`/groups/${groupId}/events`, data, config);
+      const event = await this.$axios.post(`/groups/${groupId}/events`, data);
 
       commit('createEvent', event.data);
     } catch (e) {
@@ -109,40 +101,36 @@ export const actions = {
   },
   async getGroupMembers({ commit }, { groupId, accessToken }) {
     try {
-      const config = axiosConfig(accessToken);
-      const groupMembers = await axios.get(`/groups/${groupId}/members`, config);
+      const groupMembers = await this.$axios.get(`/groups/${groupId}/members`);
 
       commit('getGroupMembers', groupMembers.data);
     } catch (e) {
       console.error(e);
     }
   },
-  async addEventMembers({ commit }, { eventId, userIds, accessToken }) {
+  async addEventMembers({ commit }, { eventId, userIds }) {
     try {
       const data = { userIds };
-      const config = axiosConfig(accessToken);
-      await axios.post(`/events/${eventId}/members`, data, config);
+      await this.$axios.post(`/events/${eventId}/members`, data);
 
       commit('addEventMembers');
     } catch (e) {
       console.error(e);
     }
   },
-  async addEventGame({ commit }, { eventId, scores, accessToken }) {
+  async addEventGame({ commit }, { eventId, scores }) {
     try {
       const data = { scores };
-      const config = axiosConfig(accessToken);
-      await axios.post(`/events/${eventId}/games`, data, config);
+      await this.$axios.post(`/events/${eventId}/games`, data);
 
       commit('addEventGame');
     } catch (e) {
       console.error(e);
     }
   },
-  async deleteEventGame({ commit }, { eventId, gameId, accessToken }) {
+  async deleteEventGame({ commit }, { eventId, gameId }) {
     try {
-      const config = axiosConfig(accessToken);
-      await axios.post(`/events/${eventId}/games/${gameId}`, config);
+      await this.$axios.post(`/events/${eventId}/games/${gameId}`);
 
       commit('deleteEventGame');
     } catch (e) {

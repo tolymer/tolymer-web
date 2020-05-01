@@ -1,5 +1,7 @@
-export default async context => {
-  const { accessToken } = context.cookie;
+import { Middleware, Context } from '@nuxt/types';
+
+const auth: Middleware = async function(context: Context) {
+  const accessToken = context.store.$cookies.get('accessToken');
 
   if (accessToken) {
     if (!context.store.state.id) {
@@ -10,7 +12,7 @@ export default async context => {
     }
   } else {
     await context.store.dispatch('logout');
-
-    context.redirect('/');
   }
 };
+
+export default auth;

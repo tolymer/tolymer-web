@@ -54,6 +54,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/types';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import BaseButton from '~/components/BaseButton.vue';
@@ -67,8 +68,6 @@ export default Vue.extend({
   },
   data() {
     return {
-      eventId: null,
-      accessToken: null,
       inputA: 0,
       inputB: 0,
       inputC: 0,
@@ -76,68 +75,50 @@ export default Vue.extend({
     };
   },
   computed: {
-    userNames: function() {
+    userNames() {
       const { members } = this.$store.state.event;
 
       return members.map(member => member.name || '');
     },
-    scoreA: function() {
+    scoreA() {
       const { games } = this.$store.state.event;
       const points = games.map(game => game.scores[0].point);
 
       return points.length === 0 ? 0 : points.reduce((p1, p2) => p1 + p2);
     },
-    scoreB: function() {
+    scoreB() {
       const { games } = this.$store.state.event;
       const points = games.map(game => game.scores[1].point);
 
       return points.length === 0 ? 0 : points.reduce((p1, p2) => p1 + p2);
     },
-    scoreC: function() {
+    scoreC() {
       const { games } = this.$store.state.event;
       const points = games.map(game => game.scores[2].point);
 
       return points.length === 0 ? 0 : points.reduce((p1, p2) => p1 + p2);
     },
-    scoreD: function() {
+    scoreD() {
       const { games } = this.$store.state.event;
       const points = games.map(game => game.scores[3].point);
 
       return points.length === 0 ? 0 : points.reduce((p1, p2) => p1 + p2);
     }
   },
-  async asyncData(context) {
-    const { accessToken } = context.cookie;
-    const { eventId } = context.params;
-
-    return {
-      eventId,
-      accessToken
-    };
-  },
-  async fetch(context) {
+  async fetch({ params, query, store, error }: Context) {
     try {
-      const { accessToken } = context.cookie;
-      const { eventId } = context.params;
-      const { join } = context.query;
-
-      if (join) {
-        const { id } = context.store.state;
-        const userIds = [id];
-
-        await context.store.dispatch('event/addEventMembers', {
-          userIds,
-          eventId,
-          accessToken
+      if (query.join) {
+        await store.dispatch('event/addEventMembers', {
+          userIds: [store.state.id],
+          eventId: params.eventId
         });
       }
 
-      await context.store.dispatch('event/getEvent', {
-        eventId,
-        accessToken
+      await store.dispatch('event/getEvent', {
+        eventId: params.eventId
       });
     } catch (e) {
-      context.error({
+      error({
         message: 'Not found',
         statusCode: 404
       });
@@ -155,10 +136,10 @@ export default Vue.extend({
       return point;
     },
     async onClickAddScore() {
-      this.$router.push(`/events/${this.eventId}/add`);
+      this.$router.push(`/events/${this.$route.params.eventId}/add`);
     },
     async onClickUpdateEvent() {
-      this.$router.push(`/events/${this.eventId}/edit`);
+      this.$router.push(`/events/${this.$route.params.eventId}/edit`);
     }
   }
 });

@@ -25,6 +25,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/types';
 import Header from '~/components/Header.vue';
 import LineChart from '~/components/LineChart.js';
 
@@ -33,18 +34,6 @@ export default Vue.extend({
   components: {
     Header,
     LineChart
-  },
-  data() {
-    return {
-      groupId: null
-    };
-  },
-  async asyncData(context) {
-    const { groupId } = context.params;
-
-    return {
-      groupId
-    };
   },
   methods: {
     calcTotalScore() {
@@ -120,22 +109,17 @@ export default Vue.extend({
       };
     }
   },
-  async fetch(context) {
+  async fetch({ params, store, error }: Context) {
     try {
-      const { accessToken } = context.cookie;
-      const { groupId } = context.params;
-
-      await context.store.dispatch('group/getGroup', {
-        groupId,
-        accessToken
+      await store.dispatch('group/getGroup', {
+        groupId: params.groupId
       });
 
-      await context.store.dispatch('group/getStats', {
-        accessToken,
-        groupId
+      await store.dispatch('group/getStats', {
+        groupId: params.groupId
       });
     } catch (e) {
-      context.error({
+      error({
         message: 'Not found',
         statusCode: 404
       });

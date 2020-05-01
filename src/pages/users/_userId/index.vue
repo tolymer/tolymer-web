@@ -7,18 +7,17 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/types';
 
 export default Vue.extend({
   middleware: ['auth'],
-  async fetch(context) {
+  async fetch({ params, store, error }: Context) {
     try {
-      const { userId } = context.params;
-
-      await context.store.dispatch('user/getUser', {
-        userId
+      await store.dispatch('user/getUser', {
+        userId: params.userId
       });
     } catch (e) {
-      context.error({
+      error({
         message: 'Not found',
         statusCode: 404
       });

@@ -18,6 +18,10 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
+    "types": [
+      "@nuxt/types",
+      "@nuxtjs/axios"
+    ]
   }
 }

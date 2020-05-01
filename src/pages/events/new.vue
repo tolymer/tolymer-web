@@ -53,6 +53,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/types';
 import { format } from 'date-fns';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
@@ -77,44 +78,30 @@ export default Vue.extend({
       userIds: []
     };
   },
-  async asyncData(context) {
-    const { accessToken } = context.cookie;
-    const { groupId } = context.query;
-
-    return {
-      accessToken,
-      groupId
-    };
-  },
-  async fetch(context) {
-    const { accessToken } = context.cookie;
-    const { groupId } = context.query;
-
-    if (groupId) {
-      await context.store.dispatch('event/getGroupMembers', {
-        accessToken,
-        groupId
+  async fetch({ query, store }: Context) {
+    if (query.groupId) {
+      await store.dispatch('event/getGroupMembers', {
+        groupId: query.groupId
       });
     }
   },
   methods: {
     async onSubmit() {
-      const { title, description, date, accessToken, groupId, userIds } = this;
+      const { title, description, date, userIds } = this;
+      const { groupId } = this.$route.query;
 
       if (groupId) {
         await this.$store.dispatch('event/createGroupEvent', {
           groupId,
           title,
           description,
-          date,
-          accessToken
+          date
         });
       } else {
         await this.$store.dispatch('event/createEvent', {
           title,
           description,
-          date,
-          accessToken
+          date
         });
       }
 
@@ -123,8 +110,7 @@ export default Vue.extend({
       if (userIds.length !== 0) {
         await this.$store.dispatch('event/addEventMembers', {
           eventId,
-          userIds,
-          accessToken
+          userIds
         });
       }
 
