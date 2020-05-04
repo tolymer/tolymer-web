@@ -83,15 +83,13 @@ export default Vue.extend({
     if (query.groupId) {
       const eventState = eventModule.context(store);
 
-      await eventState.actions.getGroupMembers({
-        groupId: query.groupId
-      });
+      await eventState.actions.getGroupMembers(query.groupId as string);
     }
   },
   methods: {
     async onSubmit() {
       const eventState = eventModule.context(this.$store);
-      const { groupId } = this.$route.query;
+      const groupId = this.$route.query.groupId as string;
 
       if (groupId) {
         await eventState.actions.createGroupEvent({
@@ -113,7 +111,7 @@ export default Vue.extend({
       if (this.userIds.length !== 0) {
         await eventState.actions.addEventMembers({
           eventId,
-          userIds: this.userIds
+          userIds: this.userIds as string[]
         });
       }
 

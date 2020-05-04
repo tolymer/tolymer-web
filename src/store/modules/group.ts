@@ -11,6 +11,8 @@ export class GroupState {
   stats: any[] = [];
 }
 
+export type GroupBasicData = Pick<GroupState, 'id' | 'name' | 'description'>;
+
 class GroupGetters extends Getters<GroupState> {
   get id(): string {
     return this.state.id;
@@ -33,18 +35,18 @@ class GroupGetters extends Getters<GroupState> {
 }
 
 class GroupMutations extends Mutations<GroupState> {
-  setGroup({ id, name, description }) {
+  setGroup({ id, name, description }: GroupBasicData) {
     this.state.id = id;
     this.state.name = name;
     this.state.description = description;
   }
-  setGroupMembers(payload) {
+  setGroupMembers(payload: any[]) {
     this.state.members = payload;
   }
-  setGroupEvents(payload) {
+  setGroupEvents(payload: any[]) {
     this.state.events = payload;
   }
-  getGroupStats(payload) {
+  getGroupStats(payload: any[]) {
     this.state.stats = payload;
   }
 }
@@ -54,65 +56,39 @@ class GroupActions extends Actions<GroupState, GroupGetters, GroupMutations> {
   $init(store: Store<RootState>): void {
     this.store = store;
   }
-  async createGroup({ name, description }) {
-    try {
-      const data = { name, description };
-      const group = await this.store.$axios.post(`/groups`, data, {});
+  async createGroup({ name, description }: Partial<GroupBasicData>): Promise<void> {
+    const group = await this.store.$axios.post<GroupBasicData>(`/groups`, { name, description });
 
-      this.mutations.setGroup(group.data);
-    } catch (e) {
-      console.error(e);
-    }
+    this.mutations.setGroup(group.data);
   }
-  async getGroup({ groupId }) {
-    try {
-      const group = await this.store.$axios.get(`/groups/${groupId}`);
-      const groupMembers = await this.store.$axios.get(`/groups/${groupId}/members`);
-      const groupEvents = await this.store.$axios.get(`/groups/${groupId}/events`);
+  async getGroup(groupId: string): Promise<void> {
+    const group = await this.store.$axios.get<GroupBasicData>(`/groups/${groupId}`);
+    const groupMembers = await this.store.$axios.get<any[]>(`/groups/${groupId}/members`);
+    const groupEvents = await this.store.$axios.get<any[]>(`/groups/${groupId}/events`);
 
-      this.mutations.setGroup(group.data);
-      this.mutations.setGroupMembers(groupMembers.data);
-      this.mutations.setGroupEvents(groupEvents.data);
-    } catch (e) {
-      console.error(e);
-    }
+    this.mutations.setGroup(group.data);
+    this.mutations.setGroupMembers(groupMembers.data);
+    this.mutations.setGroupEvents(groupEvents.data);
   }
-  async updateGroup({ groupId, name, description }) {
-    try {
-      const data = { name, description };
-      const group = await this.store.$axios.patch(`/groups/${groupId}`, data);
+  async updateGroup({ id, name, description }: GroupBasicData): Promise<void> {
+    const group = await this.store.$axios.patch<GroupBasicData>(`/groups/${id}`, { name, description });
 
-      this.mutations.setGroup(group.data);
-    } catch (e) {
-      console.error(e);
-    }
+    this.mutations.setGroup(group.data);
   }
-  async deleteGroup({ groupId }) {
-    try {
-      await this.store.$axios.delete(`/groups/${groupId}`);
+  async deleteGroup(groupId: string): Promise<void> {
+    await this.store.$axios.delete(`/groups/${groupId}`);
 
-      this.mutations.setGroup({ id: null, name: null, description: null });
-      this.mutations.setGroupMembers(null);
-      this.mutations.setGroupEvents(null);
-    } catch (e) {
-      console.error(e);
-    }
+    this.mutations.setGroup({ id: null, name: null, description: null });
+    this.mutations.setGroupMembers(null);
+    this.mutations.setGroupEvents(null);
   }
-  async addGroupMember({ groupId }) {
-    try {
-      await this.store.$axios.post(`/groups/${groupId}/members`, {});
-    } catch (e) {
-      console.error(e);
-    }
+  async addGroupMember(groupId: string): Promise<void> {
+    await this.store.$axios.post(`/groups/${groupId}/members`, {});
   }
-  async getGroupStats({ groupId }) {
-    try {
-      const groupStats = await this.store.$axios.get(`/groups/${groupId}/stats`);
+  async getGroupStats(groupId: string): Promise<void> {
+    const groupStats = await this.store.$axios.get(`/groups/${groupId}/stats`);
 
-      this.mutations.getGroupStats(groupStats.data);
-    } catch (e) {
-      console.error(e);
-    }
+    this.mutations.getGroupStats(groupStats.data);
   }
 }
 

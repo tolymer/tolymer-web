@@ -10,6 +10,8 @@ export class AuthState {
   groups: string[] = [];
 }
 
+export type AuthBasicData = Pick<AuthState, 'id' | 'name'>;
+
 class AuthGetters extends Getters<AuthState> {
   get location(): string {
     return this.state.location;
@@ -29,19 +31,19 @@ class AuthGetters extends Getters<AuthState> {
 }
 
 class AuthMutations extends Mutations<AuthState> {
-  setLocation(location: string) {
+  setLocation(location: string): void {
     this.state.location = location;
   }
-  setIsLoggedIn(isLoggedIn: boolean) {
+  setIsLoggedIn(isLoggedIn: boolean): void {
     this.state.isLoggedIn = isLoggedIn;
   }
-  setId(id: string) {
+  setId(id: string): void {
     this.state.id = id;
   }
-  setName(name: string) {
+  setName(name: string): void {
     this.state.name = name;
   }
-  setGroups(groups: string[]) {
+  setGroups(groups: string[]): void {
     this.state.groups = groups;
   }
 }
@@ -51,43 +53,31 @@ class AuthActions extends Actions<AuthState, AuthGetters, AuthMutations> {
   $init(store: Store<RootState>): void {
     this.store = store;
   }
-  async login() {
-    try {
-      const authGoogle = await this.store.$axios.get('/auth/google');
+  async login(): Promise<void> {
+    const authGoogle = await this.store.$axios.get('/auth/google');
 
-      this.mutations.setLocation(authGoogle.data);
-    } catch (e) {
-      console.error(e);
-    }
+    this.mutations.setLocation(authGoogle.data);
   }
-  async loginCallback({ code, state }) {
-    try {
-      const params = { code, state };
-      const config = { params };
-      await this.store.$axios.get('/auth/google/callback', config);
+  async loginCallback({ code, state }: { code: string, state: string }): Promise<void> {
+    await this.store.$axios.get('/auth/google/callback', {
+      params: { code, state }
+    });
 
-      this.mutations.setIsLoggedIn(true);
-    } catch (e) {
-      console.error(e);
-    }
+    this.mutations.setIsLoggedIn(true);
   }
-  async logout() {
+  async logout(): Promise<void> {
     this.mutations.setIsLoggedIn(false);
     this.mutations.setId('');
     this.mutations.setName('');
     this.mutations.setGroups([]);
   }
-  async getCurrentUser() {
-    try {
-      const user = await this.store.$axios.get('/current_user');
-      const userGroups = await this.store.$axios.get('/current_user/groups');
+  async getCurrentUser(): Promise<void> {
+    const user = await this.store.$axios.get<AuthBasicData>('/current_user');
+    const userGroups = await this.store.$axios.get<any[]>('/current_user/groups');
 
-      this.mutations.setId(user.data.id);
-      this.mutations.setName(user.data.name);
-      this.mutations.setGroups(userGroups.data);
-    } catch (e) {
-      console.error(e);
-    }
+    this.mutations.setId(user.data.id);
+    this.mutations.setName(user.data.name);
+    this.mutations.setGroups(userGroups.data);
   }
 }
 
