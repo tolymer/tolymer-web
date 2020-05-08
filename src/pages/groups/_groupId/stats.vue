@@ -115,13 +115,8 @@ export default Vue.extend({
     try {
       const groupState = groupModule.context(store);
 
-      await groupState.actions.getGroup({
-        groupId: params.groupId
-      });
-
-      await groupState.actions.getGroupStats({
-        groupId: params.groupId
-      });
+      await groupState.actions.getGroup(params.groupId);
+      await groupState.actions.getGroupStats(params.groupId);
     } catch (e) {
       error({
         message: 'Not found',

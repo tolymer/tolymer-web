@@ -56,9 +56,7 @@ export default Vue.extend({
   async asyncData({ params, query, store }: Context) {
     const eventState = eventModule.context(store);
 
-    await eventState.actions.getEvent({
-      eventId: params.eventId
-    });
+    await eventState.actions.getEvent(params.eventId);
 
     return {
       title: eventState.getters.title,
@@ -74,7 +72,7 @@ export default Vue.extend({
       const { eventId } = this.$route.params;
 
       await eventState.actions.updateEvent({
-        eventId,
+        id: eventId,
         title: this.title,
         description: this.description,
         date: this.date

@@ -48,9 +48,7 @@ export default Vue.extend({
   async asyncData({ params, store }: Context) {
     const groupState = groupModule.context(store);
 
-    await groupState.actions.getGroup({
-      groupId: params.groupId
-    });
+    await groupState.actions.getGroup(params.groupId);
 
     return {
       name: groupState.getters.name,
@@ -63,7 +61,7 @@ export default Vue.extend({
       const { groupId } = this.$route.params;
 
       await groupState.actions.updateGroup({
-        groupId,
+        id: groupId,
         name: this.name,
         description: this.description
       });

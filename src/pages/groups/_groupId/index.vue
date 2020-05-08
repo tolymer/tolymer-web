@@ -44,14 +44,10 @@ export default Vue.extend({
       const groupState = groupModule.context(store);
 
       if (query.join) {
-        await groupState.actions.addGroupMember({
-          groupId: params.groupId
-        });
+        await groupState.actions.addGroupMember(params.groupId);
       }
 
-      await groupState.actions.getGroup({
-        groupId: params.groupId
-      });
+      await groupState.actions.getGroup(params.groupId);
     } catch (e) {
       error({
         message: 'Not found',

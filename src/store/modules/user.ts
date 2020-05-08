@@ -7,6 +7,8 @@ export class UserState {
   name: string = '';
 }
 
+export type UserData = Pick<UserState, 'id' | 'name'>;
+
 class UserGetters extends Getters<UserState> {
   get id(): string {
     return this.state.id;
@@ -17,7 +19,7 @@ class UserGetters extends Getters<UserState> {
 }
 
 class UserMutations extends Mutations<UserState> {
-  setUser({ id, name }) {
+  setUser({ id, name }: UserData): void {
     this.state.id = id;
     this.state.name = name;
   }
@@ -28,32 +30,20 @@ class UserActions extends Actions<UserState, UserGetters, UserMutations> {
   $init(store: Store<RootState>): void {
     this.store = store;
   }
-  async createUser({ name }) {
-    try {
-      const { data } = await this.store.$axios.post('/users', { name });
+  async createUser({ name }: UserData): Promise<void> {
+    const user = await this.store.$axios.post<UserData>('/users', { name });
 
-      this.mutations.setUser(data);
-    } catch (e) {
-      console.error(e);
-    }
+    this.mutations.setUser(user.data);
   }
-  async getUser({ userId }) {
-    try {
-      const { data } = await this.store.$axios.get(`/users/${userId}`);
+  async getUser(userId: string): Promise<void> {
+    const user = await this.store.$axios.get<UserData>(`/users/${userId}`);
 
-      this.mutations.setUser(data);
-    } catch (e) {
-      console.error(e);
-    }
+    this.mutations.setUser(user.data);
   }
-  async updateUser({ userId, name }) {
-    try {
-      const { data } = await this.store.$axios.patch(`/users/${userId}`, { name });
+  async updateUser({ id, name }: UserData): Promise<void> {
+    const user = await this.store.$axios.patch<UserData>(`/users/${id}`, { name });
 
-      this.mutations.setUser(data);
-    } catch (e) {
-      console.error(e);
-    }
+    this.mutations.setUser(user.data);
   }
 }
 

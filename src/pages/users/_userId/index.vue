@@ -18,7 +18,7 @@ export default Vue.extend({
   async fetch({ params, store, error }: Context) {
     try {
       const userState = userModule.context(store);
-      await userState.actions.getUser({ userId: params.userId });
+      await userState.actions.getUser(params.userId);
     } catch (e) {
       error({
         message: 'Not found',

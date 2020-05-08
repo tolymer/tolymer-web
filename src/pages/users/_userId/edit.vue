@@ -43,9 +43,7 @@ export default Vue.extend({
   async asyncData({ params, store }: Context) {
     const userState = userModule.context(store);
 
-    await userState.actions.getUser({
-      userId: params.userId
-    });
+    await userState.actions.getUser(params.userId);
 
     return {
       name: userState.getters.name
@@ -54,9 +52,10 @@ export default Vue.extend({
   methods: {
     async onSubmit() {
       const userState = userModule.context(this.$store);
+      const { userId } = this.$route.params;
 
       await userState.actions.updateUser({
-        userId: this.$route.params.userId,
+        id: userId,
         name: this.name
       });
 

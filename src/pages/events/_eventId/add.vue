@@ -83,9 +83,7 @@ export default Vue.extend({
     try {
       const eventState = eventModule.context(store);
 
-      await eventState.actions.getEvent({
-        eventId: params.eventId
-      });
+      await eventState.actions.getEvent(params.eventId);
     } catch (e) {
       error({
         message: 'Not found',
@@ -117,7 +115,7 @@ export default Vue.extend({
     },
     async onClick() {
       const scores: Score[] = [];
-      const { eventId } = this.$route.query;
+      const eventId = this.$route.query.eventId as string;
       const { members } = this.$store.state.event;
 
       for (let i = 0; i < this.inputScores.length; i++) {
@@ -129,14 +127,8 @@ export default Vue.extend({
 
       const eventState = eventModule.context(this.$store);
 
-      await eventState.actions.addEventGame({
-        eventId,
-        scores
-      });
-
-      await eventState.actions.getEvent({
-        eventId
-      });
+      await eventState.actions.addEventGame({ eventId, scores });
+      await eventState.actions.getEvent(eventId);
     }
   }
 });
