@@ -32,6 +32,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Context } from '@nuxt/types';
+import { eventModule } from '~/store/modules/event';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import BaseInput from '~/components/BaseInput.vue';
@@ -53,30 +54,28 @@ export default Vue.extend({
     };
   },
   async asyncData({ params, query, store }: Context) {
-    await store.dispatch('event/getEvent', {
-      eventId: params.eventId
-    });
+    const eventState = eventModule.context(store);
 
-    const { title, description, date } = store.state.event;
+    await eventState.actions.getEvent(params.eventId);
 
     return {
-      title,
-      description,
-      date,
+      title: eventState.getters.title,
+      description: eventState.getters.description,
+      date: eventState.getters.date,
       eventId: params.eventId,
       groupId: query.groupId
     };
   },
   methods: {
     async onSubmit() {
+      const eventState = eventModule.context(this.$store);
       const { eventId } = this.$route.params;
-      const { title, description, date } = this;
 
-      await this.$store.dispatch('event/updateEvent', {
-        eventId,
-        title,
-        description,
-        date
+      await eventState.actions.updateEvent({
+        id: eventId,
+        title: this.title,
+        description: this.description,
+        date: this.date
       });
 
       this.$router.push(`/events/${eventId}`);

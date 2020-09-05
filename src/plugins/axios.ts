@@ -8,7 +8,7 @@ const axios: Plugin = ({ $axios }: Context) => {
   //}
 
   $axios.onResponse(response => {
-    console.log('$axios.onResponse', response);
+    console.debug('$axios.onResponse', response);
   });
 
   $axios.onError(error => {

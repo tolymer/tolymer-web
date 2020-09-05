@@ -55,6 +55,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Context } from '@nuxt/types';
+import { authModule } from '~/store/modules/auth';
+import { eventModule } from '~/store/modules/event';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import BaseButton from '~/components/BaseButton.vue';
@@ -107,16 +109,18 @@ export default Vue.extend({
   },
   async fetch({ params, query, store, error }: Context) {
     try {
+      const authState = authModule.context(store);
+      const eventState = eventModule.context(store);
+      const { eventId } = params;
+
       if (query.join) {
-        await store.dispatch('event/addEventMembers', {
-          userIds: [store.state.id],
-          eventId: params.eventId
+        await eventState.actions.addEventMembers({
+          eventId,
+          userIds: [authState.getters.id]
         });
       }
 
-      await store.dispatch('event/getEvent', {
-        eventId: params.eventId
-      });
+      await eventState.actions.getEvent(eventId);
     } catch (e) {
       error({
         message: 'Not found',

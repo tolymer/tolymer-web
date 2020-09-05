@@ -8,6 +8,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Context } from '@nuxt/types'
+import { authModule } from '~/store/modules/auth';
 import Cover from '~/components/Cover.vue';
 
 export default Vue.extend({
@@ -20,14 +22,16 @@ export default Vue.extend({
       state: null
     };
   },
-  async asyncData(context) {
-    return context.query;
+  async asyncData({ query }: Context) {
+    return query;
   },
   async mounted() {
-    const { code, state } = this;
-    const payload = { code, state };
+    const authState = authModule.context(this.$store);
 
-    await this.$store.dispatch('loginCallback', payload);
+    await authState.actions.loginCallback({
+      code: this.code,
+      state: this.state
+    });
 
     this.$router.push('/');
   }

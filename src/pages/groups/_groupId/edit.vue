@@ -25,6 +25,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Context } from '@nuxt/types';
+import { groupModule } from '~/store/modules/group';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import BaseInput from '~/components/BaseInput.vue';
@@ -45,26 +46,24 @@ export default Vue.extend({
     };
   },
   async asyncData({ params, store }: Context) {
-    await store.dispatch('group/getGroup', {
-      groupId: params.groupId
-    });
+    const groupState = groupModule.context(store);
 
-    const { name, description } = store.state.group;
+    await groupState.actions.getGroup(params.groupId);
 
     return {
-      name,
-      description
+      name: groupState.getters.name,
+      description: groupState.getters.description
     };
   },
   methods: {
     async onSubmit() {
+      const groupState = groupModule.context(this.$store);
       const { groupId } = this.$route.params;
-      const { name, description } = this;
 
-      await this.$store.dispatch('group/updateGroup', {
-        groupId,
-        name,
-        description
+      await groupState.actions.updateGroup({
+        id: groupId,
+        name: this.name,
+        description: this.description
       });
 
       this.$router.push(`/groups/${groupId}`);

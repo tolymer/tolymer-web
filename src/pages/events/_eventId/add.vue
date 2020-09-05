@@ -52,6 +52,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Context } from '@nuxt/types';
+import { Score } from '~/types/game';
+import { eventModule } from '~/store/modules/event';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import BaseButton from '~/components/BaseButton.vue';
@@ -79,9 +81,9 @@ export default Vue.extend({
   },
   async fetch({ params, store, error }: Context) {
     try {
-      await store.dispatch('event/getEvent', {
-        eventId: params.eventId
-      });
+      const eventState = eventModule.context(store);
+
+      await eventState.actions.getEvent(params.eventId);
     } catch (e) {
       error({
         message: 'Not found',
@@ -112,8 +114,8 @@ export default Vue.extend({
       }
     },
     async onClick() {
-      const scores = [];
-      const { eventId } = this.$route.query;
+      const scores: Score[] = [];
+      const eventId = this.$route.query.eventId as string;
       const { members } = this.$store.state.event;
 
       for (let i = 0; i < this.inputScores.length; i++) {
@@ -123,14 +125,10 @@ export default Vue.extend({
         });
       }
 
-      await this.$store.dispatch('event/addEventGame', {
-        eventId,
-        scores
-      });
+      const eventState = eventModule.context(this.$store);
 
-      await this.$store.dispatch('event/getEvent', {
-        eventId
-      });
+      await eventState.actions.addEventGame({ eventId, scores });
+      await eventState.actions.getEvent(eventId);
     }
   }
 });

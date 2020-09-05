@@ -25,6 +25,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Context } from '@nuxt/types';
+import { groupModule } from '~/store/modules/group';
 import Header from '~/components/Header.vue';
 import EventList from '~/components/EventList.vue';
 import FormContainer from '~/components/FormContainer.vue';
@@ -40,15 +41,13 @@ export default Vue.extend({
   },
   async fetch({ params, query, store, error }: Context) {
     try {
+      const groupState = groupModule.context(store);
+
       if (query.join) {
-        await store.dispatch('group/addGroupMembers', {
-          groupId: params.groupId
-        });
+        await groupState.actions.addGroupMember(params.groupId);
       }
 
-      await store.dispatch('group/getGroup', {
-        groupId: params.groupId
-      });
+      await groupState.actions.getGroup(params.groupId);
     } catch (e) {
       error({
         message: 'Not found',

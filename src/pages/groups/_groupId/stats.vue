@@ -26,6 +26,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Context } from '@nuxt/types';
+import { groupModule } from '~/store/modules/group';
 import Header from '~/components/Header.vue';
 import LineChart from '~/components/LineChart.js';
 
@@ -37,17 +38,17 @@ export default Vue.extend({
   },
   methods: {
     calcTotalScore() {
-      const { members, stats } = this.$store.state.group;
+      const groupState = groupModule.context(this.$store);
       const totalScore = {};
 
-      members.forEach(member => {
+      groupState.getters.members.forEach(member => {
         totalScore[member.id] = {
           name: member.name,
           score: 0
         };
       });
 
-      stats.forEach(stat => {
+      groupState.getters.stats.forEach(stat => {
         stat.scores.forEach(score => {
           score.forEach(s => {
             totalScore[s.user_id].score += s.point;
@@ -62,12 +63,13 @@ export default Vue.extend({
       return totalScore;
     },
     calcChartData() {
-      const { members, stats } = this.$store.state.group;
+      const groupState = groupModule.context(this.$store);
+
       const labels = [];
       const datasets = {};
       const colors = ['red', 'blue', 'green', 'yellow'];
 
-      members.forEach((member, i) => {
+      groupState.getters.members.forEach((member, i) => {
         datasets[member.id] = {
           label: member.name,
           fill: false,
@@ -77,11 +79,11 @@ export default Vue.extend({
         };
       });
 
-      stats.forEach(stat => {
+      groupState.getters.stats.forEach(stat => {
         labels.push(stat.date);
         const scoreByUserId = {};
 
-        members.forEach(m => {
+        groupState.getters.members.forEach(m => {
           scoreByUserId[m.id] = 0;
         });
 
@@ -95,7 +97,7 @@ export default Vue.extend({
           scoreByUserId[t.user_id] += t.point;
         });
 
-        members.forEach(member => {
+        groupState.getters.members.forEach(member => {
           const data = datasets[member.id].data;
           const beforeValue = data[data.length - 1] || 0;
 
@@ -111,13 +113,10 @@ export default Vue.extend({
   },
   async fetch({ params, store, error }: Context) {
     try {
-      await store.dispatch('group/getGroup', {
-        groupId: params.groupId
-      });
+      const groupState = groupModule.context(store);
 
-      await store.dispatch('group/getStats', {
-        groupId: params.groupId
-      });
+      await groupState.actions.getGroup(params.groupId);
+      await groupState.actions.getGroupStats(params.groupId);
     } catch (e) {
       error({
         message: 'Not found',

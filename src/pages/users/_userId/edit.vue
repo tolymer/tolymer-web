@@ -22,6 +22,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Context } from '@nuxt/types';
+import { userModule } from '~/store/modules/user';
 import Header from '~/components/Header.vue';
 import FormContainer from '~/components/FormContainer.vue';
 import BaseInput from '~/components/BaseInput.vue';
@@ -40,24 +41,22 @@ export default Vue.extend({
     };
   },
   async asyncData({ params, store }: Context) {
-    await store.dispatch('user/getUser', {
-      userId: params.userId
-    });
+    const userState = userModule.context(store);
 
-    const { name } = store.state.user;
+    await userState.actions.getUser(params.userId);
 
     return {
-      name
+      name: userState.getters.name
     };
   },
   methods: {
     async onSubmit() {
-      const { name } = this;
+      const userState = userModule.context(this.$store);
       const { userId } = this.$route.params;
 
-      await this.$store.dispatch('user/updateUser', {
-        userId,
-        name
+      await userState.actions.updateUser({
+        id: userId,
+        name: this.name
       });
 
       this.$router.push('/');
