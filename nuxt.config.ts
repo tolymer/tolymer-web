@@ -1,6 +1,6 @@
-import { Configuration } from '@nuxt/types';
+import { NuxtConfig } from '@nuxt/types';
 
-const config: Configuration = {
+const nuxtConfig: NuxtConfig = {
   mode: 'spa',
   head: {
     title: 'Tolymer',
@@ -42,4 +42,4 @@ const config: Configuration = {
   ]
 };
 
-export default config;
+export default nuxtConfig;
